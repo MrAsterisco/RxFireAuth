@@ -22,10 +22,11 @@ Pod::Spec.new do |s|
   Firebase Authentication is a great way to support user authentication in your app easily. This library builds on top of that to simplify even further the process with pre-built algorithms that support registering, logging-in, linking accounts with other providers and more.
                        DESC
 
-  s.homepage         = 'https://github.com/mrasterisco/RxFireAuth'
-  s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'Alessio Moiso' => 'alessio@inerziasoft.eu' }
-  s.source           = { :git => 'https://github.com/mrasterisco/RxFireAuth.git', :tag => s.version.to_s }
+  s.homepage          = 'https://github.com/mrasterisco/RxFireAuth'
+  s.license           = { :type => 'MIT', :file => 'LICENSE' }
+  s.author            = { 'Alessio Moiso' => 'alessio@inerziasoft.eu' }
+  s.source            = { :git => 'https://github.com/mrasterisco/RxFireAuth.git', :tag => s.version.to_s }
+  s.documentation_url = 'https://mrasterisco.github.io/RxFireAuth/'
 
   s.platform = :ios
   s.ios.deployment_target = '9.0'
