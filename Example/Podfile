@@ -1,0 +1,13 @@
+use_frameworks!
+
+target 'RxFireAuth_Example' do
+  use_frameworks!
+
+  pod 'RxFireAuth', :path => '../'
+
+  target 'RxFireAuth_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
