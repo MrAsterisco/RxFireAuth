@@ -64,10 +64,19 @@ public protocol UserManagerType {
     /// - parameters:
     ///     - email: The user email address.
     ///     - password: The user password.
-    ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in. This option will be passed back to the caller
-    ///     in the resulting `LoginDescriptor`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be thrown.
-    /// - returns: A Completable action to observe.
+    ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login in an existing account. This option will be passed back to the caller
+    ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be thrown.
+    /// - returns: A Single that emits errors or a `LoginDescriptor` instance.
     func login(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
+    
+    /// Sign in with the passed credentials without first checking if an account
+    /// with the specified email address exists on the backend.
+    ///
+    /// - parameters:
+    ///     - email: An email address.
+    ///     - password: A password.
+    /// - returns: A Single to observe for result.
+    func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
     
     /// Logout the currently logged-in user.
     ///

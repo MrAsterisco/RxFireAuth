@@ -1,6 +1,5 @@
 # RxFireAuth
 
-[![CI Status](https://img.shields.io/travis/mrasterisco/RxFireAuth.svg?style=flat)](https://travis-ci.org/mrasterisco/RxFireAuth)
 [![Version](https://img.shields.io/cocoapods/v/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
 [![License](https://img.shields.io/cocoapods/l/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
 [![Platform](https://img.shields.io/cocoapods/p/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
@@ -8,6 +7,32 @@
 RxFireAuth is a wrapper around the [Firebase Authentication](https://firebase.google.com/docs/auth) SDK that exposes the most common use cases through [RxSwift](https://github.com/ReactiveX/RxSwift) objects.
 
 Firebase Authentication is a great way to support user authentication in your app easily. This library builds on top of that to simplify even further the process with pre-built algorithms that support registering, logging-in, linking accounts with other providers and more.
+
+## Installation
+
+RxFireAuth is available through [CocoaPods](https://cocoapods.org). We don't support other package managers at the moment, mainly because the Firebase SDK is mainly available through CocoaPods.
+
+To install RxFireAuth in your project add:
+
+```ruby
+pod 'RxFireAuth'
+```
+
+To find out the latest version, look at the Releases tab of this repository.
+
+## Example Project
+This library includes a sample project that shows how to support a user login, including anonymous accounts.
+
+To see it in action, follow these steps:
+
+- Download this repository.
+- Navigate to your [Firebase Console](https://console.firebase.google.com/) and create a new project using `io.mrasterisco.github.RxFireAuth-Example` as bundle identifier *(or change the bundle identifier to match the one of a project you already have)*.
+- Download the `GoogleService-Info.plist` and place it in the `Example/RxFireAuth` folder.
+- In the Firebase Console, navigate to Authentication and enable the "Email/Password" and "Anonymous" sign-in methods.
+- Run `pod install` inside the `Example/RxAuth` folder.
+- Open the `RxFireAuth.xcworkspace`, build and run.
+
+*By default, the app will run on simulators only. To run it on an actual device, make sure to select a Team under Signing & Capabilities, in the Xcode settings for the "RxFireAuth_Example" target.*
 
 ## Usage
 The whole library is built around the `UserManagerType` protocol. The library provides the default implementation of it through the `UserManager` class, that you can instantiate directly or get through Dependency Injection.
@@ -92,16 +117,45 @@ This function will behave as the normal login, returning `UserError.migrationReq
 #### Standard Flow
 If you don't want to support the anonymous authentication, you can use this library anyway as all of the methods are built to work even when no account is logged-in.
 
-### Other Functions
-The library wraps most of the Firebase Authentication SDK methods. If you can't find the method you need, feel free to open an issue or build a PR yourself.
+You can make explicit calls to:
 
-**TODO**
+```swift
+func register(email: String, password: String) -> Completable
+```
+
+and to:
+
+```swift
+func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
+```
+
+and also to:
+
+```swift
+func linkAnonymousAccount(toEmail email: String, password: String) -> Completable
+```
+
+These methods will bypass the logic around anonymous and existing/non-existing accounts and will let you use the bare Firebase SDK through RxSwift.
+
+## API
+**Always refer to the `UserManagerType` and `LoginProviderManagerType` protocols** in your code, because the `UserManager` implementation may introduce breaking changes over time even if the library major version hasn't changed.
+
+## Compatibility
+RxFireAuth targets **iOS 9.0 or later** and has the following dependencies:
+
+- `Firebase/Auth` version 6.5.
+- `JWTDecode` version 2.4.
+- `RxCocoa` version 5.
+
+Compatibility with macOS is **planned**. Don't hexitate to open an issue to prioritize it.
 
 ## Contributions
 All contributions to expand the library are welcome. Fork the repo, make the changes you want and open a Pull Request.
 
+If you make changes to the codebase, I am not enforcing a coding style, but I may ask you to make changes based on how the rest of the library is made.
+
 ## Status
-This library is under **active development**. Even if most of the APIs are pretty straightforward, **they may change in the future**; releases will follow [Semanting Versioning 2.0.0](https://semver.org).
+This library is under **active development**. Even if most of the APIs are pretty straightforward, **they may change in the future**; but you don't have to worry about that, because releases will follow [Semanting Versioning 2.0.0](https://semver.org).
 
 ## License
 RxFireAuth is distributed under the MIT license. [See LICENSE](https://github.com/MrAsterisco/RxFireAuth/blob/master/LICENSE) for details.

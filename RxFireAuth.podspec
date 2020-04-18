@@ -18,26 +18,19 @@ Pod::Spec.new do |s|
 #   * Finally, don't worry about the indent, CocoaPods strips it!
 
   s.description      = <<-DESC
-TODO: Add long description of the pod here.
+  RxFireAuth is a wrapper around the Firebase Authentication SDK that exposes the most common use cases through RxSwift objects.
+  Firebase Authentication is a great way to support user authentication in your app easily. This library builds on top of that to simplify even further the process with pre-built algorithms that support registering, logging-in, linking accounts with other providers and more.
                        DESC
 
   s.homepage         = 'https://github.com/mrasterisco/RxFireAuth'
-  # s.screenshots     = 'www.example.com/screenshots_1', 'www.example.com/screenshots_2'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'mrasterisco' => 'alessio@inerziasoft.eu' }
+  s.author           = { 'MrAsterisco' => 'alessio@inerziasoft.eu' }
   s.source           = { :git => 'https://github.com/mrasterisco/RxFireAuth.git', :tag => s.version.to_s }
-  # s.social_media_url = 'https://twitter.com/<TWITTER_USERNAME>'
 
   s.ios.deployment_target = '9.0'
 
   s.source_files = 'RxFireAuth/Classes/**/*'
   
-  # s.resource_bundles = {
-  #   'RxFireAuth' => ['RxFireAuth/Assets/*.png']
-  # }
-
-  # s.public_header_files = 'Pod/Classes/**/*.h'
-  # s.frameworks = 'UIKit', 'MapKit'
   s.dependency 'Firebase/Auth', '~> 6.5'
   s.dependency 'JWTDecode', '~> 2.4'
   s.dependency 'RxCocoa', '~> 5'

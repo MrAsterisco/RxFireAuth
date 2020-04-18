@@ -184,14 +184,7 @@ public class UserManager: UserManagerType {
             }
     }
     
-    /// Sign in with the passed credentials without first checking if an account
-    /// with the specified email address exists on the backend.
-    ///
-    /// - parameters:
-    ///     - email: An email address.
-    ///     - password: A password.
-    /// - returns: A Single to observe for result.
-    func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor> {
+    public func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor> {
         return Single.create { (observer) -> Disposable in
             let disposable = Disposables.create { }
             
