@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LoginDescriptor Structure Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Struct/LoginDescriptor" class="dashAnchor"></a>
+    <a title="LoginDescriptor Structure Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RxFireAuth Docs</a> (94% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RxFireAuth Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        LoginDescriptor Structure Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SignInWithAppleHandler.html">SignInWithAppleHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserManager.html">UserManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/UserError.html">UserError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UserManagerType.html">UserManagerType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/LoginDescriptor.html">LoginDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserData.html">UserData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>LoginDescriptor</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LoginDescriptor</span></code></pre>
+
+                </div>
+              </div>
+            <p>A login descriptor represents a login operation
+result.</p>
+
+<p>Instances of this class are returned from all <code>login</code> functions in <code><a href="../Protocols/UserManagerType.html">UserManagerType</a></code>,
+regardless of the actual method that is being used (i.e. email/password, Sign in with Apple).</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15LoginDescriptorV8fullNameSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/fullName" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15LoginDescriptorV8fullNameSSSgvp">fullName</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the full user name.</p>
+
+<p>This field inherits its value from the login method.
+Some login methods don&rsquo;t return this information, hence you may find it <code>nil</code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">fullName</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp"></a>
+                    <a name="//apple_ref/swift/Property/performMigration" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">performMigration</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get if this login operation requires a data migration.</p>
+
+<p>This property holds the same value that you have passed
+to the <code>allowMigration</code> parameter of all <code>login</code> functions
+in <code><a href="../Protocols/UserManagerType.html">UserManagerType</a></code>.</p>
+
+<p>You can use this value to know if your code actually has to perform
+data migration. If <code>true</code>, you should detach all
+data from <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV9oldUserIdSSSgvp">oldUserId</a></code> and attach it to <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV9newUserIdSSSgvp">newUserId</a></code>.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">performMigration</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15LoginDescriptorV9oldUserIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/oldUserId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15LoginDescriptorV9oldUserIdSSSgvp">oldUserId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the old user ID.</p>
+
+<p>This property has a value only when a data migration is required.
+This is the Firebase <code>uid</code> of the anonymous user that has just been deleted and
+replaced with an existing account.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">oldUserId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15LoginDescriptorV9newUserIdSSSgvp"></a>
+                    <a name="//apple_ref/swift/Property/newUserId" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15LoginDescriptorV9newUserIdSSSgvp">newUserId</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get the new user ID.</p>
+
+<p>This property holds the Firebase <code>uid</code> of the user that is currently logged-in
+as a result of a <code>login</code> action.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">newUserId</span><span class="p">:</span> <span class="kt">String</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

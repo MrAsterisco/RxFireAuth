@@ -10,32 +10,54 @@ import UIKit
 import AuthenticationServices
 import JWTDecode
 
-typealias SignInWithAppleCompletionHandler = (String?, String?, String?, String?, Error?) -> Void
+/// Instances of `SignInWithAppleHandler` need
+/// functions of this type as completion handlers when signing in.
+///
+/// - parameters:
+///     - idToken: The ID token returned by Apple.
+///     - nonce: A random secure string to identify the authentication session.
+///     - displayName: The user full name.
+///     - email: The email associated to the Apple ID or a private email address.
+///     - error: An error, if something went wrong.
+public typealias SignInWithAppleCompletionHandler = (_ idToken: String?, _ nonce: String?, _ displayName: String?, _ email: String?, _ error: Error?) -> Void
 
+/// A helper class that handles the flow of
+/// Sign in with Apple.
+///
+/// An instance of this class is automatically created and invoked
+/// by `UserManager` when you ask it to `signInWithApple(in:updateUserDisplayName:allowMigration:)`.
+/// You can use it also without a user manager associated.
+///
+/// Sign in with Apple is only available on iOS 13 or later.
 @available(iOS 13.0, *)
 public class SignInWithAppleHandler: NSObject {
     
-    enum SignInError: Error {
-        case invalidCallback, invalidIdToken
-    }
-    
-    var randomSecureString: String?
+    private var nonce: String?
     
     private var viewController: UIViewController
     private var completionHandler: SignInWithAppleCompletionHandler?
     
+    /// Create a new instance using the passed view controller.
+    ///
+    /// - parameters:
+    ///     - viewController: A view controller over which the Sign in with Apple flow must be presented.
     init(viewController: UIViewController) {
         self.viewController = viewController
     }
     
-    func startSignInWithApple(completionHandler: SignInWithAppleCompletionHandler?) {
+    /// Start the Sign in with Apple flow.
+    ///
+    /// - parameters:
+    ///     - completionHandler: A function to be performed when the flow is ended, either successfully or with an error.
+    public func signIn(completionHandler: SignInWithAppleCompletionHandler?) {
         self.completionHandler = completionHandler
-        self.randomSecureString = String.secureRandomString()
+        self.nonce = String.secureRandomString()
         
         let appleIDProvider = ASAuthorizationAppleIDProvider()
         let request = appleIDProvider.createRequest()
         request.requestedScopes = [.fullName, .email]
-        request.nonce = self.randomSecureString!.sha256
+        
+        request.nonce = self.nonce!.sha256
         
         let authorizationController = ASAuthorizationController(authorizationRequests: [request])
         authorizationController.delegate = self
@@ -56,12 +78,12 @@ extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
     
     public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
         guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
-        guard let nonce = self.randomSecureString else {
-            self.completionHandler?(nil, nil, nil, nil, SignInError.invalidCallback)
+        guard let nonce = self.nonce else {
+            self.completionHandler?(nil, nil, nil, nil, SignInWithAppleError.invalidCallback)
             return
         }
         guard let idTokenData = credential.identityToken, let idToken = String(data: idTokenData, encoding: .utf8) else {
-            self.completionHandler?(nil, nil, nil, nil, SignInError.invalidIdToken)
+            self.completionHandler?(nil, nil, nil, nil, SignInWithAppleError.invalidIdToken)
             return
         }
         

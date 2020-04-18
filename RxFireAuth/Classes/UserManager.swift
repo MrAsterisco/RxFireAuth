@@ -10,6 +10,12 @@ import UIKit
 import FirebaseAuth
 import RxSwift
 
+/// The default implementation of `UserManagerType`.
+///
+/// As a general rule, you should never use this class directly, as it may change
+/// at any point even without a new major version.
+/// Documentation for all methods inherited from its protocol are in the protocol itself.
+/// The methods that are documented here are just those that are not inherited from the protocol.
 public class UserManager: UserManagerType {
     
     /// Instanties a new user manager.
@@ -233,6 +239,10 @@ public class UserManager: UserManagerType {
     
     /// Sign in with the passed credentials in the specified disposable
     /// and calls the completion handler when done.
+    ///
+    /// To use this function directly, you should wrap it inside an `Observable.create`
+    /// function call. This function will check automatically if the passed disposable has already been
+    /// disposed when coming back from `Auth`'s `signIn(with:)` function.
     ///
     /// - parameters:
     ///     - credentials: The credential to use to sign in.

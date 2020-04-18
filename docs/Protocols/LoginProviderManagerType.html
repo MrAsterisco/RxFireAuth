@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>LoginProviderManagerType Protocol Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Protocol/LoginProviderManagerType" class="dashAnchor"></a>
+    <a title="LoginProviderManagerType Protocol Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RxFireAuth Docs</a> (94% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RxFireAuth Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        LoginProviderManagerType Protocol Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SignInWithAppleHandler.html">SignInWithAppleHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserManager.html">UserManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/UserError.html">UserError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UserManagerType.html">UserManagerType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/LoginDescriptor.html">LoginDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserData.html">UserData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>LoginProviderManagerType</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LoginProviderManagerType</span></code></pre>
+
+                </div>
+              </div>
+            <p>This protocol defines the public API of the wrapper
+around login providers, such as Sign in with Apple.</p>
+
+<p>When using the library in your code always make sure to
+reference this protocol instead of the default implementation <code><a href="../Classes/UserManager.html">UserManager</a></code>,
+as this protocol will always conform to Semantic Versioning.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP15signInWithApple2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA0D10DescriptorVGSo16UIViewControllerC_S2bSgtF"></a>
+                    <a name="//apple_ref/swift/Method/signInWithApple(in:updateUserDisplayName:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP15signInWithApple2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA0D10DescriptorVGSo16UIViewControllerC_S2bSgtF">signInWithApple(in:<wbr>updateUserDisplayName:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sign in with Apple in the passed view controller.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">signInWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view controller over which the Sign in with Apple UI should be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateUserDisplayName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If set to <code>true</code>, a successful login will also update the user <code>displayName</code> field using information from the associated Apple ID.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>allowMigration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login in an existing account. This option will be passed back to the caller
+in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO17migrationRequiredyA2CmF">UserError.migrationRequired</a></code> error will be thrown.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Single that emits errors or a <code><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>SignInWithAppleHandler Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/SignInWithAppleHandler" class="dashAnchor"></a>
+    <a title="SignInWithAppleHandler Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RxFireAuth Docs</a> (94% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RxFireAuth Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        SignInWithAppleHandler Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SignInWithAppleHandler.html">SignInWithAppleHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserManager.html">UserManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/UserError.html">UserError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UserManagerType.html">UserManagerType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/LoginDescriptor.html">LoginDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserData.html">UserData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>SignInWithAppleHandler</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">class</span> <span class="kt">SignInWithAppleHandler</span> <span class="p">:</span> <span class="kt">NSObject</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SignInWithAppleHandler</span><span class="p">:</span> <span class="kt">ASAuthorizationControllerDelegate</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">SignInWithAppleHandler</span><span class="p">:</span> <span class="kt">ASAuthorizationControllerPresentationContextProviding</span></code></pre>
+
+                </div>
+              </div>
+            <p>A helper class that handles the flow of
+Sign in with Apple.</p>
+
+<p>An instance of this class is automatically created and invoked
+by <code><a href="../Classes/UserManager.html">UserManager</a></code> when you ask it to <code>signInWithApple(in:updateUserDisplayName:allowMigration:)</code>.
+You can use it also without a user manager associated.</p>
+
+<p>Sign in with Apple is only available on iOS 13 or later.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth22SignInWithAppleHandlerC04signE0010completionH0yySSSg_A3Fs5Error_pSgtcSg_tF"></a>
+                    <a name="//apple_ref/swift/Method/signIn(completionHandler:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth22SignInWithAppleHandlerC04signE0010completionH0yySSSg_A3Fs5Error_pSgtcSg_tF">signIn(completionHandler:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Start the Sign in with Apple flow.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signIn</span><span class="p">(</span><span class="nv">completionHandler</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a></span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>completionHandler</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>A function to be performed when the flow is ended, either successfully or with an error.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@RxFireAuth@objc(cs)SignInWithAppleHandler(im)authorizationController:didCompleteWithAuthorization:"></a>
+                    <a name="//apple_ref/swift/Method/authorizationController(controller:didCompleteWithAuthorization:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@RxFireAuth@objc(cs)SignInWithAppleHandler(im)authorizationController:didCompleteWithAuthorization:">authorizationController(controller:<wbr>didCompleteWithAuthorization:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">authorizationController</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">ASAuthorizationController</span><span class="p">,</span> <span class="n">didCompleteWithAuthorization</span> <span class="nv">authorization</span><span class="p">:</span> <span class="kt">ASAuthorization</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@RxFireAuth@objc(cs)SignInWithAppleHandler(im)authorizationController:didCompleteWithError:"></a>
+                    <a name="//apple_ref/swift/Method/authorizationController(controller:didCompleteWithError:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@RxFireAuth@objc(cs)SignInWithAppleHandler(im)authorizationController:didCompleteWithError:">authorizationController(controller:<wbr>didCompleteWithError:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">authorizationController</span><span class="p">(</span><span class="nv">controller</span><span class="p">:</span> <span class="kt">ASAuthorizationController</span><span class="p">,</span> <span class="n">didCompleteWithError</span> <span class="nv">error</span><span class="p">:</span> <span class="kt">Error</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/c:@CM@RxFireAuth@objc(cs)SignInWithAppleHandler(im)presentationAnchorForAuthorizationController:"></a>
+                    <a name="//apple_ref/swift/Method/presentationAnchor(for:)" class="dashAnchor"></a>
+                    <a class="token" href="#/c:@CM@RxFireAuth@objc(cs)SignInWithAppleHandler(im)presentationAnchorForAuthorizationController:">presentationAnchor(for:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">presentationAnchor</span><span class="p">(</span><span class="k">for</span> <span class="nv">controller</span><span class="p">:</span> <span class="kt">ASAuthorizationController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">ASPresentationAnchor</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>

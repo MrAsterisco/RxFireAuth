@@ -22,7 +22,7 @@ extension UserManager: LoginProviderManagerType {
             let appleSignInHandler = SignInWithAppleHandler(viewController: viewController)
             self.loginHandler = appleSignInHandler
             
-            appleSignInHandler.startSignInWithApple { (idToken, nonce, fullName, email, error) in
+            appleSignInHandler.signIn { (idToken, nonce, fullName, email, error) in
                 guard !disposable.isDisposed else { return }
                 
                 if let error = error {

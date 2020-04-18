@@ -9,6 +9,12 @@
 import UIKit
 import RxSwift
 
+/// This protocol defines the public API of the main
+/// wrapper around Firebase Authentication SDK.
+///
+/// When using the library in your code always make sure to
+/// reference this protocol instead of the default implementation `UserManager`,
+/// as this protocol will always conform to Semantic Versioning.
 public protocol UserManagerType {
     
     /// Get if there is a currently logged-in user.

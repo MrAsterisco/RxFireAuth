@@ -24,10 +24,13 @@ Pod::Spec.new do |s|
 
   s.homepage         = 'https://github.com/mrasterisco/RxFireAuth'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
-  s.author           = { 'MrAsterisco' => 'alessio@inerziasoft.eu' }
+  s.author           = { 'Alessio Moiso' => 'alessio@inerziasoft.eu' }
   s.source           = { :git => 'https://github.com/mrasterisco/RxFireAuth.git', :tag => s.version.to_s }
 
+  s.platform = :ios
   s.ios.deployment_target = '9.0'
+
+  s.weak_framework = 'CryptoKit'
 
   s.source_files = 'RxFireAuth/Classes/**/*'
   

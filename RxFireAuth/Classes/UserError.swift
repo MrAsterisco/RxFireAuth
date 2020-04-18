@@ -6,11 +6,15 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
-/// Errors throws by  `UserManagerType` implementations.
+/// Errors thrown by  `UserManagerType` implementations.
+///
+/// Most of these errors are never thrown directly, but are always
+/// returned as errors inside an Rx object.
 public enum UserError: LocalizedError {
-    /// There is no user associated to perform this action.
+    
+    /// There is no user associated to perform the requested action.
     case noUser
-    /// The update cannot be performed.
+    /// The update cannot be performed because of invalid data.
     case invalidUpdate
     /// There is already another user logged-in.
     case alreadyLoggedIn

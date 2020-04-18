@@ -8,6 +8,12 @@
 
 import RxSwift
 
+/// This protocol defines the public API of the wrapper
+/// around login providers, such as Sign in with Apple.
+///
+/// When using the library in your code always make sure to
+/// reference this protocol instead of the default implementation `UserManager`,
+/// as this protocol will always conform to Semantic Versioning.
 public protocol LoginProviderManagerType {
 
     /// Sign in with Apple in the passed view controller.

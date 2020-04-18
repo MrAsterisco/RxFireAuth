@@ -7,7 +7,9 @@
 //
 
 import UIKit
+#if canImport(CryptoKit)
 import CryptoKit
+#endif
 import CommonCrypto
 
 extension String {
@@ -44,8 +46,18 @@ extension String {
       return result
     }
     
-    @available(iOS 13.0, *)
     var sha256: String {
+        #if canImport(CryptoKit)
+        if #available(iOS 13, *) {
+            return self.cryptoSha256
+        }
+        #endif
+        return self.legacySha256
+    }
+    
+    #if canImport(CryptoKit)
+    @available(iOS 13.0, *)
+    var cryptoSha256: String {
       let inputData = Data(self.utf8)
       let hashedData = SHA256.hash(data: inputData)
       let hashString = hashedData.compactMap {
@@ -54,8 +66,9 @@ extension String {
 
       return hashString
     }
+    #endif
     
-    var legacySha25: Data {
+    var legacySha256: String {
         let data = Data(self.utf8)
         var buffer = UnsafeMutableRawPointer.allocate(byteCount: Int(CC_SHA256_DIGEST_LENGTH), alignment: 8)
         var buffer2 = UnsafeMutablePointer<UInt8>.allocate(capacity: Int(CC_SHA256_DIGEST_LENGTH))
@@ -67,7 +80,13 @@ extension String {
             CC_SHA256(ptr.baseAddress!, CC_LONG(data.count), buffer.assumingMemoryBound(to: UInt8.self))
         }
         CC_SHA256(buffer, CC_LONG(CC_SHA256_DIGEST_LENGTH), buffer2)
-        return Data(buffer: UnsafeBufferPointer(start: buffer2, count: Int(CC_SHA256_DIGEST_LENGTH)))
+        let hashedData = Data(buffer: UnsafeBufferPointer(start: buffer2, count: Int(CC_SHA256_DIGEST_LENGTH)))
+        
+        let hashString = hashedData.compactMap {
+          return String(format: "%02x", $0)
+        }.joined()
+
+        return hashString
     }
     
 }

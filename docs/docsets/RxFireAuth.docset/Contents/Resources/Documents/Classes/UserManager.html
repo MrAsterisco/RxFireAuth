@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>UserManager Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset='utf-8'>
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+  </head>
+  <body>
+    <a name="//apple_ref/swift/Class/UserManager" class="dashAnchor"></a>
+    <a title="UserManager Class Reference"></a>
+    <header>
+      <div class="content-wrapper">
+        <p><a href="../index.html">RxFireAuth Docs</a> (94% documented)</p>
+      </div>
+    </header>
+    <div class="content-wrapper">
+      <p id="breadcrumbs">
+        <a href="../index.html">RxFireAuth Reference</a>
+        <img id="carat" src="../img/carat.png" />
+        UserManager Class Reference
+      </p>
+    </div>
+    <div class="content-wrapper">
+      <nav class="sidebar">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Classes/SignInWithAppleHandler.html">SignInWithAppleHandler</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Classes/UserManager.html">UserManager</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Enums/UserError.html">UserError</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Protocols/UserManagerType.html">UserManagerType</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Structs.html">Structures</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Structs/LoginDescriptor.html">LoginDescriptor</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/UserData.html">UserData</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a href="../Typealiases.html">Type Aliases</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+        <section>
+          <section class="section">
+            <h1>UserManager</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">class</span> <span class="kt">UserManager</span> <span class="p">:</span> <span class="kt"><a href="../Protocols/UserManagerType.html">UserManagerType</a></span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">UserManager</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a></span></code></pre>
+
+                </div>
+              </div>
+            <p>The default implementation of <code><a href="../Protocols/UserManagerType.html">UserManagerType</a></code>.</p>
+
+<p>As a general rule, you should never use this class directly, as it may change
+at any point even without a new major version.
+Documentation for all methods inherited from its protocol are in the protocol itself.
+The methods that are documented here are just those that are not inherited from the protocol.</p>
+
+          </section>
+          <section class="section task-group-section">
+            <div class="task-group">
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth11UserManagerC16clearingKeychainACSb_tcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(clearingKeychain:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth11UserManagerC16clearingKeychainACSb_tcfc">init(clearingKeychain:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Instanties a new user manager.</p>
+
+<p>Pass <code>clearingKeychain = true</code> to clear credentials
+that are stored in the iCloud Keychain. This is particularly useful
+if you don&rsquo;t want to login users automatically when they install your
+app on multiple devices with iCloud Keychain turned on.
+You should pass <code>true</code> only once, otherwise the user will be
+logged-out every time you instantiate a user manager.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">clearingKeychain</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>clearingKeychain</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If set to <code>true</code>, this instance will attempt a logout (ignoring errors) while initializing.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP10isLoggedInSbvp"></a>
+                    <a name="//apple_ref/swift/Property/isLoggedIn" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP10isLoggedInSbvp">isLoggedIn</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">isLoggedIn</span><span class="p">:</span> <span class="kt">Bool</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP4userAA0D4DataVSgvp"></a>
+                    <a name="//apple_ref/swift/Property/user" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP4userAA0D4DataVSgvp">user</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/UserData.html">UserData</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP012autoupdatingD00A5Swift10ObservableCyAA0D4DataVSgGvp"></a>
+                    <a name="//apple_ref/swift/Property/autoupdatingUser" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP012autoupdatingD00A5Swift10ObservableCyAA0D4DataVSgGvp">autoupdatingUser</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">autoupdatingUser</span><span class="p">:</span> <span class="kt">Observable</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/UserData.html">UserData</a></span><span class="p">?</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP13accountExists4with0A5Swift17PrimitiveSequenceVyAF11SingleTraitOSbGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/accountExists(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP13accountExists4with0A5Swift17PrimitiveSequenceVyAF11SingleTraitOSbGSS_tF">accountExists(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">accountExists</span><span class="p">(</span><span class="n">with</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt">Bool</span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP8register5email8password0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/register(email:password:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP8register5email8password0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_SStF">register(email:<wbr>password:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">register</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP16loginAnonymously0A5Swift17PrimitiveSequenceVyAE16CompletableTraitOs5NeverOGyF"></a>
+                    <a name="//apple_ref/swift/Method/loginAnonymously()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP16loginAnonymously0A5Swift17PrimitiveSequenceVyAE16CompletableTraitOs5NeverOGyF">loginAnonymously()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loginAnonymously</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP20linkAnonymousAccount7toEmail8password0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/linkAnonymousAccount(toEmail:password:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP20linkAnonymousAccount7toEmail8password0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_SStF">linkAnonymousAccount(toEmail:<wbr>password:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">linkAnonymousAccount</span><span class="p">(</span><span class="n">toEmail</span> <span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP5login5email8password14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA15LoginDescriptorVGSS_SSSbSgtF"></a>
+                    <a name="//apple_ref/swift/Method/login(email:password:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP5login5email8password14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA15LoginDescriptorVGSS_SSSbSgtF">login(email:<wbr>password:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">login</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP20loginWithoutChecking5email8password14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA15LoginDescriptorVGSS_SSSbSgtF"></a>
+                    <a name="//apple_ref/swift/Method/loginWithoutChecking(email:password:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP20loginWithoutChecking5email8password14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA15LoginDescriptorVGSS_SSSbSgtF">loginWithoutChecking(email:<wbr>password:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">loginWithoutChecking</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP6logout16resetToAnonymous0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSb_tF"></a>
+                    <a name="//apple_ref/swift/Method/logout(resetToAnonymous:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP6logout16resetToAnonymous0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSb_tF">logout(resetToAnonymous:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">logout</span><span class="p">(</span><span class="nv">resetToAnonymous</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP6update4user0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGAA0D4DataV_tF"></a>
+                    <a name="//apple_ref/swift/Method/update(user:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP6update4user0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGAA0D4DataV_tF">update(user:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">update</span><span class="p">(</span><span class="nv">user</span><span class="p">:</span> <span class="kt"><a href="../Structs/UserData.html">UserData</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP11updateEmail03newH00A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSS_tF"></a>
+                    <a name="//apple_ref/swift/Method/updateEmail(newEmail:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP11updateEmail03newH00A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSS_tF">updateEmail(newEmail:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">updateEmail</span><span class="p">(</span><span class="nv">newEmail</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP21confirmAuthentication5email8password0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_SStF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAuthentication(email:password:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP21confirmAuthentication5email8password0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_SStF">confirmAuthentication(email:<wbr>password:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">confirmAuthentication</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP15signInWithApple2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA0D10DescriptorVGSo16UIViewControllerC_S2bSgtF"></a>
+                    <a name="//apple_ref/swift/Method/signInWithApple(in:updateUserDisplayName:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP15signInWithApple2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA0D10DescriptorVGSo16UIViewControllerC_S2bSgtF">signInWithApple(in:<wbr>updateUserDisplayName:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">signInWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </section>
+        </section>
+        <section id="footer">
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-18)</p>
+          <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+        </section>
+      </article>
+    </div>
+  </body>
+</div>
+</html>
