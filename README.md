@@ -10,7 +10,7 @@ Firebase Authentication is a great way to support user authentication in your ap
 
 ## Installation
 
-RxFireAuth is available through [CocoaPods](https://cocoapods.org). We don't support other package managers at the moment, mainly because the Firebase SDK is mainly available through CocoaPods.
+RxFireAuth is available through [CocoaPods](https://cocoapods.org). We don't support other package managers at the moment, mainly because the Firebase SDK is available through CocoaPods only.
 
 To install RxFireAuth in your project add:
 
@@ -154,7 +154,7 @@ RxFireAuth targets **iOS 9.0 or later** and has the following dependencies:
 - `JWTDecode` version 2.4.
 - `RxCocoa` version 5.
 
-Compatibility with macOS is **planned**. Don't hexitate to open an issue to prioritize it.
+Compatibility with macOS is **planned**. Don't hesitate to open an issue to prioritize it.
 
 ## Contributions
 All contributions to expand the library are welcome. Fork the repo, make the changes you want and open a Pull Request.
