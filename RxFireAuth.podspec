@@ -24,7 +24,7 @@ Pod::Spec.new do |s|
 
   s.homepage          = 'https://github.com/mrasterisco/RxFireAuth'
   s.license           = { :type => 'MIT', :file => 'LICENSE' }
-  s.author            = { 'Alessio Moiso' => 'alessio@inerziasoft.eu' }
+  s.author            = { 'Alessio Moiso' => 'a.moiso@outlook.com' }
   s.source            = { :git => 'https://github.com/mrasterisco/RxFireAuth.git', :tag => "v"+s.version.to_s }
   s.documentation_url = 'https://mrasterisco.github.io/RxFireAuth/'
 
