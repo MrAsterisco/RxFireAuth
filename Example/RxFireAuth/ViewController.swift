@@ -24,6 +24,9 @@ class ViewController: UITableViewController {
     
     @IBOutlet weak var dataMigrationControl: UISegmentedControl!
     
+    @IBOutlet weak var nameField: UITextField!
+    @IBOutlet weak var updateProfileButton: UIButton!
+    
     private var userManager: UserManagerType = UserManager()
     private var disposeBag = DisposeBag()
     
@@ -40,10 +43,15 @@ class ViewController: UITableViewController {
                         self.welcomeLabel.text = "Welcome, Anonymous!"
                         self.subtitleLabel.text = "You are logged-in with an anonymous account."
                     } else {
-                        self.welcomeLabel.text = "Welcome!"
+                        if let displayName = user.displayName, displayName.count > 0 {
+                            self.welcomeLabel.text = "Welcome, \(displayName)!"
+                        } else {
+                            self.welcomeLabel.text = "Welcome!"
+                        }
                         self.subtitleLabel.text = "You are logged-in with \(user.email ?? "unknown")."
                     }
                     self.signOutButton.isEnabled = true
+                    self.nameField.text = user.displayName
                 } else {
                     self.welcomeLabel.text = "Welcome!"
                     self.subtitleLabel.text = "You are not logged-in."
@@ -59,7 +67,7 @@ class ViewController: UITableViewController {
                 } else if isLoggedIn && hasEmail {
                     return "Link"
                 } else if isLoggedIn && !hasEmail {
-                    return "Insert an email address!"
+                    return "Insert an email address to link it!"
                 }
                 return "Sign in"
             }
@@ -117,6 +125,18 @@ class ViewController: UITableViewController {
         self.toggleProgress(true)
         self.userManager.logout(resetToAnonymous: false)
             .subscribe(onCompleted: {
+                self.toggleProgress(false)
+            }, onError: self.show(error:))
+            .disposed(by: self.disposeBag)
+    }
+    
+    @IBAction func updateProfile(sender: AnyObject) {
+        self.toggleProgress(true)
+        self.userManager.update { (userData) -> UserData in
+                var user = userData
+                user.displayName = self.nameField.text
+                return user
+            }.subscribe(onCompleted: {
                 self.toggleProgress(false)
             }, onError: self.show(error:))
             .disposed(by: self.disposeBag)

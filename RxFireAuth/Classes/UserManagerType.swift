@@ -94,12 +94,30 @@ public protocol UserManagerType {
     /// Update the currently logged-in user taking new values from the
     /// passed object.
     ///
+    /// You cannot instantiate a `UserData` instance directly. To pass the parameter to this function,
+    /// use a value retrieved from `self.user` or `self.autoupdatingUser`. To simplify this even
+    /// further, use `self.update(userConfigurationHandler:)`.
+    ///
     /// - note: This function will not update the user email address, even if it has changed.
     ///
+    /// - seealso: self.update(userConfigurationHandler:)
     /// - parameters:
     ///     - user: A user to gather new values from.
     /// - returns: A Completable action to observe.
     func update(user: UserData) -> Completable
+    
+    /// Retrieve the currently logged-in user and use the specified
+    /// configuration handler to update its properties.
+    ///
+    /// - note: This function is only a wrapper that takes the first value of `self.autoupdatingUser`,
+    ///   maps it by calling the `userConfigurationHandler` and passes it to `self.update(user:)`.
+    ///
+    /// - since: version 1.1.0
+    ///
+    /// - parameters:
+    ///     - userConfigurationHandler: A function that takes a `UserData` instance and returns it with the required changes.
+    /// - returns: A Completable action to observe.
+    func update(userConfigurationHandler: @escaping (UserData) -> UserData) -> Completable
     
     /// Update the email of the currently logged-in user.
     ///
