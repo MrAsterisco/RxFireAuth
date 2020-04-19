@@ -31,7 +31,7 @@
 /* Begin PBXFileReference section */
 		0AED3E55FA40FCB4B6C8E661 /* Pods-RxFireAuth_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Tests.release.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Tests/Pods-RxFireAuth_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		2397EC64964095AD9D0AF655 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
-		37E0099370B6231F1473F284 /* RxFireAuth.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxFireAuth.podspec; path = ../RxFireAuth.podspec; sourceTree = "<group>"; };
+		37E0099370B6231F1473F284 /* RxFireAuth.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxFireAuth.podspec; path = ../RxFireAuth.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		3DBD179F238CA2B242FEE4F7 /* Pods-RxFireAuth_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Tests.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Tests/Pods-RxFireAuth_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxFireAuth_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxFireAuth_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };

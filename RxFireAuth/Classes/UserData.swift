@@ -11,6 +11,8 @@ import UIKit
 /// A User.
 ///
 /// This class usually inherits data from a Firebase User.
+/// You cannot instantiate this class directly. Use `UserManagerType`
+/// implementations to get a user.
 public struct UserData {
     
     /// Get the ID.
@@ -26,7 +28,7 @@ public struct UserData {
     /// Get the user display name.
     ///
     /// Corresponds to `displayName` on the Firebase User object..
-    public let displayName: String?
+    public var displayName: String?
     
     /// Get if this is an anonymous user.
     ///
