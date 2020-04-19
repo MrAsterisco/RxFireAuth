@@ -15,10 +15,16 @@ import RxSwift
 /// When using the library in your code always make sure to
 /// reference this protocol instead of the default implementation `UserManager`,
 /// as this protocol will always conform to Semantic Versioning.
+///
+/// All methods of this protocol are wrapped inside a Rx object that
+/// will not execute any code until somebody subscribes to it.
 public protocol UserManagerType {
     
     /// Get if there is a currently logged-in user.
     var isLoggedIn: Bool { get }
+    
+    /// Get if there is an anonymous user logged-in.
+    var isAnonymous: Bool { get }
     
     /// Get the currently logged-in user or nil if no user is logged-in.
     var user: UserData? { get }
@@ -86,8 +92,12 @@ public protocol UserManagerType {
     
     /// Logout the currently logged-in user.
     ///
+    /// Using the `resetToAnonymous` parameter, you can make sure
+    /// that there is always a user signed in.
+    ///
     /// - parameters:
-    ///     - resetToAnonymous: If true, after having logged-out successfully, this function will immediately sign in a new anonymous user.
+    ///     - resetToAnonymous: If `true`, after having logged-out successfully, this function will immediately sign in a new anonymous user.
+    /// - throws:
     /// - returns: A Completable action to observe.
     func logout(resetToAnonymous: Bool) -> Completable
     

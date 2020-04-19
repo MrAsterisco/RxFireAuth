@@ -11,7 +11,7 @@
         <scene sceneID="Nug-Yv-kp9">
             <objects>
                 <tableViewController id="ctm-QS-frk" customClass="ViewController" customModule="RxFireAuth_Example" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="oh8-fu-n4g">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="static" style="grouped" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="18" estimatedSectionHeaderHeight="-1" sectionFooterHeight="18" estimatedSectionFooterHeight="-1" id="oh8-fu-n4g">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -249,6 +249,39 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qlR-qY-KKn">
+                                        <rect key="frame" x="0.0" y="726.5" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qlR-qY-KKn" id="q27-43-Ymq">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="Rcq-UE-Qbr">
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="44"/>
+                                                    <subviews>
+                                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Reset Anonymous user after logout" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontForContentSizeCategory="YES" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Fu5-pU-8gN">
+                                                            <rect key="frame" x="0.0" y="12" width="278" height="20.5"/>
+                                                            <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                                                            <nil key="textColor"/>
+                                                            <nil key="highlightedColor"/>
+                                                        </label>
+                                                        <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" on="YES" translatesAutoresizingMaskIntoConstraints="NO" id="mot-Jo-eYh">
+                                                            <rect key="frame" x="286" y="6.5" width="51" height="31"/>
+                                                        </switch>
+                                                    </subviews>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="Lg7-24-mHV"/>
+                                                    </constraints>
+                                                </stackView>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Rcq-UE-Qbr" firstAttribute="top" secondItem="q27-43-Ymq" secondAttribute="top" id="4PU-rW-i69"/>
+                                                <constraint firstAttribute="trailing" secondItem="Rcq-UE-Qbr" secondAttribute="trailing" constant="20" symbolic="YES" id="cGu-zo-oVi"/>
+                                                <constraint firstAttribute="bottom" secondItem="Rcq-UE-Qbr" secondAttribute="bottom" id="iN0-nC-VDh"/>
+                                                <constraint firstItem="Rcq-UE-Qbr" firstAttribute="leading" secondItem="q27-43-Ymq" secondAttribute="leading" constant="20" symbolic="YES" id="zFY-xm-Cl3"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                         </sections>
@@ -262,6 +295,7 @@
                         <outlet property="loginField" destination="hRm-F9-3g3" id="HaC-Kz-FKX"/>
                         <outlet property="nameField" destination="xXd-3v-zRi" id="igw-fT-jDW"/>
                         <outlet property="passwordField" destination="FMT-pY-asG" id="7Ay-uj-9lj"/>
+                        <outlet property="resetAnononymousSwitch" destination="mot-Jo-eYh" id="ehW-PG-2Xf"/>
                         <outlet property="signInButton" destination="zK6-No-yaf" id="vsj-Ee-aWa"/>
                         <outlet property="signOutButton" destination="ftK-wu-fHt" id="ia4-38-0BB"/>
                         <outlet property="subtitleLabel" destination="8n1-U7-jzB" id="3NJ-4x-Yid"/>
