@@ -295,12 +295,24 @@ public class UserManager: UserManagerType {
                 if let error = error {
                     observer(.error(error))
                 } else {
+                    self.forceRefreshAutoUpdatingUser.onNext(())
                     observer(.completed)
                 }
             }
             
             return disposable
         }
+    }
+    
+    public func update(userConfigurationHandler: @escaping (UserData) -> UserData) -> Completable {
+        guard Auth.auth().currentUser != nil else { return Completable.error(UserError.noUser) }
+        
+        return self.autoupdatingUser
+            .take(1)
+            .filter { $0 != nil }.map { $0! }
+            .map(userConfigurationHandler)
+            .flatMap { self.update(user: $0) }
+            .asCompletable()
     }
     
     public func updateEmail(newEmail: String) -> Completable {

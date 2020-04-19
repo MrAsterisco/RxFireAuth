@@ -26,7 +26,7 @@ public struct UserData {
     /// Get the user display name.
     ///
     /// Corresponds to `displayName` on the Firebase User object..
-    public let displayName: String?
+    public var displayName: String?
     
     /// Get if this is an anonymous user.
     ///
