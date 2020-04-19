@@ -22,6 +22,38 @@ public enum UserError: LocalizedError {
     case invalidEmail
     /// The action would require to migrate the current user data to a new account.
     case migrationRequired
+    /// The requested action cannot be performed because there is already an anonymous user logged-in.
+    case alreadyAnonymous
+    /// The specified user cannot be found.
+    case userNotFound
+    /// The specified user is disabled.
+    case userDisabled
+    /// The user token has expired.
+    case expiredToken
+    /// The specified password is invalid.
+    case wrongPassword
+    /// The specified credential is either expired or invalid.
+    case invalidCredential
+    /// The specified email is already in use in another account.
+    case emailAlreadyInUse
+    /// The specified password does not satisfy the basic security requirements.
+    case weakPassword(String?)
+    /// The requested action would target a different user than the one currently signed-in.
+    case wrongUser
+    /// The requested action requires a recent call to `self.confirmAuthentication(email:password:)`.
+    case authenticationConfirmationRequired
+    /// The specified provider is already linked with this user.
+    case providerAlreadyLinked
+    /// An error occurred while reaching Firebase servers.
+    case networkError
+    /// The requested operation is not enabled in Firebase Console.
+    case configurationError
+    /// The provided Firebase configuration is invalid.
+    case invalidConfiguration
+    /// An error occurred while attempting to access the keychain.
+    case keychainError(Error?)
+    /// An unknown error has occurred.
+    case unknown(Error?)
     
     public var errorDescription: String? {
         switch self {
@@ -35,21 +67,38 @@ public enum UserError: LocalizedError {
             return "The provided email address is invalid."
         case .migrationRequired:
             return "Proceeding with this action requires confirmation to migrate data from a user account to another."
-        }
-    }
-    
-    public var failureReason: String? {
-        switch self {
-        case .noUser:
-            return "There is no user currently logged-in."
-        case .invalidUpdate:
-            return "The update contains invalid data and cannot be performed."
-        case .alreadyLoggedIn:
-            return "The requested action can be performed only when there is an anonymous user or nobody logged-in."
-        case .invalidEmail:
-            return "The provided value is not a valid email address."
-        case .migrationRequired:
-            return "The requested action will result in deleting the currently logged-in user and replace it with another user account, hence the library is asking for confirmation that the caller will perform (or not) data migration."
+        case .alreadyAnonymous:
+            return "There is already an anonymous user logged-in."
+        case .userNotFound:
+            return "The specified user cannot be found."
+        case .networkError:
+            return "A network error occurred."
+        case .unknown(let error):
+            return error?.localizedDescription ?? "An unknown error occurred."
+        case .userDisabled:
+            return "The specified user is disabled."
+        case .expiredToken:
+            return "The credential stored on this device are no longer valid. Please re-authenticate."
+        case .wrongPassword:
+            return "The specified password is invalid."
+        case .invalidCredential:
+            return "The specified credential is invalid."
+        case .emailAlreadyInUse:
+            return "This email address is already registered with another account."
+        case .weakPassword(let reason):
+            return "The provided password does not satisfy the security requirements: \(reason ?? "please try again")."
+        case .wrongUser:
+            return "You are authenticating with a different user."
+        case .authenticationConfirmationRequired:
+            return "In order to perform this action, you'll have to confirm your credentials by authenticating again."
+        case .providerAlreadyLinked:
+            return "This login provider is already linked."
+        case .configurationError:
+            return "There is an error in your Firebase Console configuration."
+        case .invalidConfiguration:
+            return "There is an error in your app configuration."
+        case .keychainError(let error):
+            return "An error occurred while comunicating with the keychain: \(error?.localizedDescription ?? "unknown")"
         }
     }
     

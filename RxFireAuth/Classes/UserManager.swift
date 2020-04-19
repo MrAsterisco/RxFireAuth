@@ -43,6 +43,10 @@ public class UserManager: UserManagerType {
         return Auth.auth().currentUser != nil && !Auth.auth().currentUser!.isAnonymous
     }
     
+    public var isAnonymous: Bool {
+        return Auth.auth().currentUser != nil && Auth.auth().currentUser!.isAnonymous
+    }
+    
     public var user: UserData? {
         if let user = Auth.auth().currentUser {
             return UserData(id: user.uid, email: user.email, displayName: user.displayName, isAnonymous: user.isAnonymous)
@@ -89,15 +93,15 @@ public class UserManager: UserManagerType {
     }
     
     public func accountExists(with email: String) -> Single<Bool> {
-        return Single.create { (observer) -> Disposable in
+        return Single.create { [unowned self] (observer) -> Disposable in
             let disposable = Disposables.create { }
             
-            Auth.auth().fetchSignInMethods(forEmail: email) { (methods,
+            Auth.auth().fetchSignInMethods(forEmail: email) { [unowned self] (methods,
                 error) in
                 guard !disposable.isDisposed else { return }
                 
                 if let error = error {
-                    observer(.error(error))
+                    observer(.error(self.map(error: error)))
                 } else if let methods = methods, methods.count > 0 {
                     observer(.success(true))
                 } else {
@@ -110,95 +114,104 @@ public class UserManager: UserManagerType {
     }
     
     public func register(email: String, password: String) -> Completable {
-        guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
-        
-        if Auth.auth().currentUser?.isAnonymous == true {
-            return self.linkAnonymousAccount(toEmail: email, password: password)
-        }
-        
-        return Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred { [unowned self] in
+            guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
             
-            Auth.auth().createUser(withEmail: email, password: password) { (_, error) in
-                guard !disposable.isDisposed else { return }
-                if let error = error {
-                    observer(.error(error))
-                } else {
-                    observer(.completed)
-                }
+            if Auth.auth().currentUser?.isAnonymous == true {
+                return self.linkAnonymousAccount(toEmail: email, password: password)
             }
             
-            return disposable
+            return Completable.create { (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                Auth.auth().createUser(withEmail: email, password: password) { (_, error) in
+                    guard !disposable.isDisposed else { return }
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        observer(.completed)
+                    }
+                }
+                
+                return disposable
+            }
         }
     }
     
     public func loginAnonymously() -> Completable {
-        guard !isLoggedIn else { return Completable.error(UserError.alreadyLoggedIn) }
-        
-        return Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred { [unowned self] in
+            guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
+            guard !self.isAnonymous else { return .error(UserError.alreadyAnonymous) }
             
-            Auth.auth().signInAnonymously { (_, error) in
-                guard !disposable.isDisposed else { return }
-                if let error = error {
-                    observer(.error(error))
-                } else {
-                    observer(.completed)
+            return Completable.create { [unowned self] (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                Auth.auth().signInAnonymously { [unowned self] (_, error) in
+                    guard !disposable.isDisposed else { return }
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        observer(.completed)
+                    }
                 }
+                
+                return disposable
             }
-            
-            return disposable
         }
     }
     
     public func linkAnonymousAccount(toEmail email: String, password: String) -> Completable {
-        guard let user = Auth.auth().currentUser, user.isAnonymous else { return Completable.error(UserError.noUser) }
-        
-        return Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred {
+            guard let user = Auth.auth().currentUser, user.isAnonymous else { return .error(UserError.noUser) }
             
-            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-            user.link(with: credential) { (_, error) in
-                guard !disposable.isDisposed else { return }
-                if let error = error {
-                    observer(.error(error))
-                } else {
-                    self.forceRefreshAutoUpdatingUser.onNext(())
-                    observer(.completed)
+            return Completable.create { [unowned self] (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+                user.link(with: credential) { (_, error) in
+                    guard !disposable.isDisposed else { return }
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        self.forceRefreshAutoUpdatingUser.onNext(())
+                        observer(.completed)
+                    }
                 }
+                
+                return disposable
             }
-            
-            return disposable
         }
     }
     
     public func login(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor> {
-        guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
-        
-        return self.accountExists(with: email)
-            .flatMap { (accountExists) -> Single<LoginDescriptor> in
-                if accountExists {
-                    return self.loginWithoutChecking(email: email, password: password, allowMigration: allowMigration)
-                } else {
-                    return self.register(email: email, password: password)
-                        .andThen(
-                            Single.just(
-                                LoginDescriptor(fullName: nil, performMigration: false, oldUserId: nil, newUserId: self.user?.id)
+        return Single.deferred { [unowned self] in
+            guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
+            
+            return self.accountExists(with: email)
+                .flatMap { (accountExists) -> Single<LoginDescriptor> in
+                    if accountExists {
+                        return self.loginWithoutChecking(email: email, password: password, allowMigration: allowMigration)
+                    } else {
+                        return self.register(email: email, password: password)
+                            .andThen(
+                                Single.just(
+                                    LoginDescriptor(fullName: nil, performMigration: false, oldUserId: nil, newUserId: self.user?.id)
+                                )
                             )
-                        )
+                    }
                 }
-            }
+        }
     }
     
     public func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor> {
-        return Single.create { (observer) -> Disposable in
+        return Single.create { [unowned self] (observer) -> Disposable in
             let disposable = Disposables.create { }
             
             var oldUserId: String?
             
-            let signInCompletionHandler: (Error?) -> Void = { (error) in
+            let signInCompletionHandler: (Error?) -> Void = { [unowned self] (error) in
                 if let error = error {
-                    observer(.error(error))
+                    observer(.error(self.map(error: error)))
                 } else if let newUser = Auth.auth().currentUser {
                     observer(.success(
                             LoginDescriptor(
@@ -222,9 +235,9 @@ public class UserManager: UserManagerType {
                 
                 oldUserId = currentUser.uid
                 
-                currentUser.delete { (error) in
+                currentUser.delete { [unowned self] (error) in
                     if let error = error {
-                        observer(.error(error))
+                        observer(.error(self.map(error: error)))
                     } else {
                         self.signIn(with: EmailAuthProvider.credential(withEmail: email, password: password), in: disposable, completionHandler: signInCompletionHandler)
                     }
@@ -261,94 +274,153 @@ public class UserManager: UserManagerType {
     }
     
     public func logout(resetToAnonymous: Bool = false) -> Completable {
-        var logoutAction = Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred { [unowned self] in
+            if resetToAnonymous && self.isAnonymous { return .error(UserError.alreadyAnonymous) }
             
-            do {
-                try Auth.auth().signOut()
-                observer(.completed)
-            } catch {
-                observer(.error(error))
+            var logoutAction = Completable.create { (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                do {
+                    try Auth.auth().signOut()
+                    observer(.completed)
+                } catch {
+                    observer(.error(self.map(error: error)))
+                }
+                
+                return disposable
             }
             
-            return disposable
+            if (resetToAnonymous) {
+                logoutAction = logoutAction
+                    .andThen(self.loginAnonymously())
+            }
+            
+            return logoutAction
         }
-        
-        if (resetToAnonymous) {
-            logoutAction = logoutAction
-                .andThen(self.loginAnonymously())
-        }
-        
-        return logoutAction
     }
     
     public func update(user: UserData) -> Completable {
-        guard let currentUser = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
-        
-        return Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred { [unowned self] in
+            guard let currentUser = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
             
-            let changeRequest = currentUser.createProfileChangeRequest()
-            changeRequest.displayName = user.displayName
-            
-            changeRequest.commitChanges { (error) in
-                if let error = error {
-                    observer(.error(error))
-                } else {
-                    self.forceRefreshAutoUpdatingUser.onNext(())
-                    observer(.completed)
+            return Completable.create { [unowned self] (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                let changeRequest = currentUser.createProfileChangeRequest()
+                changeRequest.displayName = user.displayName
+                
+                changeRequest.commitChanges { (error) in
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        self.forceRefreshAutoUpdatingUser.onNext(())
+                        observer(.completed)
+                    }
                 }
+                
+                return disposable
             }
-            
-            return disposable
         }
     }
     
     public func update(userConfigurationHandler: @escaping (UserData) -> UserData) -> Completable {
-        guard Auth.auth().currentUser != nil else { return Completable.error(UserError.noUser) }
-        
-        return self.autoupdatingUser
-            .take(1)
-            .filter { $0 != nil }.map { $0! }
-            .map(userConfigurationHandler)
-            .flatMap { self.update(user: $0) }
-            .asCompletable()
+        return Completable.deferred { [unowned self] in
+            guard Auth.auth().currentUser != nil else { return Completable.error(UserError.noUser) }
+            
+            return self.autoupdatingUser
+                .take(1)
+                .filter { $0 != nil }.map { $0! }
+                .map(userConfigurationHandler)
+                .flatMap { [unowned self] in self.update(user: $0) }
+                .asCompletable()
+        }
     }
     
     public func updateEmail(newEmail: String) -> Completable {
-        guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
-        
-        return Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred { [unowned self] in
+            guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
             
-            user.updateEmail(to: newEmail) { (error) in
-                if let error = error {
-                    observer(.error(error))
-                } else {
-                    observer(.completed)
+            return Completable.create { (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                user.updateEmail(to: newEmail) { (error) in
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        observer(.completed)
+                    }
                 }
+                
+                return disposable
             }
-            
-            return disposable
         }
     }
     
     public func confirmAuthentication(email: String, password: String) -> Completable {
-        guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
-        
-        return Completable.create { (observer) -> Disposable in
-            let disposable = Disposables.create { }
+        return Completable.deferred { [unowned self] in
+            guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
             
-            user.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: password)) { (result, error) in
-                guard !disposable.isDisposed else { return }
-                if let error = error {
-                    observer(.error(error))
-                } else {
-                    observer(.completed)
+            return Completable.create { (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                user.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: password)) { [unowned self] (result, error) in
+                    guard !disposable.isDisposed else { return }
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        observer(.completed)
+                    }
                 }
+                
+                return disposable
             }
-            
-            return disposable
+        }
+    }
+    
+    /// Map a generic error to a `UserError`.
+    ///
+    /// For more info on all the Firebase errors,
+    /// refer to the [Firebase Documentation](https://firebase.google.com/docs/auth/ios/errors)
+    ///
+    /// - parameters:
+    ///     - error: A error.
+    /// - returns: A `UserError` wrapping the error.
+    func map(error: Error) -> UserError {
+        let nsError = error as NSError
+        
+        switch nsError.code {
+        case AuthErrorCode.networkError.rawValue:
+            return .networkError
+        case AuthErrorCode.userNotFound.rawValue:
+            return .userNotFound
+        case AuthErrorCode.userTokenExpired.rawValue:
+            return .expiredToken
+        case AuthErrorCode.invalidEmail.rawValue:
+            return .invalidEmail
+        case AuthErrorCode.userDisabled.rawValue:
+            return .userDisabled
+        case AuthErrorCode.wrongPassword.rawValue:
+            return .wrongPassword
+        case AuthErrorCode.invalidCredential.rawValue:
+            return .invalidCredential
+        case AuthErrorCode.emailAlreadyInUse.rawValue:
+            return .emailAlreadyInUse
+        case AuthErrorCode.operationNotAllowed.rawValue:
+            return .configurationError
+        case AuthErrorCode.invalidAPIKey.rawValue, AuthErrorCode.appNotAuthorized.rawValue, AuthErrorCode.appNotVerified.rawValue:
+            return .invalidConfiguration
+        case AuthErrorCode.weakPassword.rawValue:
+            return .weakPassword(nsError.userInfo[NSLocalizedFailureReasonErrorKey] as? String)
+        case AuthErrorCode.keychainError.rawValue:
+            return .keychainError(error)
+        case AuthErrorCode.userMismatch.rawValue:
+            return .wrongUser
+        case AuthErrorCode.requiresRecentLogin.rawValue:
+            return .authenticationConfirmationRequired
+        case AuthErrorCode.providerAlreadyLinked.rawValue:
+            return .providerAlreadyLinked
+        default:
+            return .unknown(error)
         }
     }
     

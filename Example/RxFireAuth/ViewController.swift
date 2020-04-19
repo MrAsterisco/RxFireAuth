@@ -27,6 +27,8 @@ class ViewController: UITableViewController {
     @IBOutlet weak var nameField: UITextField!
     @IBOutlet weak var updateProfileButton: UIButton!
     
+    @IBOutlet weak var resetAnononymousSwitch: UISwitch!
+    
     private var userManager: UserManagerType = UserManager()
     private var disposeBag = DisposeBag()
     
@@ -50,12 +52,10 @@ class ViewController: UITableViewController {
                         }
                         self.subtitleLabel.text = "You are logged-in with \(user.email ?? "unknown")."
                     }
-                    self.signOutButton.isEnabled = true
                     self.nameField.text = user.displayName
                 } else {
                     self.welcomeLabel.text = "Welcome!"
                     self.subtitleLabel.text = "You are not logged-in."
-                    self.signOutButton.isEnabled = false
                 }
             }).disposed(by: self.disposeBag)
         
@@ -123,7 +123,7 @@ class ViewController: UITableViewController {
     
     @IBAction func signOut(sender: AnyObject) {
         self.toggleProgress(true)
-        self.userManager.logout(resetToAnonymous: false)
+        self.userManager.logout(resetToAnonymous: self.resetAnononymousSwitch.isOn)
             .subscribe(onCompleted: {
                 self.toggleProgress(false)
             }, onError: self.show(error:))
