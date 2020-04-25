@@ -60,6 +60,12 @@
             <a href="Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="Structs/LoginCredentials.html">LoginCredentials</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="Structs/LoginCredentials/Provider.html">– Provider</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="Structs/LoginDescriptor.html">LoginDescriptor</a>
               </li>
               <li class="nav-group-task">
@@ -89,7 +95,7 @@
 
 <p>RxFireAuth is a wrapper around the <a href="https://firebase.google.com/docs/auth">Firebase Authentication</a> SDK that exposes the most common use cases through <a href="https://github.com/ReactiveX/RxSwift">RxSwift</a> objects.</p>
 
-<p>Firebase Authentication is a great way to support user authentication in your app easily. This library builds on top of that to simplify even further the process with pre-built algorithms that support registering, logging-in, linking accounts with other providers and more.</p>
+<p>Firebase Authentication is a great way to support user authentication in your app easily. This library builds on top of that to simplify even further the process with pre-built algorithms that support registering, logging-in, linking accounts with other providers, and more.</p>
 <h2 id='installation' class='heading'>Installation</h2>
 
 <p>RxFireAuth is available through <a href="https://cocoapods.org">CocoaPods</a>. We don&rsquo;t support other package managers at the moment, mainly because the Firebase SDK is available through CocoaPods only.</p>
@@ -104,7 +110,7 @@
 <p>To get started with RxFireAuth, you can download the example project or dive right into the <a href="https://mrasterisco.github.io/RxFireAuth/">documentation</a>.</p>
 <h2 id='example-project' class='heading'>Example Project</h2>
 
-<p>This library includes a sample project that shows how to support a user login, including anonymous accounts.</p>
+<p>This library includes a sample project that shows how to support a user log in, including anonymous accounts.</p>
 
 <p>To see it in action, follow these steps:</p>
 
@@ -112,12 +118,12 @@
 <li>Download this repository.</li>
 <li>Navigate to your <a href="https://console.firebase.google.com/">Firebase Console</a> and create a new project using <code>io.mrasterisco.github.RxFireAuth-Example</code> as bundle identifier <em>(or change the bundle identifier to match the one of a project you already have)</em>.</li>
 <li>Download the <code>GoogleService-Info.plist</code> and place it in the <code>Example/RxFireAuth</code> folder.</li>
-<li>In the Firebase Console, navigate to Authentication and enable the &ldquo;Email/Password&rdquo; and &ldquo;Anonymous&rdquo; sign-in methods.</li>
+<li>In the Firebase Console, navigate to Authentication and enable the &ldquo;Email/Password&rdquo;, &ldquo;Anonymous&rdquo; and &ldquo;Apple&rdquo; sign-in methods.</li>
 <li>Run <code>pod install</code> inside the <code>Example/RxAuth</code> folder.</li>
-<li>Open the <code>RxFireAuth.xcworkspace</code>, build and run.</li>
+<li>Open the <code>RxFireAuth.xcworkspace</code>, select a valid Signing Identity, build and run.</li>
 </ul>
 
-<p><em>By default, the app will run on simulators only. To run it on an actual device, make sure to select a Team under Signing &amp; Capabilities, in the Xcode settings for the &ldquo;RxFireAuth_Example&rdquo; target.</em></p>
+<p><em>To test Sign in with Apple, you need a valid signing identity. If you don&rsquo;t have one now, you can turn off Sign in with Apple under the &ldquo;Signing &amp; Capabilities&rdquo; tab of the Xcode project.</em></p>
 <h2 id='usage' class='heading'>Usage</h2>
 
 <p>The whole library is built around the <code><a href="Protocols/UserManagerType.html">UserManagerType</a></code> protocol. The library provides the default implementation of it through the <code><a href="Classes/UserManager.html">UserManager</a></code> class, that you can instantiate directly or get through Dependency Injection.</p>
@@ -142,17 +148,17 @@
 <p>Modern applications should always try to delay sign-in as long as possible. From Apple Human Interface Guidelines:</p>
 
 <blockquote>
-<p>Delay sign-in as long as possible. People often abandon apps when they&rsquo;re forced to sign in before doing anything useful. Give them a chance to familiarize themselves with your app before making a commitment. For example, a live-streaming app could let people explore available content before signing in to stream something.</p>
+<p>Delay sign-in as long as possible. People often abandon apps when they&rsquo;re forced to sign in before doing anything useful. Give them a chance to familiarize themselves with your app before committing. For example, a live-streaming app could let people explore available content before signing in to stream something.</p>
 </blockquote>
 
-<p>Anonymous Accounts are Firebase&rsquo;s way to support this situation: when you first launch the app, you create an anonymous account that can then be converted to a new account when the user is ready to actually sign-in. This works flawlessly for new accounts, but has a few catches when dealing with returning users.</p>
+<p>Anonymous Accounts are Firebase&rsquo;s way to support this situation: when you first launch the app, you create an anonymous account that can then be converted to a new account when the user is ready to sign-in. This works flawlessly for new accounts but has a few catches when dealing with returning users.</p>
 
 <p>Consider the following situation:</p>
 
 <ul>
-<li>Mike is a new user of your app. Since you&rsquo;ve strictly followed Apple&rsquo;s guidelines, when Mike opens your app, he&rsquo;s taken directly to the main screen.</li>
+<li>Mike is a new user of your app. Since you&rsquo;ve strictly followed Apple&rsquo;s guidelines when Mike opens your app, he&rsquo;s taken directly to the main screen.</li>
 <li>All the data that Mike builds in your app is linked to an anonymous account that you have created automatically while starting the app for the first time.</li>
-<li>At some point, Mike decides to sign-in in order to sync his data with another device. He registers a new account with his email and a password.</li>
+<li>At some point, Mike decides to sign-in to sync his data with another device. He registers a new account with his email and a password.</li>
 <li>Everything&rsquo;s looking good until now with the normal Firebase SDK, <strong>unless you&rsquo;re super into RxSwift and you want all the Firebase methods to be wrapped into Rx components; if that&rsquo;s the case, skip the next points and go directly to &ldquo;Code Showcase&rdquo; paragraph.</strong></li>
 <li>Now, Mike wants to use his shiny new account to sign-in into another device. He downloads the app once again and he finds himself on the Home screen.</li>
 <li>He goes directly into the Sign-in screen and enters his account credentials: at this point, using the Firebase SDK, you&rsquo;ll try to link the anonymous account that has been created while opening the app to Mike&rsquo;s credential, but you&rsquo;ll get an error saying that those credentials are already in use. <strong>Here&rsquo;s where this library will help you: when logging-in, the <code><a href="Classes/UserManager.html">UserManager</a></code> class will automatically check if the specified credentials already exist and will use those to login; it&rsquo;ll also delete the anonymous account that is no longer needed.</strong></li>
@@ -163,13 +169,13 @@
 <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">login</span><span class="p">(</span><span class="nv">email</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">password</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt">LoginDescriptor</span><span class="o">&gt;</span>
 </code></pre>
 
-<p>The <code>allowMigration</code> parameter is useful in the situation that we&rsquo;ve just described: there is an anonymous account that has to be deleted and replaced with an existing account. When set to <code>nil</code>, the library will return a <code>Single</code> that emits the <code><a href="Enums/UserError.html#/s:10RxFireAuth9UserErrorO17migrationRequiredyA2CmF">UserError.migrationRequired</a></code> error to give your app the chance to ask the user what they&rsquo;d like to do with the data they have in the anonymous account.</p>
+<p>The <code>allowMigration</code> parameter is useful in the situation that we&rsquo;ve just described: there is an anonymous account that has to be deleted and replaced with an existing account. When set to <code>nil</code>, the library will return a <code>Single</code> that emits the <code>UserError.migrationRequired</code> error to give your app the chance to ask the user what they&rsquo;d like to do with the data they have in the anonymous account.</p>
 
 <p><img src="https://i.imgur.com/XRPhSUg.jpg" alt="Account Migration Alert"></p>
 
 <p>When the user has made a choice, pass either <code>true</code> or <code>false</code> to get the same value circled back to your code after the login procedure has completed successfully.</p>
 
-<p>To support the migration, all login methods return an instance of <code><a href="Structs/LoginDescriptor.html">LoginDescriptor</a></code> which gives you the <code>allowMigration</code> parameter that you&rsquo;ve passed, the User ID of the anonymous account and the User ID of the account that is now logged-in. With this information, you can go ahead and migrate the data from the anonymous account to the newly logged-in account.</p>
+<p>To support the migration, all login methods return an instance of <code><a href="Structs/LoginDescriptor.html">LoginDescriptor</a></code> which gives you the <code>allowMigration</code> parameter that you&rsquo;ve passed, the User ID of the anonymous account, and the User ID of the account that is now logged-in. With this information, you can go ahead and migrate the data from the anonymous account to the newly logged-in account.</p>
 <h4 id='sign-in-with-apple' class='heading'>Sign-in with Apple</h4>
 
 <p>If you are thinking of providing alternatives ways to login into your app, you have to consider Sign-in with Apple as an option, <em><a href="https://developer.apple.com/app-store/review/guidelines/#4.8">mainly because you have to</a>, but also because it provides a great experience for people using your app in the Apple ecosystem</em>.</p>
@@ -180,16 +186,16 @@
 
 <ul>
 <li>On the first device, nothing changes: with the standard Firebase SDK, we can link the anonymous account with Mike&rsquo;s Apple ID.</li>
-<li>On the second device, a lot of different things will happen: first of all, Apple has a different flow for apps that have already used Sign-in with Apple; this means that if the user registers and then deletes their account in your app, they&rsquo;ll still get a different sign-in flow in the case they return to the app and Sign-in with Apple once again (further on this <a href="https://forums.developer.apple.com/thread/119826">here</a>). Secondly, you&rsquo;ll have to handle a lot of different cases.</li>
+<li>On the second device, two things will happen: first of all, Apple has a different flow for apps that have already used Sign-in with Apple; and this is not controllable by you, so if the user registers and then deletes their account in your app, they&rsquo;ll still get a different sign-in flow in the case they return to the app and Sign-in with Apple once again (further on this <a href="https://forums.developer.apple.com/thread/119826">here</a>). Secondly, you&rsquo;ll have to handle various cases.</li>
 </ul>
 
 <p>When using Sign-in with Apple <em>(or any other provider, such as Google or Facebook)</em>, the following situations may apply:</p>
 
 <ul>
 <li>There is an anonymous user logged-in and the Apple ID is not linked with any existing account: that&rsquo;s fantastic! We&rsquo;ll just link the Apple ID with the anonymous user and we&rsquo;re done.</li>
-<li>There is an anonymous user logged-in, but the Apple ID is already linked with another account: we&rsquo;ll have to go through the migration and then login into the existing account.</li>
+<li>There is an anonymous user logged-in, but the Apple ID is already linked with another account: we&rsquo;ll have to go through the migration and then log in to the existing account.</li>
 <li>There is a normal user logged-in and the Apple ID is not already linked with another account: the user is trying to link their Apple ID with an existing account, let&rsquo;s go ahead and do that.</li>
-<li>There is a normal user logged-in, but the Apple ID is already linked with another account: we&rsquo;ll throw an error, because the user has to choose what to do.</li>
+<li>There is a normal user logged-in, but the Apple ID is already linked with another account: we&rsquo;ll throw an error because the user has to choose what to do.</li>
 <li>There is nobody logged-in and the Apple ID is either already linked or not: we&rsquo;ll sign in into the existing or new account.</li>
 </ul>
 <h5 id='code-showcase' class='heading'>Code Showcase</h5>
@@ -200,9 +206,13 @@
 
 <p><em>This function is available in implementations of <code><a href="Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a></code>, such as the <code><a href="Classes/UserManager.html">UserManager</a></code> class that we&rsquo;re already using.</em></p>
 
-<p>You can use the <code>updateUserDisplayName</code> parameter to automatically set the Firebase User <code>displayName</code> property to the full name associated to the Apple ID. <em>Keep in mind that the user can change this information while signing-in with Apple for the first time.</em></p>
+<p>You can use the <code>updateUserDisplayName</code> parameter to automatically set the Firebase User <code>displayName</code> property to the full name associated with the Apple ID. <em>Keep in mind that the user can change this information while signing-in with Apple for the first time.</em></p>
 
-<p>This function will behave as the normal login, returning <code><a href="Enums/UserError.html#/s:10RxFireAuth9UserErrorO17migrationRequiredyA2CmF">UserError.migrationRequired</a></code>, if an anonymous account is going to be deleted and <code>allowMigration</code> is not set.</p>
+<p>This function will behave as the normal login, returning <code>UserError.migrationRequired</code>, if an anonymous account is going to be deleted and <code>allowMigration</code> is not set. When this happens, you can use the following function to continue signing in after having asked the user what they would like to do:</p>
+<pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">login</span><span class="p">(</span><span class="n">with</span> <span class="nv">credentials</span><span class="p">:</span> <span class="kt">LoginCredentials</span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt">LoginDescriptor</span><span class="o">&gt;</span>
+</code></pre>
+
+<p>The login credentials are embedded in the <code>migrationRequired</code> error and, except for particular cases, you shouldn&rsquo;t need to inspect them.</p>
 <h4 id='standard-flow' class='heading'>Standard Flow</h4>
 
 <p>If you don&rsquo;t want to support the anonymous authentication, you can use this library anyway as all of the methods are built to work even when no account is logged-in.</p>
@@ -240,7 +250,7 @@
 <p>Compatibility with macOS is <strong>planned</strong>. Don&rsquo;t hesitate to open an issue to prioritize it.</p>
 <h2 id='contributions' class='heading'>Contributions</h2>
 
-<p>All contributions to expand the library are welcome. Fork the repo, make the changes you want and open a Pull Request.</p>
+<p>All contributions to expand the library are welcome. Fork the repo, make the changes you want, and open a Pull Request.</p>
 
 <p>If you make changes to the codebase, I am not enforcing a coding style, but I may ask you to make changes based on how the rest of the library is made.</p>
 <h2 id='status' class='heading'>Status</h2>
@@ -253,7 +263,7 @@
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-19)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-25)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
