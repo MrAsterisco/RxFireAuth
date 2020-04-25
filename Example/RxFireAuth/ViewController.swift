@@ -11,6 +11,8 @@ import RxFireAuth
 import RxSwift
 import RxCocoa
 
+/// This class shows you an example of almost all the features that
+/// RxFireAuth supports.
 class ViewController: UITableViewController {
 
     @IBOutlet weak var welcomeLabel: UILabel!
@@ -37,6 +39,12 @@ class ViewController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        /// Registering to `autoupdatingUser` gives us
+        /// an observable that emits a new value every time something
+        /// on the user changes.
+        ///
+        /// You should use this to bind your UI to make sure that
+        /// everything is always updated.
         self.userManager.autoupdatingUser
             .observeOn(MainScheduler.instance)
             .subscribe(onNext: { (user) in
@@ -89,6 +97,8 @@ class ViewController: UITableViewController {
         return allowMigration
     }
     
+    /// Login with email and password or anonymously based
+    /// on if there is something written in the email field.
     @IBAction func signIn(sender: AnyObject) {
         self.toggleProgress(true)
         if self.loginField.text?.count == 0 {
@@ -99,21 +109,35 @@ class ViewController: UITableViewController {
                 .disposed(by: self.disposeBag)
         } else {
             self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: self.migrationAllowance)
-                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: { [unowned self] error in
+                    if case UserError.migrationRequired(let credentials) = error {
+                        self.handleMigration(credentials: credentials)
+                    } else {
+                        self.show(error: error)
+                    }
+                })
                 .disposed(by: self.disposeBag)
         }
     }
     
+    /// Start the Sign in with Apple flow.
     @IBAction func signInWithApple(sender: AnyObject) {
         if #available(iOS 13.0, *) {
             self.userManager.signInWithApple(in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
-                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: { [unowned self] error in
+                    if case UserError.migrationRequired(let credentials) = error {
+                        self.handleMigration(credentials: credentials)
+                    } else {
+                        self.show(error: error)
+                    }
+                })
                 .disposed(by: self.disposeBag)
         } else {
             self.show(title: "Sign in with Apple is not available on iOS 12 or earlier.", message: "Use a device running iOS 13 or later to test this feature.")
         }
     }
     
+    /// Sign out.
     @IBAction func signOut(sender: AnyObject) {
         self.toggleProgress(true)
         self.userManager.logout(resetToAnonymous: self.resetAnononymousSwitch.isOn)
@@ -123,6 +147,8 @@ class ViewController: UITableViewController {
             .disposed(by: self.disposeBag)
     }
     
+    /// Update the user display name using the
+    /// value of the name field.
     @IBAction func updateProfile(sender: AnyObject) {
         self.toggleProgress(true)
         self.userManager.update { (userData) -> UserData in
@@ -139,12 +165,42 @@ class ViewController: UITableViewController {
         self.loginField.becomeFirstResponder()
     }
     
+    /// This function is called when a login operation has failed because of a `UserError.migrationRequired` error.
+    ///
+    /// After having asked to the user what they would like to do with their existing data, you can continue the flow
+    /// using `login(with credentials:updateUserDisplayName:allowMigration:)`. No credentials are
+    /// passed when the `UserError.migrationRequired` error is thrown during a sign in with email and password, because
+    /// a new login attempt can be made seamlessly without asking anything to the user.
+    private func handleMigration(credentials: LoginCredentials?) {
+        let migrationAlert = UIAlertController(title: "Migration Required", message: "You are trying to login into an existing account while being logged-in with an anonymous account. When doing this in a real app, you should check if the user has data in the anonymous account and, if so, offer the option to merge the anonymous account with the one that the user is trying to sign into.", preferredStyle: .actionSheet)
+        migrationAlert.addAction(UIAlertAction(title: "Migrate", style: .destructive, handler: { [unowned self] _ in
+            if let credentials = credentials {
+                self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
+                    .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+                    .disposed(by: self.disposeBag)
+            } else {
+                self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: true)
+                    .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+                    .disposed(by: self.disposeBag)
+            }
+        }))
+        migrationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        
+        self.present(migrationAlert, animated: true, completion: nil)
+    }
+    
+    // MARK: - Utilities
+    
     private func toggleProgress(_ show: Bool, completionHandler: (() -> Void)? = nil) {
         if show {
             self.progressDialog = UIAlertController(title: "Working…", message: nil, preferredStyle: .alert)
             self.present(self.progressDialog!, animated: true, completion: completionHandler)
         } else {
-            self.progressDialog?.dismiss(animated: true, completion: completionHandler)
+            if let progressDialog = self.progressDialog {
+                progressDialog.dismiss(animated: true, completion: completionHandler)
+            } else {
+                completionHandler?()
+            }
         }
     }
     

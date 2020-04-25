@@ -21,7 +21,8 @@ public enum UserError: LocalizedError {
     /// The provided email is not valid.
     case invalidEmail
     /// The action would require to migrate the current user data to a new account.
-    case migrationRequired
+    /// Use the passed login credentials to continue signing-in when ready by calling `login(with credentials:updateUserDisplayName:allowMigration:)`
+    case migrationRequired(LoginCredentials?)
     /// The requested action cannot be performed because there is already an anonymous user logged-in.
     case alreadyAnonymous
     /// The specified user cannot be found.

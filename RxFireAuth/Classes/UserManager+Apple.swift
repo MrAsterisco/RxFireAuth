@@ -42,14 +42,7 @@ extension UserManager: LoginProviderManagerType {
             return disposable
         }
         .flatMap { [unowned self] credentials in
-            self.login(with: credentials, allowMigration: allowMigration)
-        }
-        .flatMap { (loginDescriptor) -> Single<LoginDescriptor> in
-            if updateUserDisplayName, let fullName = loginDescriptor.fullName, fullName.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
-                return self.update(user: UserData(id: nil, email: nil, displayName: fullName, isAnonymous: false))
-                    .andThen(Single.just(loginDescriptor))
-            }
-            return Single.just(loginDescriptor)
+            self.login(with: credentials, updateUserDisplayName: updateUserDisplayName, allowMigration: allowMigration)
         }
     }
     

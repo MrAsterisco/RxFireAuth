@@ -229,7 +229,7 @@ public class UserManager: UserManagerType {
             
             if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
                 if allowMigration == nil {
-                    observer(.error(UserError.migrationRequired))
+                    observer(.error(UserError.migrationRequired(nil)))
                     return disposable
                 }
                 
@@ -250,8 +250,8 @@ public class UserManager: UserManagerType {
         }
     }
     
-    public func login(with credentials: LoginCredentials, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
-        return Single.create { [unowned self] observer -> Disposable in
+    public func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
+        return Single<LoginDescriptor>.create { [unowned self] observer -> Disposable in
             let disposable = Disposables.create { }
             
             let firebaseCredentials = OAuthProvider.credential(withProviderID: credentials.provider.rawValue, idToken: credentials.idToken, rawNonce: credentials.nonce)
@@ -282,7 +282,7 @@ public class UserManager: UserManagerType {
                     /// There is a currently logged-in user.
                     if currentUser.isAnonymous {
                         if allowMigration == nil {
-                            observer(.error(UserError.migrationRequired))
+                            observer(.error(UserError.migrationRequired(credentials)))
                             return
                         }
                         
@@ -321,6 +321,13 @@ public class UserManager: UserManagerType {
             }
             
             return disposable
+        }
+        .flatMap { (loginDescriptor) -> Single<LoginDescriptor> in
+            if updateUserDisplayName, let fullName = loginDescriptor.fullName, fullName.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
+                return self.update(user: UserData(id: nil, email: nil, displayName: fullName, isAnonymous: false))
+                    .andThen(Single.just(loginDescriptor))
+            }
+            return Single.just(loginDescriptor)
         }
     }
     

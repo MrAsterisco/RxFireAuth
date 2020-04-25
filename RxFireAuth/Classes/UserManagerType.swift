@@ -95,7 +95,14 @@ public protocol UserManagerType {
     /// Use this function to sign in with a provider credentials. In a normal flow,
     /// you'll use this function with credentials obtained by one of the `signInWith…` methods
     /// provided by implementations of `LoginProviderManagerType`.
-    func login(with credentials: LoginCredentials, allowMigration: Bool?) -> Single<LoginDescriptor>
+    ///
+    /// - since: version 1.3.0
+    ///
+    /// - parameters:
+    ///     - credentials: Credentials to use to login.
+    ///     - updateUserDisplayName: If the passed credentials result in a successful login and this is set to `true`, this function will attempt to update the user display name by reading it from the resulting `LoginDescriptor`.
+    /// - returns: A Single to observe for result.
+    func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
     
     /// Logout the currently logged-in user.
     ///
