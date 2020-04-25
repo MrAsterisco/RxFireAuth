@@ -61,6 +61,12 @@
             <a href="../Structs.html">Structures</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Structs/LoginCredentials.html">LoginCredentials</a>
+              </li>
+              <li class="nav-group-task">
+                <a href="../Structs/LoginCredentials/Provider.html">– Provider</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Structs/LoginDescriptor.html">LoginDescriptor</a>
               </li>
               <li class="nav-group-task">
@@ -500,7 +506,7 @@ will not execute any code until somebody subscribes to it.</p>
                               <td>
                                 <div>
                                   <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login in an existing account. This option will be passed back to the caller
-in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO17migrationRequiredyA2CmF">UserError.migrationRequired</a></code> error will be thrown.</p>
+in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code>UserError.migrationRequired</code> error will be thrown.</p>
                                 </div>
                               </td>
                             </tr>
@@ -564,6 +570,77 @@ with the specified email address exists on the backend.</p>
                               <td>
                                 <div>
                                   <p>A password.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Single to observe for result.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP5login4with06updateD11DisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA15LoginDescriptorVGAA0S11CredentialsV_S2bSgtF"></a>
+                    <a name="//apple_ref/swift/Method/login(with:updateUserDisplayName:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP5login4with06updateD11DisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAH11SingleTraitOAA15LoginDescriptorVGAA0S11CredentialsV_S2bSgtF">login(with:<wbr>updateUserDisplayName:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sign in with the passed credentials on a provider.</p>
+
+<p>Use this function to sign in with a provider credentials. In a normal flow,
+you&rsquo;ll use this function with credentials obtained by one of the <code>signInWith…</code> methods
+provided by implementations of <code><a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a></code>.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    <p>version 1.3.0</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">login</span><span class="p">(</span><span class="n">with</span> <span class="nv">credentials</span><span class="p">:</span> <span class="kt"><a href="../Structs/LoginCredentials.html">LoginCredentials</a></span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>credentials</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Credentials to use to login.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateUserDisplayName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If the passed credentials result in a successful login and this is set to <code>true</code>, this function will attempt to update the user display name by reading it from the resulting <code><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></code>.</p>
                                 </div>
                               </td>
                             </tr>
@@ -876,7 +953,7 @@ maps it by calling the <code>userConfigurationHandler</code> and passes it to <c
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-19)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-04-25)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
