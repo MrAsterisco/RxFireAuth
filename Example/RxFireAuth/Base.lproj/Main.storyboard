@@ -220,8 +220,34 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aRd-y8-EFj">
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rKQ-l3-Jgl">
                                         <rect key="frame" x="0.0" y="683" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rKQ-l3-Jgl" id="STd-4d-Ith">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="D6D-eY-1kT" customClass="ASAuthorizationAppleIDButton">
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="44"/>
+                                                    <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="dbQ-bs-VlO"/>
+                                                    </constraints>
+                                                    <connections>
+                                                        <action selector="signInWithAppleWithSender:" destination="ctm-QS-frk" eventType="touchUpInside" id="dPI-DD-3oC"/>
+                                                    </connections>
+                                                </view>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="D6D-eY-1kT" firstAttribute="top" secondItem="STd-4d-Ith" secondAttribute="top" id="Am2-6a-OCk"/>
+                                                <constraint firstAttribute="bottom" secondItem="D6D-eY-1kT" secondAttribute="bottom" id="Drd-Z0-fV9"/>
+                                                <constraint firstItem="D6D-eY-1kT" firstAttribute="leading" secondItem="STd-4d-Ith" secondAttribute="leading" constant="20" symbolic="YES" id="EeV-Ds-d9F"/>
+                                                <constraint firstAttribute="trailing" secondItem="D6D-eY-1kT" secondAttribute="trailing" constant="20" symbolic="YES" id="FOq-uw-TWJ"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aRd-y8-EFj">
+                                        <rect key="frame" x="0.0" y="726.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aRd-y8-EFj" id="Zg7-XD-CeA">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -250,7 +276,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qlR-qY-KKn">
-                                        <rect key="frame" x="0.0" y="726.5" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="770" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qlR-qY-KKn" id="q27-43-Ymq">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -305,7 +331,7 @@
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fXz-1k-KFy" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="113" y="106"/>
+            <point key="canvasLocation" x="112.8" y="105.69715142428787"/>
         </scene>
     </scenes>
 </document>
