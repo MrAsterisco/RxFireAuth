@@ -90,6 +90,13 @@ public protocol UserManagerType {
     /// - returns: A Single to observe for result.
     func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
     
+    /// Sign in with the passed credentials on a provider.
+    ///
+    /// Use this function to sign in with a provider credentials. In a normal flow,
+    /// you'll use this function with credentials obtained by one of the `signInWith…` methods
+    /// provided by implementations of `LoginProviderManagerType`.
+    func login(with credentials: LoginCredentials, allowMigration: Bool?) -> Single<LoginDescriptor>
+    
     /// Logout the currently logged-in user.
     ///
     /// Using the `resetToAnonymous` parameter, you can make sure

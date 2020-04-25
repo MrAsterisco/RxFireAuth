@@ -51,7 +51,7 @@ PODS:
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxFireAuth (1.0.0):
+  - RxFireAuth (1.2.0):
     - Firebase/Auth (~> 6.5)
     - JWTDecode (~> 2.4)
     - RxCocoa (~> 5)
@@ -98,7 +98,7 @@ SPEC CHECKSUMS:
   JWTDecode: 4bd4da0cdf0f8154fd467fa48499f34ec057fb88
   nanopb: 18003b5e52dab79db540fe93fe9579f399bd1ccd
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxFireAuth: 2fdfec4d2f2214019924986354875a53cae81d52
+  RxFireAuth: d2ecd67892ffc2112d9160b6135a85e75bffaf81
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 

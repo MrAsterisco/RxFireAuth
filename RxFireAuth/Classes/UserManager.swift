@@ -250,6 +250,80 @@ public class UserManager: UserManagerType {
         }
     }
     
+    public func continueSigninIn(with credentials: LoginCredentials, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
+        return Single.create { [unowned self] observer -> Disposable in
+            let disposable = Disposables.create { }
+            
+            let firebaseCredentials = OAuthProvider.credential(withProviderID: credentials.provider.rawValue, idToken: credentials.idToken, rawNonce: credentials.nonce)
+            
+            var oldUserId: String?
+            let signInCompletionHandler: (Error?) -> Void = { (error) in
+                guard !disposable.isDisposed else { return }
+                if let error = error {
+                    observer(.error(error))
+                } else if let newUser = Auth.auth().currentUser {
+                    observer(
+                        .success(
+                            LoginDescriptor(fullName: credentials.fullName, performMigration: allowMigration ?? false, oldUserId: oldUserId, newUserId: newUser.uid)
+                        )
+                    )
+                } else {
+                    observer(.error(UserError.noUser))
+                }
+            }
+            
+            /// Get if this user already exists
+            Auth.auth().fetchSignInMethods(forEmail: credentials.email) { (methods, error) in
+                guard !disposable.isDisposed else { return }
+                guard error == nil else { observer(.error(error!)); return }
+                
+                if let methods = methods, methods.count > 0, let currentUser = Auth.auth().currentUser {
+                    /// This user exists.
+                    /// There is a currently logged-in user.
+                    if currentUser.isAnonymous {
+                        if allowMigration == nil {
+                            observer(.error(UserError.migrationRequired))
+                            return
+                        }
+                        
+                        oldUserId = currentUser.uid
+                        
+                        /// The currently logged-in user is anonymous
+                        /// We'll delete the anonymous account and login with the new account.
+                        currentUser.delete { (error) in
+                            guard !disposable.isDisposed else { return }
+                            if let error = error {
+                                observer(.error(error))
+                            } else {
+                                self.signIn(with: firebaseCredentials, in: disposable, completionHandler: signInCompletionHandler)
+                            }
+                        }
+                    } else {
+                        /// The logged-in user is not anonymous.
+                        /// We'll try to link this authentication method to the existing account.
+                        currentUser.link(with: firebaseCredentials) { (_, error) in
+                            signInCompletionHandler(error)
+                        }
+                    }
+                } else if let currentUser = Auth.auth().currentUser {
+                    /// This user does not exist.
+                    /// There is a logged-in user.
+                    /// We'll try to link the new authentication method to the existing account.
+                    currentUser.link(with: firebaseCredentials) { (_, error) in
+                        signInCompletionHandler(error)
+                    }
+                } else {
+                    /// This user does not exist.
+                    /// There's nobody logged-in.
+                    /// We'll go ahead and sign in with the authentication method.
+                    self.signIn(with: firebaseCredentials, in: disposable, completionHandler: signInCompletionHandler)
+                }
+            }
+            
+            return disposable
+        }
+    }
+    
     /// Sign in with the passed credentials in the specified disposable
     /// and calls the completion handler when done.
     ///

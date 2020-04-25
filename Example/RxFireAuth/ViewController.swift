@@ -29,7 +29,7 @@ class ViewController: UITableViewController {
     
     @IBOutlet weak var resetAnononymousSwitch: UISwitch!
     
-    private var userManager: UserManagerType = UserManager()
+    private var userManager: UserManagerType & LoginProviderManagerType = UserManager()
     private var disposeBag = DisposeBag()
     
     private var progressDialog: UIAlertController?
@@ -75,6 +75,20 @@ class ViewController: UITableViewController {
             .disposed(by: self.disposeBag)
     }
     
+    private var migrationAllowance: Bool? {
+        let allowMigration: Bool?
+        switch self.dataMigrationControl.selectedSegmentIndex {
+        case 1:
+            allowMigration = true
+        case 2:
+            allowMigration = false
+        default:
+            allowMigration = nil
+        }
+        
+        return allowMigration
+    }
+    
     @IBAction func signIn(sender: AnyObject) {
         self.toggleProgress(true)
         if self.loginField.text?.count == 0 {
@@ -84,40 +98,19 @@ class ViewController: UITableViewController {
                 }, onError: self.show(error:))
                 .disposed(by: self.disposeBag)
         } else {
-            let allowMigration: Bool?
-            switch self.dataMigrationControl.selectedSegmentIndex {
-            case 1:
-                allowMigration = true
-            case 2:
-                allowMigration = false
-            default:
-                allowMigration = nil
-            }
-            
-            self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: allowMigration)
-                .subscribe(onSuccess: { [unowned self] (descriptor) in
-                    self.loginField.text = nil
-                    self.passwordField.text = nil
-                    self.toggleProgress(false) { [unowned self] in
-                        let alertController = UIAlertController(title: "You are now logged in!", message: nil, preferredStyle: .alert)
-                        var messages = [String]()
-                        if descriptor.performMigration {
-                            messages += ["Migration is required!"]
-                        } else {
-                            messages += ["Migration is not required."]
-                        }
-                        if let oldUserId = descriptor.oldUserId {
-                            messages += ["Your old User ID is: \(oldUserId)."]
-                        }
-                        if let newUserId = descriptor.newUserId {
-                            messages += ["Your new User ID is: \(newUserId)."]
-                        }
-                        alertController.message = messages.joined(separator: " ")
-                        alertController.addAction(UIAlertAction(title: "Cool!", style: .default, handler: nil))
-                        self.present(alertController, animated: true, completion: nil)
-                    }
-                }, onError: self.show(error:))
+            self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: self.migrationAllowance)
+                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
                 .disposed(by: self.disposeBag)
+        }
+    }
+    
+    @IBAction func signInWithApple(sender: AnyObject) {
+        if #available(iOS 13.0, *) {
+            self.userManager.signInWithApple(in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
+                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+                .disposed(by: self.disposeBag)
+        } else {
+            self.show(title: "Sign in with Apple is not available on iOS 12 or earlier.", message: "Use a device running iOS 13 or later to test this feature.")
         }
     }
     
@@ -155,9 +148,36 @@ class ViewController: UITableViewController {
         }
     }
     
-    private func show(error: Error) {
+    private func handleLoggedIn(_ descriptor: LoginDescriptor) {
+        self.loginField.text = nil
+        self.passwordField.text = nil
         self.toggleProgress(false) { [unowned self] in
-            let alertController = UIAlertController(title: "An error occurred!", message: error.localizedDescription, preferredStyle: .alert)
+            let alertController = UIAlertController(title: "You are now logged in!", message: nil, preferredStyle: .alert)
+            var messages = [String]()
+            if descriptor.performMigration {
+                messages += ["Migration is required!"]
+            } else {
+                messages += ["Migration is not required."]
+            }
+            if let oldUserId = descriptor.oldUserId {
+                messages += ["Your old User ID is: \(oldUserId)."]
+            }
+            if let newUserId = descriptor.newUserId {
+                messages += ["Your new User ID is: \(newUserId)."]
+            }
+            alertController.message = messages.joined(separator: " ")
+            alertController.addAction(UIAlertAction(title: "Cool!", style: .default, handler: nil))
+            self.present(alertController, animated: true, completion: nil)
+        }
+    }
+    
+    private func show(error: Error) {
+        self.show(title: "An error occurred!", message: error.localizedDescription)
+    }
+    
+    private func show(title: String, message: String) {
+        self.toggleProgress(false) { [unowned self] in
+            let alertController = UIAlertController(title: title, message: message, preferredStyle: .alert)
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
