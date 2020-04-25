@@ -95,7 +95,7 @@ public enum UserError: LocalizedError {
         case .providerAlreadyLinked:
             return "This login provider is already linked."
         case .configurationError:
-            return "There is an error in your Firebase Console configuration."
+            return "There is an error in your Firebase Console configuration. The requested login provider may be disabled."
         case .invalidConfiguration:
             return "There is an error in your app configuration."
         case .keychainError(let error):

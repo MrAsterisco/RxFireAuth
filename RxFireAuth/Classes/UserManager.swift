@@ -260,7 +260,7 @@ public class UserManager: UserManagerType {
             let signInCompletionHandler: (Error?) -> Void = { (error) in
                 guard !disposable.isDisposed else { return }
                 if let error = error {
-                    observer(.error(error))
+                    observer(.error(self.map(error: error)))
                 } else if let newUser = Auth.auth().currentUser {
                     observer(
                         .success(
@@ -293,7 +293,7 @@ public class UserManager: UserManagerType {
                         currentUser.delete { (error) in
                             guard !disposable.isDisposed else { return }
                             if let error = error {
-                                observer(.error(error))
+                                observer(.error(self.map(error: error)))
                             } else {
                                 self.signIn(with: firebaseCredentials, in: disposable, completionHandler: signInCompletionHandler)
                             }
