@@ -250,7 +250,7 @@ public class UserManager: UserManagerType {
         }
     }
     
-    public func continueSigninIn(with credentials: LoginCredentials, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
+    public func login(with credentials: LoginCredentials, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
         return Single.create { [unowned self] observer -> Disposable in
             let disposable = Disposables.create { }
             
