@@ -32,7 +32,7 @@ To see it in action, follow these steps:
 - Navigate to your [Firebase Console](https://console.firebase.google.com/) and create a new project using `io.mrasterisco.github.RxFireAuth-Example` as bundle identifier *(or change the bundle identifier to match the one of a project you already have)*.
 - Download the `GoogleService-Info.plist` and place it in the `Example/RxFireAuth` folder.
 - In the Firebase Console, navigate to Authentication and enable the "Email/Password", "Anonymous" and "Apple" sign-in methods.
-- Run `pod install` inside the `Example/RxAuth` folder.
+- Run `pod install` inside the `Example` folder.
 - Open the `RxFireAuth.xcworkspace`, select a valid Signing Identity, build and run.
 
 *To test Sign in with Apple, you need a valid signing identity. If you don't have one now, you can turn off Sign in with Apple under the "Signing & Capabilities" tab of the Xcode project.*
