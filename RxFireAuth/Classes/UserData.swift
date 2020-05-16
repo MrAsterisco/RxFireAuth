@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import FirebaseAuth
 
 /// A User.
 ///
@@ -34,5 +35,20 @@ public struct UserData {
     ///
     /// Corresponds to `isAnonymous` on the Firebase User object.
     public let isAnonymous: Bool
+    
+    /// Get a list of providers that this user has connected.
+    public let authenticationProviders: [LoginCredentials.Provider]
+    
+    /// Initialize a new instance using data from the passed Firebase User.
+    ///
+    /// - parameters:
+    ///     - user: A Firebase User.
+    init(user: User) {
+        self.id = user.uid
+        self.email = user.email
+        self.displayName = user.displayName
+        self.isAnonymous = user.isAnonymous
+        self.authenticationProviders = user.providerData.compactMap { LoginCredentials.Provider(rawValue: $0.providerID) }
+    }
     
 }

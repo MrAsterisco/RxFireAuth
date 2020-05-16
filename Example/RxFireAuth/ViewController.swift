@@ -31,6 +31,8 @@ class ViewController: UITableViewController {
     
     @IBOutlet weak var resetAnononymousSwitch: UISwitch!
     
+    @IBOutlet weak var providersField: UILabel!
+    
     private var userManager: UserManagerType & LoginProviderManagerType = UserManager()
     private var disposeBag = DisposeBag()
     
@@ -47,7 +49,7 @@ class ViewController: UITableViewController {
         /// everything is always updated.
         self.userManager.autoupdatingUser
             .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (user) in
+            .subscribe(onNext: { [unowned self] (user) in
                 if let user = user {
                     if user.isAnonymous {
                         self.welcomeLabel.text = "Welcome, Anonymous!"
@@ -61,9 +63,12 @@ class ViewController: UITableViewController {
                         self.subtitleLabel.text = "You are logged-in with \(user.email ?? "unknown")."
                     }
                     self.nameField.text = user.displayName
+                    
+                    self.providersField.text = user.authenticationProviders.map { $0.rawValue }.joined(separator: ", ")
                 } else {
                     self.welcomeLabel.text = "Welcome!"
                     self.subtitleLabel.text = "You are not logged-in."
+                    self.providersField.text = "Not logged-in."
                 }
             }).disposed(by: self.disposeBag)
         
@@ -83,18 +88,8 @@ class ViewController: UITableViewController {
             .disposed(by: self.disposeBag)
     }
     
-    private var migrationAllowance: Bool? {
-        let allowMigration: Bool?
-        switch self.dataMigrationControl.selectedSegmentIndex {
-        case 1:
-            allowMigration = true
-        case 2:
-            allowMigration = false
-        default:
-            allowMigration = nil
-        }
-        
-        return allowMigration
+    override func viewDidAppear(_ animated: Bool) {
+        self.loginField.becomeFirstResponder()
     }
     
     /// Login with email and password or anonymously based
@@ -141,7 +136,7 @@ class ViewController: UITableViewController {
     @IBAction func signOut(sender: AnyObject) {
         self.toggleProgress(true)
         self.userManager.logout(resetToAnonymous: self.resetAnononymousSwitch.isOn)
-            .subscribe(onCompleted: {
+            .subscribe(onCompleted: { [unowned self] in
                 self.toggleProgress(false)
             }, onError: self.show(error:))
             .disposed(by: self.disposeBag)
@@ -151,18 +146,92 @@ class ViewController: UITableViewController {
     /// value of the name field.
     @IBAction func updateProfile(sender: AnyObject) {
         self.toggleProgress(true)
-        self.userManager.update { (userData) -> UserData in
+        self.userManager.update { [unowned self] (userData) -> UserData in
                 var user = userData
                 user.displayName = self.nameField.text
                 return user
-            }.subscribe(onCompleted: {
+            }.subscribe(onCompleted: { [unowned self] in
                 self.toggleProgress(false)
             }, onError: self.show(error:))
             .disposed(by: self.disposeBag)
     }
     
-    override func viewDidAppear(_ animated: Bool) {
-        self.loginField.becomeFirstResponder()
+    /// Set or update the user password.
+    ///
+    /// This function verifies if the user already has a password set or not.
+    /// You can skip this check and call the library directly, but you keep in mind
+    /// that if a user already has a password set they must reauthenticate to change it.
+    @IBAction func changePassword(sender: AnyObject) {
+        self.toggleProgress(true)
+        self.userManager.autoupdatingUser
+            .take(1)
+            .filter { $0 != nil }.map { $0! }
+            .map { $0.authenticationProviders }
+            .subscribe(onNext: { [unowned self] (authenticationProviders) in
+                self.toggleProgress(false) { [unowned self] in
+                    if authenticationProviders.contains(.password) {
+                        self.changeExistingPassword()
+                    } else {
+                        self.setNewPassword()
+                    }
+                }
+            }).disposed(by: self.disposeBag)
+    }
+    
+    /// Delete the currently logged-in account.
+    @IBAction func deleteAccount(sender: AnyObject) {
+        self.toggleProgress(true)
+        self.userManager.deleteUser(resetToAnonymous: self.resetAnononymousSwitch.isOn)
+            .subscribe(onCompleted: { [unowned self] in
+                self.toggleProgress(false)
+            }, onError: self.show(error:))
+            .disposed(by: self.disposeBag)
+    }
+    
+    /// Confirm credentials and then ask for a new password.
+    private func changeExistingPassword() {
+        let alertController = UIAlertController(title: "Confirm Credentials", message: "Insert your current password below:", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "Current Password"
+            if #available(iOS 11, *) {
+                textField.textContentType = .password
+            }
+            textField.isSecureTextEntry = true
+        }
+        alertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [unowned self] _ in
+            alertController.dismiss(animated: true)
+            
+            self.userManager.confirmAuthentication(email: self.userManager.user!.email!, password: alertController.textFields!.first!.text!)
+                .observeOn(MainScheduler.instance)
+                .subscribe(onCompleted: self.setNewPassword, onError: self.show(error:))
+                .disposed(by: self.disposeBag)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alertController, animated: true, completion: nil)
+    }
+    
+    /// Immediately ask for a new password.
+    private func setNewPassword() {
+        let alertController = UIAlertController(title: "New Password", message: "Insert your new password below:", preferredStyle: .alert)
+        alertController.addTextField { (textField) in
+            textField.placeholder = "New Password"
+            if #available(iOS 11, *) {
+                textField.textContentType = .password
+            }
+            textField.isSecureTextEntry = true
+        }
+        alertController.addAction(UIAlertAction(title: "Set", style: .default, handler: { [unowned self] _ in
+            alertController.dismiss(animated: true)
+            
+            self.userManager.updatePassword(newPassword: alertController.textFields!.first!.text!)
+                .observeOn(MainScheduler.instance)
+                .subscribe(onCompleted: { [unowned self] in
+                    self.show(title: "Password set!", message: "Your new password has been set.")
+                }, onError: self.show(error:))
+                .disposed(by: self.disposeBag)
+        }))
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alertController, animated: true, completion: nil)
     }
     
     /// This function is called when a login operation has failed because of a `UserError.migrationRequired` error.
@@ -237,6 +306,20 @@ class ViewController: UITableViewController {
             alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         }
+    }
+    
+    private var migrationAllowance: Bool? {
+        let allowMigration: Bool?
+        switch self.dataMigrationControl.selectedSegmentIndex {
+        case 1:
+            allowMigration = true
+        case 2:
+            allowMigration = false
+        default:
+            allowMigration = nil
+        }
+        
+        return allowMigration
     }
 
 }
