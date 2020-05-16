@@ -48,10 +48,8 @@ public class UserManager: UserManagerType {
     }
     
     public var user: UserData? {
-        if let user = Auth.auth().currentUser {
-            return UserData(id: user.uid, email: user.email, displayName: user.displayName, isAnonymous: user.isAnonymous)
-        }
-        return nil
+        guard let user = Auth.auth().currentUser else { return nil }
+        return UserData(user: user)
     }
     
     /// Get a Behavior Subject that emits a new value every time the value of
@@ -69,7 +67,9 @@ public class UserManager: UserManagerType {
         return Observable.create { (observer) -> Disposable in
             let listener = Auth.auth().addStateDidChangeListener { (auth, user) in
                 if let user = user {
-                    observer.onNext(UserData(id: user.uid, email: user.email, displayName: user.displayName, isAnonymous: user.isAnonymous))
+                    observer.onNext(
+                        UserData(user: user)
+                    )
                 } else {
                     observer.onNext(nil)
                 }
@@ -77,7 +77,7 @@ public class UserManager: UserManagerType {
             
             let subscription = self.forceRefreshAutoUpdatingUser.subscribe(onNext: { _ in
                 if let currentUser = Auth.auth().currentUser {
-                    observer.onNext(UserData(id: currentUser.uid, email: currentUser.email, displayName: currentUser.displayName, isAnonymous: currentUser.isAnonymous))
+                    observer.onNext(UserData(user: currentUser))
                 } else {
                     observer.onNext(nil)
                 }
@@ -160,26 +160,36 @@ public class UserManager: UserManagerType {
         }
     }
     
-    public func linkAnonymousAccount(toEmail email: String, password: String) -> Completable {
-        return Completable.deferred {
-            guard let user = Auth.auth().currentUser, user.isAnonymous else { return .error(UserError.noUser) }
+    /// Link the passed user to the Email & Password authentication provider.
+    ///
+    /// - parameters:
+    ///     - user: A user.
+    ///     - email: The email address.
+    ///     - password: A password.
+    /// - returns: A Completable action to observe.
+    private func link(user: User, toEmail email: String, withPassword password: String) -> Completable {
+        return Completable.create { [unowned self] (observer) -> Disposable in
+            let disposable = Disposables.create { }
             
-            return Completable.create { [unowned self] (observer) -> Disposable in
-                let disposable = Disposables.create { }
-                
-                let credential = EmailAuthProvider.credential(withEmail: email, password: password)
-                user.link(with: credential) { (_, error) in
-                    guard !disposable.isDisposed else { return }
-                    if let error = error {
-                        observer(.error(self.map(error: error)))
-                    } else {
-                        self.forceRefreshAutoUpdatingUser.onNext(())
-                        observer(.completed)
-                    }
+            let credential = EmailAuthProvider.credential(withEmail: email, password: password)
+            user.link(with: credential) { (_, error) in
+                guard !disposable.isDisposed else { return }
+                if let error = error {
+                    observer(.error(self.map(error: error)))
+                } else {
+                    self.forceRefreshAutoUpdatingUser.onNext(())
+                    observer(.completed)
                 }
-                
-                return disposable
             }
+            
+            return disposable
+        }
+    }
+    
+    public func linkAnonymousAccount(toEmail email: String, password: String) -> Completable {
+        return Completable.deferred { [unowned self] in
+            guard let user = Auth.auth().currentUser, user.isAnonymous else { return .error(UserError.noUser) }
+            return self.link(user: user, toEmail: email, withPassword: password)
         }
     }
     
@@ -324,8 +334,11 @@ public class UserManager: UserManagerType {
         }
         .flatMap { (loginDescriptor) -> Single<LoginDescriptor> in
             if updateUserDisplayName, let fullName = loginDescriptor.fullName, fullName.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
-                return self.update(user: UserData(id: nil, email: nil, displayName: fullName, isAnonymous: false))
-                    .andThen(Single.just(loginDescriptor))
+                return self.update { (userData) -> UserData in
+                    var newUserData = userData
+                    newUserData.displayName = fullName
+                    return newUserData
+                }.andThen(Single.just(loginDescriptor))
             }
             return Single.just(loginDescriptor)
         }
@@ -454,6 +467,60 @@ public class UserManager: UserManagerType {
                 }
                 
                 return disposable
+            }
+        }
+    }
+    
+    public func deleteUser(resetToAnonymous: Bool) -> Completable {
+        return Completable.deferred { [unowned self] in
+            guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
+            
+            var deleteAction = Completable.create { (observer) -> Disposable in
+                let disposable = Disposables.create { }
+                
+                user.delete { (error) in
+                    guard !disposable.isDisposed else { return }
+                    if let error = error {
+                        observer(.error(self.map(error: error)))
+                    } else {
+                        observer(.completed)
+                    }
+                }
+                
+                return disposable
+            }
+            
+            if resetToAnonymous {
+                deleteAction = deleteAction
+                    .andThen(self.loginAnonymously())
+            }
+            
+            return deleteAction
+        }
+    }
+    
+    public func updatePassword(newPassword: String) -> Completable {
+        return Completable.deferred { [unowned self] in
+            guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
+            
+            if self.user!.authenticationProviders.contains(.password) {
+                return Completable.create { (observer) -> Disposable in
+                    let disposable = Disposables.create { }
+                    
+                    user.updatePassword(to: newPassword) { (error) in
+                        guard !disposable.isDisposed else { return }
+                        if let error = error {
+                            observer(.error(self.map(error: error)))
+                        } else {
+                            observer(.completed)
+                        }
+                    }
+                    
+                    return disposable
+                }
+            } else {
+                guard let email = user.email else { return Completable.error(UserError.invalidEmail) }
+                return self.link(user: user, toEmail: email, withPassword: newPassword)
             }
         }
     }

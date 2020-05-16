@@ -158,4 +158,31 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func confirmAuthentication(email: String, password: String) -> Completable
     
+    /// Delete the currently logged-in user.
+    ///
+    /// Using the `resetToAnonymous` parameter, you can make sure
+    /// that there is always a user signed in.
+    ///
+    /// - since: version 1.4.0
+    ///
+    /// - parameters:
+    ///     - resetToAnonymous: If `true`, after having deleted the account successfully, this function will immediately sign in a new anonymous user.
+    /// - returns: A Completable action to observe.
+    func deleteUser(resetToAnonymous: Bool) -> Completable
+    
+    /// Update or set the password of the currently logged-in user.
+    ///
+    /// If the user does not have `password` among their `authenticationProviders`,
+    /// this function will create a new provider using the user email and the specified password.
+    /// This will basically link the Email & Password authentication to the user.
+    /// If the user already has `password` as an authentication provider, this function will
+    /// simply update their password.
+    ///
+    /// - since: version 1.4.0
+    ///
+    /// - parameters:
+    ///     - newPassword: The new password.
+    /// - returns: A Completable action to observe.
+    func updatePassword(newPassword: String) -> Completable
+    
 }

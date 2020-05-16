@@ -18,6 +18,8 @@ public struct LoginCredentials {
     
     /// A provider represent a supported login provider.
     public enum Provider: String {
+        /// Email & Password
+        case password = "password"
         /// Sign in with Apple.
         case apple = "apple.com"
     }
