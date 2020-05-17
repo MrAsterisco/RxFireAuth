@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>LoginCredentials Structure Reference</title>
+    <title>LoginHandlerType Protocol Reference</title>
     <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
     <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
     <meta charset='utf-8'>
@@ -10,8 +10,8 @@
     
   </head>
   <body>
-    <a name="//apple_ref/swift/Struct/LoginCredentials" class="dashAnchor"></a>
-    <a title="LoginCredentials Structure Reference"></a>
+    <a name="//apple_ref/swift/Protocol/LoginHandlerType" class="dashAnchor"></a>
+    <a title="LoginHandlerType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
         <p><a href="../index.html">RxFireAuth Docs</a> (93% documented)</p>
@@ -21,7 +21,7 @@
       <p id="breadcrumbs">
         <a href="../index.html">RxFireAuth Reference</a>
         <img id="carat" src="../img/carat.png" />
-        LoginCredentials Structure Reference
+        LoginHandlerType Protocol Reference
       </p>
     </div>
     <div class="content-wrapper">
@@ -93,20 +93,14 @@
       <article class="main-content">
         <section>
           <section class="section">
-            <h1>LoginCredentials</h1>
+            <h1>LoginHandlerType</h1>
               <div class="declaration">
                 <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">struct</span> <span class="kt">LoginCredentials</span></code></pre>
+                  <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">protocol</span> <span class="kt">LoginHandlerType</span></code></pre>
 
                 </div>
               </div>
-            <p>An instance of this class is returned by
-methods of <code><a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a></code>
-when a <code>UserError.migrationRequired</code> error occurs.</p>
-
-<p>You shouldn&rsquo;t need to inspect the content of this struct.
-Its main purpose is to temporary store credentials in order
-to continue the login action when clients have handled the error.</p>
+            <p>Undocumented</p>
 
           </section>
           <section class="section task-group-section">
@@ -115,9 +109,9 @@ to continue the login action when clients have handled the error.</p>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:10RxFireAuth16LoginCredentialsV8ProviderO"></a>
-                    <a name="//apple_ref/swift/Enum/Provider" class="dashAnchor"></a>
-                    <a class="token" href="#/s:10RxFireAuth16LoginCredentialsV8ProviderO">Provider</a>
+                    <a name="/s:10RxFireAuth16LoginHandlerTypeP6handle3urlSb10Foundation3URLV_tF"></a>
+                    <a name="//apple_ref/swift/Method/handle(url:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth16LoginHandlerTypeP6handle3urlSb10Foundation3URLV_tF">handle(url:<wbr>)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -125,15 +119,14 @@ to continue the login action when clients have handled the error.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>A provider represent a supported login provider.</p>
+                        <p>Undocumented</p>
 
-                        <a href="../Structs/LoginCredentials/Provider.html" class="slightly-smaller">See more</a>
                       </div>
                       <div class="declaration">
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">enum</span> <span class="kt">Provider</span> <span class="p">:</span> <span class="kt">String</span></code></pre>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">handle</span><span class="p">(</span><span class="nv">url</span><span class="p">:</span> <span class="kt">URL</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
 
                         </div>
                       </div>

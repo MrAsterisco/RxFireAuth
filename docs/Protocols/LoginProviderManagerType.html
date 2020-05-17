@@ -14,7 +14,7 @@
     <a title="LoginProviderManagerType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">RxFireAuth Docs</a> (96% documented)</p>
+        <p><a href="../index.html">RxFireAuth Docs</a> (93% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -50,6 +50,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/LoginHandlerType.html">LoginHandlerType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a>
               </li>
               <li class="nav-group-task">
@@ -77,6 +80,9 @@
           <li class="nav-group-name">
             <a href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RxFireAuth29GoogleSignInCompletionHandlera">GoogleSignInCompletionHandler</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a>
               </li>
@@ -181,12 +187,235 @@ in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth1
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP30confirmAuthenticationWithApple2in0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSo16UIViewControllerC_tF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAuthenticationWithApple(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP30confirmAuthenticationWithApple2in0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSo16UIViewControllerC_tF">confirmAuthenticationWithApple(in:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Confirm the authentication of the currently logged-in user with Sign in with Apple.</p>
+
+<p>You can use this function to renew the user authentication in order to perform sensitive actions such as
+updating the password or deleting the account. This function will emit an error if the user does not have
+Sign in with Apple among their login providers.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    <p>version 1.5.0</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+<span class="kd">func</span> <span class="nf">confirmAuthenticationWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view controller over which the Sign in with Apple UI should be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Completable action to observe.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP16signInWithGoogle2as2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAI11SingleTraitOAA0D10DescriptorVGSS_So16UIViewControllerCS2bSgtF"></a>
+                    <a name="//apple_ref/swift/Method/signInWithGoogle(as:in:updateUserDisplayName:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP16signInWithGoogle2as2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAI11SingleTraitOAA0D10DescriptorVGSS_So16UIViewControllerCS2bSgtF">signInWithGoogle(as:<wbr>in:<wbr>updateUserDisplayName:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Sign in with Google in the passed view controller.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    <p>version 1.5.0</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">signInWithGoogle</span><span class="p">(</span><span class="k">as</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>clientId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Google client ID, generally obtainable using <code>FirebaseApp.app()!.options.clientID</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view controller over which the Google Sign-in UI should be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>updateUserDisplayName</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>If set to <code>true</code>, a successful login will also update the user <code>displayName</code> field using information from the associated Google Account.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>allowMigration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login in an existing account. This option will be passed back to the caller
+in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code>UserError.migrationRequired</code> error will be thrown.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Single that emits errors or a <code><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></code> instance.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP31confirmAuthenticationWithGoogle2as2in0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_So16UIViewControllerCtF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAuthenticationWithGoogle(as:in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP31confirmAuthenticationWithGoogle2as2in0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_So16UIViewControllerCtF">confirmAuthenticationWithGoogle(as:<wbr>in:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Confirm the authentication of the currently logged-in user with Google Sign-in.</p>
+
+<p>You can use this function to renew the user authentication in order to perform sensitive actions such as
+updating the password or deleting the account. This function will emit an error if the user does not have
+Google among their login providers.</p>
+<div class="aside aside-since">
+    <p class="aside-title">Since</p>
+    <p>version 1.5.0</p>
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">func</span> <span class="nf">confirmAuthenticationWithGoogle</span><span class="p">(</span><span class="k">as</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                      <div>
+                        <h4>Parameters</h4>
+                        <table class="graybox">
+                          <tbody>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>clientId</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>Google client ID, generally obtainable using <code>FirebaseApp.app()!.options.clientID</code>.</p>
+                                </div>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>viewController</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>The view controller over which the Google Sign-in UI should be displayed.</p>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </div>
+                      <div>
+                        <h4>Return Value</h4>
+                        <p>A Completable action to observe.</p>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-05-16)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-05-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
