@@ -128,7 +128,7 @@ class ViewController: UITableViewController {
                 })
                 .disposed(by: self.disposeBag)
         } else {
-            self.show(title: "Sign in with Apple is not available on iOS 12 or earlier.", message: "Use a device running iOS 13 or later to test this feature.")
+            self.showiOS13OrLater()
         }
     }
     
@@ -186,6 +186,52 @@ class ViewController: UITableViewController {
                 self.toggleProgress(false)
             }, onError: self.show(error:))
             .disposed(by: self.disposeBag)
+    }
+    
+    @IBAction func confirmAuthentication(sender: AnyObject) {
+        let alertController = UIAlertController(title: "Confirm Authentication", message: "Select the provider you'd like to use to confirm authentication.", preferredStyle: .actionSheet)
+        self.userManager.user?.authenticationProviders.forEach { (provider) in
+            alertController.addAction(UIAlertAction(title: provider.rawValue, style: .default, handler: { [unowned self] _ in
+                alertController.dismiss(animated: true) { [unowned self] in
+                    self.confirmAuthentication(for: provider)
+                }
+            }))
+        }
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+        self.present(alertController, animated: true)
+    }
+    
+    private func confirmAuthentication(for provider: LoginCredentials.Provider) {
+        switch provider {
+        case .password:
+            let email = self.loginField.text ?? ""
+            let password = self.passwordField.text ?? ""
+            
+            guard email.count > 0 && password.count > 0 else {
+                self.show(title: "Insert your email and password!", message: "Use the field at the top of the screen to insert your email and password.")
+                return
+            }
+            
+            self.toggleProgress(true)
+            self.userManager.confirmAuthentication(email: email, password: password)
+                .observeOn(MainScheduler.instance)
+                .subscribe(onCompleted: { [unowned self] in
+                    self.toggleProgress(false)
+                    self.show(title: "Authentication Confirmed!", message: "You can now perform sensitive operations.")
+                }, onError: self.show(error:)).disposed(by: self.disposeBag)
+            
+        case .apple:
+            if #available(iOS 13.0, *) {
+                self.userManager.confirmAuthenticationWithApple(in: self)
+                .observeOn(MainScheduler.instance)
+                .subscribe(onCompleted: { [unowned self] in
+                    self.toggleProgress(false)
+                    self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
+                }, onError: self.show(error:)).disposed(by: self.disposeBag)
+            } else {
+                self.showiOS13OrLater()
+            }
+        }
     }
     
     /// Confirm credentials and then ask for a new password.
@@ -259,6 +305,10 @@ class ViewController: UITableViewController {
     }
     
     // MARK: - Utilities
+    
+    private func showiOS13OrLater() {
+        self.show(title: "Sign in with Apple is not available on iOS 12 or earlier.", message: "Use a device running iOS 13 or later to test this feature.")
+    }
     
     private func toggleProgress(_ show: Bool, completionHandler: (() -> Void)? = nil) {
         if show {

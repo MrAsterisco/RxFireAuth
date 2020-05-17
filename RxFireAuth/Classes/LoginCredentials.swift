@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import FirebaseAuth
 
 /// An instance of this class is returned by
 /// methods of `LoginProviderManagerType`
@@ -33,10 +34,25 @@ public struct LoginCredentials {
     /// Get or set the user email.
     var email: String
     
+    /// Get or set the user password.
+    var password: String?
+    
     /// Get or set the login provider.
     var provider: Provider
     
     /// Get or set the nonce.
     var nonce: String
+    
+    /// Get the Firebase representation of these credentials.
+    ///
+    /// - returns: A Firebase Auth Credentials.
+    func asAuthCredentials() -> AuthCredential {
+        switch self.provider {
+        case .password:
+            return EmailAuthProvider.credential(withEmail: self.email, password: self.password ?? "")
+        case .apple:
+            return OAuthProvider.credential(withProviderID: self.provider.rawValue, idToken: self.idToken, rawNonce: self.nonce)
+        }
+    }
     
 }

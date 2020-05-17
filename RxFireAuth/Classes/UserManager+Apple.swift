@@ -13,7 +13,7 @@ import FirebaseAuth
 extension UserManager: LoginProviderManagerType {
     
     @available(iOS 13.0, *)
-    public func signInWithApple(in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor> {
+    private func signInWithAppleHandler(in viewController: UIViewController) -> Single<LoginCredentials> {
         return Single<LoginCredentials>.create { [unowned self] (observer) -> Disposable in
             let disposable = Disposables.create { [unowned self] in
                 self.loginHandler = nil
@@ -41,9 +41,22 @@ extension UserManager: LoginProviderManagerType {
             
             return disposable
         }
-        .flatMap { [unowned self] credentials in
-            self.login(with: credentials, updateUserDisplayName: updateUserDisplayName, allowMigration: allowMigration)
-        }
+    }
+    
+    @available(iOS 13.0, *)
+    public func signInWithApple(in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor> {
+        return self.signInWithAppleHandler(in: viewController)
+            .flatMap { [unowned self] credentials in
+                self.login(with: credentials, updateUserDisplayName: updateUserDisplayName, allowMigration: allowMigration)
+            }
+    }
+    
+    @available(iOS 13.0, *)
+    public func confirmAuthenticationWithApple(in viewController: UIViewController) -> Completable {
+        return self.signInWithAppleHandler(in: viewController)
+            .flatMapCompletable { [unowned self] credentials -> Completable in
+                return self.confirmAuthentication(with: credentials)
+            }
     }
     
 }
