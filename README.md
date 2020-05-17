@@ -51,6 +51,14 @@ RxFireAuth assumes that you have already gone through the [Get Started](https://
 
 *In your Podfile, you can omit the `Firebase/Auth` reference as it is already a dependency of this library and will be included automatically.*
 
+To support OAuth providers (such as Google Sign-in), add the following method into your `AppDelegate`:
+
+```swift
+func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return self.userManager.loginHandler?.handle(url: url) ?? false
+}
+```
+
 ### Login
 One of the things that RxFireAuth aims to simplify is the ability to build a Register/Login screen that works seamlessly for new and returning users, also considering the ability of Firebase to create anonymous accounts.
 
@@ -71,7 +79,7 @@ Consider the following situation:
 - He goes directly into the Sign-in screen and enters his account credentials: at this point, using the Firebase SDK, you'll try to link the anonymous account that has been created while opening the app to Mike's credential, but you'll get an error saying that those credentials are already in use. **Here's where this library will help you: when logging-in, the `UserManager` class will automatically check if the specified credentials already exist and will use those to login; it'll also delete the anonymous account that is no longer needed.**
 
 ##### Code Showcase
-Assuming that you have an instance of the `UserManager` class, use the following method to login using an email and a password:
+Use the following method to login using an email and a password:
 
 ```swift
 func login(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
@@ -85,17 +93,17 @@ When the user has made a choice, pass either `true` or `false` to get the same v
 
 To support the migration, all login methods return an instance of `LoginDescriptor` which gives you the `allowMigration` parameter that you've passed, the User ID of the anonymous account, and the User ID of the account that is now logged-in. With this information, you can go ahead and migrate the data from the anonymous account to the newly logged-in account.
 
-#### Sign-in with Apple
-If you are thinking of providing alternatives ways to login into your app, you have to consider Sign-in with Apple as an option, *[mainly because you have to](https://developer.apple.com/app-store/review/guidelines/#4.8), but also because it provides a great experience for people using your app in the Apple ecosystem*.
+#### Sign-in with Login Providers
+If you are thinking of providing alternatives ways to login into your app, RxFireAuth's got you covered.
 
-When signing in with an external provider, it is always good to just let the user sign-in and then figure out later if this is their first time or not. Additionally, it is common practice to let people connect different providers along with their email and password credentials. Giving people flexibility is always a good choice.
+When signing in with an external provider, it is always good to just let the user sign-in and then figure out later if this is their first time or not. Additionally, it is common practice to let people connect different providers along with their email and password credentials. *Giving people flexibility is always a good choice.*
 
 Let's use the same short story from before, but Mike is now going to use Sign-in with Apple.
 
 - On the first device, nothing changes: with the standard Firebase SDK, we can link the anonymous account with Mike's Apple ID.
 - On the second device, two things will happen: first of all, Apple has a different flow for apps that have already used Sign-in with Apple; and this is not controllable by you, so if the user registers and then deletes their account in your app, they'll still get a different sign-in flow in the case they return to the app and Sign-in with Apple once again (further on this [here](https://forums.developer.apple.com/thread/119826)). Secondly, you'll have to handle various cases.
 
-When using Sign-in with Apple *(or any other provider, such as Google or Facebook)*, the following situations may apply:
+When using Sign-in with Apple *(or any other provider, such as Google)*, you'll find yourself in one of these cases:
 
 - There is an anonymous user logged-in and the Apple ID is not linked with any existing account: that's fantastic! We'll just link the Apple ID with the anonymous user and we're done.
 - There is an anonymous user logged-in, but the Apple ID is already linked with another account: we'll have to go through the migration and then log in to the existing account.
@@ -110,12 +118,17 @@ When using Sign-in with Apple *(or any other provider, such as Google or Faceboo
 ```swift
 func signInWithApple(in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
 ```
+or
 
-*This function is available in implementations of `LoginProviderManagerType`, such as the `UserManager` class that we're already using.*
+```swift
+func signInWithGoogle(as clientId: String, in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
+```
 
-You can use the `updateUserDisplayName` parameter to automatically set the Firebase User `displayName` property to the full name associated with the Apple ID. *Keep in mind that the user can change this information while signing-in with Apple for the first time.*
+*These functions are available in implementations of `LoginProviderManagerType`, such as the `UserManager` class that we're already using.*
 
-This function will behave as the normal login, returning `UserError.migrationRequired`, if an anonymous account is going to be deleted and `allowMigration` is not set. When this happens, you can use the following function to continue signing in after having asked the user what they would like to do:
+You can use the `updateUserDisplayName` parameter to automatically set the Firebase User `displayName` property to the full name associated with the provider account. *Keep in mind that some providers, such as Apple, allow the user to change this information while signing-in for the first time.*
+
+This function will behave as the normal login, returning `UserError.migrationRequired`, if an anonymous account is going to be deleted and `allowMigration` is not set. When this happens, you can use the following function to continue signing-in after having asked the user what they would like to do:
 
 ```swift
 func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
@@ -156,6 +169,7 @@ You can find the [autogenerated documentation here](https://mrasterisco.github.i
 RxFireAuth targets **iOS 9.0 or later** and has the following dependencies:
 
 - `Firebase/Auth` version 6.5.
+- `GoogleSignIn` version 5.0.2.
 - `JWTDecode` version 2.4.
 - `RxCocoa` version 5.
 
@@ -167,7 +181,9 @@ All contributions to expand the library are welcome. Fork the repo, make the cha
 If you make changes to the codebase, I am not enforcing a coding style, but I may ask you to make changes based on how the rest of the library is made.
 
 ## Status
-This library is under **active development**. Even if most of the APIs are pretty straightforward, **they may change in the future**; but you don't have to worry about that, because releases will follow [Semanting Versioning 2.0.0](https://semver.org).
+This library is under **active development** and it can be considered stable enough to be used in Production. 
+
+Even if most of the APIs are pretty straightforward, **they may change in the future**; but you don't have to worry about that, because releases will follow [Semanting Versioning 2.0.0](https://semver.org).
 
 ## License
 RxFireAuth is distributed under the MIT license. [See LICENSE](https://github.com/MrAsterisco/RxFireAuth/blob/master/LICENSE) for details.
