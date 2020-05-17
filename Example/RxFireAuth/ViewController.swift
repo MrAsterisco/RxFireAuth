@@ -188,6 +188,7 @@ class ViewController: UITableViewController {
             .disposed(by: self.disposeBag)
     }
     
+    /// Confirm authentication with one of the available providers.
     @IBAction func confirmAuthentication(sender: AnyObject) {
         let alertController = UIAlertController(title: "Confirm Authentication", message: "Select the provider you'd like to use to confirm authentication.", preferredStyle: .actionSheet)
         self.userManager.user?.authenticationProviders.forEach { (provider) in
@@ -201,6 +202,7 @@ class ViewController: UITableViewController {
         self.present(alertController, animated: true)
     }
     
+    /// Confirm authentication with the specified provider.
     private func confirmAuthentication(for provider: LoginCredentials.Provider) {
         switch provider {
         case .password:
