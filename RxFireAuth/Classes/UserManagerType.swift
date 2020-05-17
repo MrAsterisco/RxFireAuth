@@ -158,6 +158,15 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func confirmAuthentication(email: String, password: String) -> Completable
     
+    /// Confirm the authentication of the passed credentials with the currently logged-in user.
+    ///
+    /// - since: version 1.5.0
+    ///
+    /// - parameters:
+    ///     - loginCredentials: Credentials to use to login.
+    /// - returns: A Completable action to observe.
+    func confirmAuthentication(with loginCredentials: LoginCredentials) -> Completable
+    
     /// Delete the currently logged-in user.
     ///
     /// Using the `resetToAnonymous` parameter, you can make sure

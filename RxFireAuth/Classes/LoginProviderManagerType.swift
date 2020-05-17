@@ -27,4 +27,18 @@ public protocol LoginProviderManagerType {
     @available(iOS 13.0, *)
     func signInWithApple(in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
     
+    /// Confirm the authentication of the currently logged-in user with Sign in with Apple.
+    ///
+    /// You can use this function to renew the user authentication in order to perform actions such as
+    /// updating the password or deleting the account. This function will emit an error if the user does not have
+    /// Sign in with Apple among their login providers.
+    ///
+    /// - since: version 1.5.0
+    ///
+    /// - parameters:
+    ///     - viewController: The view controller over which the Sign in with Apple UI should be displayed.
+    /// - returns: A Completable action to observe.
+    @available(iOS 13.0, *)
+    func confirmAuthenticationWithApple(in viewController: UIViewController) -> Completable
+    
 }

@@ -45,6 +45,8 @@ public enum UserError: LocalizedError {
     case authenticationConfirmationRequired
     /// The specified provider is already linked with this user.
     case providerAlreadyLinked
+    /// The specified provider is not linked with this user.
+    case providerNotLinked
     /// An error occurred while reaching Firebase servers.
     case networkError
     /// The requested operation is not enabled in Firebase Console.
@@ -94,6 +96,8 @@ public enum UserError: LocalizedError {
             return "In order to perform this action, you'll have to confirm your credentials by authenticating again."
         case .providerAlreadyLinked:
             return "This login provider is already linked."
+        case .providerNotLinked:
+            return "This login provider is not linked."
         case .configurationError:
             return "There is an error in your Firebase Console configuration. The requested login provider may be disabled."
         case .invalidConfiguration:
