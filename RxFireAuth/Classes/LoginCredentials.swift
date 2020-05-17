@@ -23,10 +23,15 @@ public struct LoginCredentials {
         case password = "password"
         /// Sign in with Apple.
         case apple = "apple.com"
+        /// Google Sign-in
+        case google = "google.com"
     }
     
     /// Get or set the ID token.
     var idToken: String
+    
+    /// Get or set the access token.
+    var accessToken: String?
     
     /// Get or set the user full name.
     var fullName: String?
@@ -52,6 +57,8 @@ public struct LoginCredentials {
             return EmailAuthProvider.credential(withEmail: self.email, password: self.password ?? "")
         case .apple:
             return OAuthProvider.credential(withProviderID: self.provider.rawValue, idToken: self.idToken, rawNonce: self.nonce)
+        case .google:
+            return GoogleAuthProvider.credential(withIDToken: self.idToken, accessToken: self.accessToken ?? "")
         }
     }
     

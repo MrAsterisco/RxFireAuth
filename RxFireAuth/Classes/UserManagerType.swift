@@ -20,6 +20,12 @@ import RxSwift
 /// will not execute any code until somebody subscribes to it.
 public protocol UserManagerType {
     
+    /// Get the current login handler.
+    ///
+    /// This property holds a reference to the handler that is being used
+    /// during a login operation with multiple steps (such as Sign in with Apple).
+    var loginHandler: LoginHandlerType? { get }
+    
     /// Get if there is a currently logged-in user.
     var isLoggedIn: Bool { get }
     

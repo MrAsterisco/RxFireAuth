@@ -37,6 +37,7 @@ Pod::Spec.new do |s|
   s.source_files = 'RxFireAuth/Classes/**/*'
   
   s.dependency 'Firebase/Auth', '~> 6.5'
+  s.dependency 'GoogleSignIn', '~> 5.0.2'
   s.dependency 'JWTDecode', '~> 2.4'
   s.dependency 'RxCocoa', '~> 5'
   s.static_framework = true

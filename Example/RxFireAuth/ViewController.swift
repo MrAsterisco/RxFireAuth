@@ -10,6 +10,7 @@ import UIKit
 import RxFireAuth
 import RxSwift
 import RxCocoa
+import Firebase
 
 /// This class shows you an example of almost all the features that
 /// RxFireAuth supports.
@@ -33,7 +34,14 @@ class ViewController: UITableViewController {
     
     @IBOutlet weak var providersField: UILabel!
     
-    private var userManager: UserManagerType & LoginProviderManagerType = UserManager()
+    private var userManager: UserManagerType & LoginProviderManagerType {
+        return (UIApplication.shared.delegate as! AppDelegate).userManager
+    }
+    
+    private var googleClientId: String {
+        return FirebaseApp.app()!.options.clientID!
+    }
+    
     private var disposeBag = DisposeBag()
     
     private var progressDialog: UIAlertController?
@@ -92,6 +100,8 @@ class ViewController: UITableViewController {
         self.loginField.becomeFirstResponder()
     }
     
+    // MARK: - Actions
+    
     /// Login with email and password or anonymously based
     /// on if there is something written in the email field.
     @IBAction func signIn(sender: AnyObject) {
@@ -104,13 +114,7 @@ class ViewController: UITableViewController {
                 .disposed(by: self.disposeBag)
         } else {
             self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: self.migrationAllowance)
-                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: { [unowned self] error in
-                    if case UserError.migrationRequired(let credentials) = error {
-                        self.handleMigration(credentials: credentials)
-                    } else {
-                        self.show(error: error)
-                    }
-                })
+                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.handleSignInError(error:))
                 .disposed(by: self.disposeBag)
         }
     }
@@ -119,17 +123,18 @@ class ViewController: UITableViewController {
     @IBAction func signInWithApple(sender: AnyObject) {
         if #available(iOS 13.0, *) {
             self.userManager.signInWithApple(in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
-                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: { [unowned self] error in
-                    if case UserError.migrationRequired(let credentials) = error {
-                        self.handleMigration(credentials: credentials)
-                    } else {
-                        self.show(error: error)
-                    }
-                })
+                .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.handleSignInError(error:))
                 .disposed(by: self.disposeBag)
         } else {
             self.showiOS13OrLater()
         }
+    }
+    
+    /// Start the Sign in with Google flow.
+    @IBAction func signInWithGoogle(sender: AnyObject) {
+        self.userManager.signInWithGoogle(as: self.googleClientId, in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
+            .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.handleSignInError(error:))
+            .disposed(by: self.disposeBag)
     }
     
     /// Sign out.
@@ -202,6 +207,17 @@ class ViewController: UITableViewController {
         self.present(alertController, animated: true)
     }
     
+    // MARK: - Logic
+    
+    /// Handle an error during sign-in, optionally starting the migration flow.
+    private func handleSignInError(error: Error) {
+        if case UserError.migrationRequired(let credentials) = error {
+            self.handleMigration(credentials: credentials)
+        } else {
+            self.show(error: error)
+        }
+    }
+    
     /// Confirm authentication with the specified provider.
     private func confirmAuthentication(for provider: LoginCredentials.Provider) {
         switch provider {
@@ -225,14 +241,23 @@ class ViewController: UITableViewController {
         case .apple:
             if #available(iOS 13.0, *) {
                 self.userManager.confirmAuthenticationWithApple(in: self)
-                .observeOn(MainScheduler.instance)
-                .subscribe(onCompleted: { [unowned self] in
-                    self.toggleProgress(false)
-                    self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
-                }, onError: self.show(error:)).disposed(by: self.disposeBag)
+                    .observeOn(MainScheduler.instance)
+                    .subscribe(onCompleted: { [unowned self] in
+                        self.toggleProgress(false)
+                        self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
+                    }, onError: self.show(error:)).disposed(by: self.disposeBag)
             } else {
                 self.showiOS13OrLater()
             }
+            
+        case .google:
+            self.userManager.confirmAuthenticationWithGoogle(as: self.googleClientId, in: self)
+                .observeOn(MainScheduler.instance)
+                .subscribe(onCompleted: { [unowned self] in
+                    self.toggleProgress(false)
+                    self.show(title: "Authentication Confirmed with Google!", message: "You can now perform sensitive operations.")
+                }, onError: self.show(error:)).disposed(by: self.disposeBag)
+            
         }
     }
     

@@ -12,6 +12,8 @@ import FirebaseAuth
 
 extension UserManager: LoginProviderManagerType {
     
+    // MARK: - Sign in with Apple
+    
     @available(iOS 13.0, *)
     private func signInWithAppleHandler(in viewController: UIViewController) -> Single<LoginCredentials> {
         return Single<LoginCredentials>.create { [unowned self] (observer) -> Disposable in
@@ -54,9 +56,49 @@ extension UserManager: LoginProviderManagerType {
     @available(iOS 13.0, *)
     public func confirmAuthenticationWithApple(in viewController: UIViewController) -> Completable {
         return self.signInWithAppleHandler(in: viewController)
-            .flatMapCompletable { [unowned self] credentials -> Completable in
-                return self.confirmAuthentication(with: credentials)
+            .flatMapCompletable(self.confirmAuthentication(with:))
+    }
+    
+    // MARK: - Google Sign-in
+    
+    private func signInWithGoogleHandler(as clientId: String, in viewController: UIViewController) -> Single<LoginCredentials> {
+        return Single<LoginCredentials>.create { [unowned self] (observer) -> Disposable in
+            let disposable = Disposables.create {
+                self.loginHandler = nil
             }
+            
+            let googleSignInHandler = GoogleSignInHandler(clientId: clientId, viewController: viewController)
+            self.loginHandler = googleSignInHandler
+            
+            googleSignInHandler.signIn { (idToken, accessToken, email, fullName, error) in
+                guard !disposable.isDisposed else { return }
+                
+                guard error == nil else {
+                    observer(.error(error!))
+                    return
+                }
+                
+                observer(
+                    .success(
+                        LoginCredentials(idToken: idToken ?? "", accessToken: accessToken, fullName: fullName, email: email ?? "", password: nil, provider: .google, nonce: "")
+                    )
+                )
+            }
+            
+            return disposable
+        }
+    }
+    
+    public func signInWithGoogle(as clientId: String, in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor> {
+        return self.signInWithGoogleHandler(as: clientId, in: viewController)
+            .flatMap { [unowned self] credentials in
+                self.login(with: credentials, updateUserDisplayName: updateUserDisplayName, allowMigration: allowMigration)
+            }
+    }
+    
+    public func confirmAuthenticationWithGoogle(as clientId: String, in viewController: UIViewController) -> Completable {
+        return self.signInWithGoogleHandler(as: clientId, in: viewController)
+                .flatMapCompletable(self.confirmAuthentication(with:))
     }
     
 }

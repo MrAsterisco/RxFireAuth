@@ -37,7 +37,7 @@ public class UserManager: UserManagerType {
     }
     
     /// Get or set a reference to a custom-provider login handler.
-    var loginHandler: Any?
+    public internal(set) var loginHandler: LoginHandlerType?
     
     public var isLoggedIn: Bool {
         return Auth.auth().currentUser != nil && !Auth.auth().currentUser!.isAnonymous
