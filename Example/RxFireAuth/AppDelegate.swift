@@ -8,16 +8,23 @@
 
 import UIKit
 import Firebase
+import RxFireAuth
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
+    /// Get the user manager.
+    private(set) var userManager: UserManagerType & LoginProviderManagerType = UserManager()
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         FirebaseApp.configure()
         return true
+    }
+    
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
+        return self.userManager.loginHandler?.handle(url: url) ?? false
     }
 
     func applicationWillResignActive(_ application: UIApplication) {

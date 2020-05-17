@@ -20,6 +20,12 @@ import RxSwift
 /// will not execute any code until somebody subscribes to it.
 public protocol UserManagerType {
     
+    /// Get the current login handler.
+    ///
+    /// This property holds a reference to the handler that is being used
+    /// during a login operation with multiple steps (such as Sign in with Apple).
+    var loginHandler: LoginHandlerType? { get }
+    
     /// Get if there is a currently logged-in user.
     var isLoggedIn: Bool { get }
     
@@ -157,6 +163,15 @@ public protocol UserManagerType {
     ///     - password: The user password.
     /// - returns: A Completable action to observe.
     func confirmAuthentication(email: String, password: String) -> Completable
+    
+    /// Confirm the authentication of the passed credentials with the currently logged-in user.
+    ///
+    /// - since: version 1.5.0
+    ///
+    /// - parameters:
+    ///     - loginCredentials: Credentials to use to login.
+    /// - returns: A Completable action to observe.
+    func confirmAuthentication(with loginCredentials: LoginCredentials) -> Completable
     
     /// Delete the currently logged-in user.
     ///

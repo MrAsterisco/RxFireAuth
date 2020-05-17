@@ -221,9 +221,10 @@
                                 </cells>
                             </tableViewSection>
                             <tableViewSection headerTitle="Providers" id="fGS-16-hla">
+                                <string key="footerTitle">Confirming authentication will allow you to perform sensitive operations, such as changing your password or deleting your account, for a short period of time.</string>
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="tkf-bq-Mpg">
-                                        <rect key="frame" x="0.0" y="703" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="710.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tkf-bq-Mpg" id="8qB-0K-bMO">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -244,12 +245,41 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="xVy-Pi-PkP">
+                                        <rect key="frame" x="0.0" y="754" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="xVy-Pi-PkP" id="J7o-Av-Zd0">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ly3-fs-0AZ">
+                                                    <rect key="frame" x="20" y="0.0" width="335" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="FM0-Ro-uV8"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <state key="normal" title="Confirm Authentication">
+                                                        <color key="titleColor" systemColor="systemTealColor" red="0.35294117650000001" green="0.7843137255" blue="0.98039215690000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="confirmAuthenticationWithSender:" destination="ctm-QS-frk" eventType="touchUpInside" id="AO2-zQ-StU"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstItem="Ly3-fs-0AZ" firstAttribute="top" secondItem="J7o-Av-Zd0" secondAttribute="top" id="Mn1-vz-Vgx"/>
+                                                <constraint firstAttribute="bottom" secondItem="Ly3-fs-0AZ" secondAttribute="bottom" id="Wh0-do-OlD"/>
+                                                <constraint firstItem="Ly3-fs-0AZ" firstAttribute="leading" secondItem="J7o-Av-Zd0" secondAttribute="leading" constant="20" symbolic="YES" id="e3V-7r-gKa"/>
+                                                <constraint firstAttribute="trailing" secondItem="Ly3-fs-0AZ" secondAttribute="trailing" constant="20" symbolic="YES" id="ibi-rg-9K8"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
                                 </cells>
                             </tableViewSection>
                             <tableViewSection id="4Xi-fE-FbV">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="6b1-ph-fGM">
-                                        <rect key="frame" x="0.0" y="782.5" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="877.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6b1-ph-fGM" id="Wgz-JJ-qeT">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -276,7 +306,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="rKQ-l3-Jgl">
-                                        <rect key="frame" x="0.0" y="826" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="921" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="rKQ-l3-Jgl" id="STd-4d-Ith">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -301,10 +331,39 @@
                                             </constraints>
                                         </tableViewCellContentView>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aRd-y8-EFj">
-                                        <rect key="frame" x="0.0" y="869.5" width="375" height="43.5"/>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="dfL-NS-KyG">
+                                        <rect key="frame" x="0.0" y="964.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aRd-y8-EFj" id="Zg7-XD-CeA">
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="dfL-NS-KyG" id="Cz4-Co-hE2">
+                                            <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vaC-cd-HlB">
+                                                    <rect key="frame" x="8" y="0.0" width="359" height="44"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="44" id="mns-dv-fxJ"/>
+                                                    </constraints>
+                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
+                                                    <state key="normal" title="Sign in with Google">
+                                                        <color key="titleColor" systemColor="systemGreenColor" red="0.20392156859999999" green="0.78039215689999997" blue="0.34901960780000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    </state>
+                                                    <connections>
+                                                        <action selector="signInWithGoogleWithSender:" destination="ctm-QS-frk" eventType="touchUpInside" id="5xU-jn-FI1"/>
+                                                    </connections>
+                                                </button>
+                                            </subviews>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="vaC-cd-HlB" secondAttribute="trailing" id="3SK-QW-PV4"/>
+                                                <constraint firstItem="vaC-cd-HlB" firstAttribute="leading" secondItem="Cz4-Co-hE2" secondAttribute="leadingMargin" id="DTT-mv-cYI"/>
+                                                <constraint firstItem="vaC-cd-HlB" firstAttribute="top" secondItem="Cz4-Co-hE2" secondAttribute="top" id="E2Y-RD-SoU"/>
+                                                <constraint firstAttribute="bottom" secondItem="vaC-cd-HlB" secondAttribute="bottom" id="Snr-bp-fkP"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="aRd-y8-EFj">
+                                        <rect key="frame" x="0.0" y="1008" width="375" height="43.5"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="aRd-y8-EFj" id="Zg7-XD-CeA">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
@@ -331,7 +390,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="qlR-qY-KKn">
-                                        <rect key="frame" x="0.0" y="913" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="1051.5" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="qlR-qY-KKn" id="q27-43-Ymq">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>
@@ -368,7 +427,7 @@
                             <tableViewSection id="Gti-pg-wpu">
                                 <cells>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="default" indentationWidth="10" id="3dg-3c-nA0">
-                                        <rect key="frame" x="0.0" y="992.5" width="375" height="43.5"/>
+                                        <rect key="frame" x="0.0" y="1131" width="375" height="43.5"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" ambiguous="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="3dg-3c-nA0" id="K1r-P9-ox1">
                                             <rect key="frame" x="0.0" y="0.0" width="375" height="43.5"/>

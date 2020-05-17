@@ -37,7 +37,7 @@ public class UserManager: UserManagerType {
     }
     
     /// Get or set a reference to a custom-provider login handler.
-    var loginHandler: Any?
+    public internal(set) var loginHandler: LoginHandlerType?
     
     public var isLoggedIn: Bool {
         return Auth.auth().currentUser != nil && !Auth.auth().currentUser!.isAnonymous
@@ -264,7 +264,7 @@ public class UserManager: UserManagerType {
         return Single<LoginDescriptor>.create { [unowned self] observer -> Disposable in
             let disposable = Disposables.create { }
             
-            let firebaseCredentials = OAuthProvider.credential(withProviderID: credentials.provider.rawValue, idToken: credentials.idToken, rawNonce: credentials.nonce)
+            let firebaseCredentials = credentials.asAuthCredentials()
             
             var oldUserId: String?
             let signInCompletionHandler: (Error?) -> Void = { (error) in
@@ -451,23 +451,25 @@ public class UserManager: UserManagerType {
     }
     
     public func confirmAuthentication(email: String, password: String) -> Completable {
-        return Completable.deferred { [unowned self] in
-            guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
+        return self.confirmAuthentication(with: LoginCredentials(idToken: "", fullName: nil, email: email, password: password, provider: .password, nonce: ""))
+    }
+    
+    public func confirmAuthentication(with loginCredentials: LoginCredentials) -> Completable {
+        return Completable.create { (observer) -> Disposable in
+            let disposable = Disposables.create { }
             
-            return Completable.create { (observer) -> Disposable in
-                let disposable = Disposables.create { }
-                
-                user.reauthenticate(with: EmailAuthProvider.credential(withEmail: email, password: password)) { [unowned self] (result, error) in
-                    guard !disposable.isDisposed else { return }
-                    if let error = error {
-                        observer(.error(self.map(error: error)))
-                    } else {
-                        observer(.completed)
-                    }
+            guard let user = Auth.auth().currentUser else { observer(.error(UserError.noUser)); return disposable }
+            
+            user.reauthenticate(with: loginCredentials.asAuthCredentials()) { (_, error) in
+                guard !disposable.isDisposed else { return }
+                if let error = error {
+                    observer(.error(self.map(error: error)))
+                } else {
+                    observer(.completed)
                 }
-                
-                return disposable
             }
+            
+            return disposable
         }
     }
     

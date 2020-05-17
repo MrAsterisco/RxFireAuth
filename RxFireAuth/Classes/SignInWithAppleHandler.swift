@@ -112,3 +112,12 @@ extension SignInWithAppleHandler: ASAuthorizationControllerPresentationContextPr
     }
     
 }
+
+@available(iOS 13.0, *)
+extension SignInWithAppleHandler: LoginHandlerType {
+    
+    public func handle(url: URL) -> Bool {
+        return false
+    }
+    
+}

@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxFireAuth'
-  s.version          = '1.4.0'
+  s.version          = '1.5.0'
   s.summary          = 'A smart Rx wrapper around Firebase Authentication SDK'
 
 # This description is used to generate tags and improve search results.
@@ -37,6 +37,7 @@ Pod::Spec.new do |s|
   s.source_files = 'RxFireAuth/Classes/**/*'
   
   s.dependency 'Firebase/Auth', '~> 6.5'
+  s.dependency 'GoogleSignIn', '~> 5.0.2'
   s.dependency 'JWTDecode', '~> 2.4'
   s.dependency 'RxCocoa', '~> 5'
   s.static_framework = true

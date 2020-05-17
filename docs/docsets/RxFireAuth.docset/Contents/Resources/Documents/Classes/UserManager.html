@@ -14,7 +14,7 @@
     <a title="UserManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">RxFireAuth Docs</a> (96% documented)</p>
+        <p><a href="../index.html">RxFireAuth Docs</a> (93% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -50,6 +50,9 @@
             <a href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
+                <a href="../Protocols/LoginHandlerType.html">LoginHandlerType</a>
+              </li>
+              <li class="nav-group-task">
                 <a href="../Protocols/LoginProviderManagerType.html">LoginProviderManagerType</a>
               </li>
               <li class="nav-group-task">
@@ -77,6 +80,9 @@
           <li class="nav-group-name">
             <a href="../Typealiases.html">Type Aliases</a>
             <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a href="../Typealiases.html#/s:10RxFireAuth29GoogleSignInCompletionHandlera">GoogleSignInCompletionHandler</a>
+              </li>
               <li class="nav-group-task">
                 <a href="../Typealiases.html#/s:10RxFireAuth32SignInWithAppleCompletionHandlera">SignInWithAppleCompletionHandler</a>
               </li>
@@ -155,6 +161,33 @@ logged-out every time you instantiate a user manager.</p>
                             </tr>
                           </tbody>
                         </table>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth11UserManagerC12loginHandlerAA05LoginG4Type_pSgvp"></a>
+                    <a name="//apple_ref/swift/Property/loginHandler" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth11UserManagerC12loginHandlerAA05LoginG4Type_pSgvp">loginHandler</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Get or set a reference to a custom-provider login handler.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">internal(set)</span> <span class="k">var</span> <span class="nv">loginHandler</span><span class="p">:</span> <span class="kt"><a href="../Protocols/LoginHandlerType.html">LoginHandlerType</a></span><span class="p">?</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -578,6 +611,32 @@ logged-out every time you instantiate a user manager.</p>
                 <li class="item">
                   <div>
                     <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP21confirmAuthentication4with0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGAA16LoginCredentialsV_tF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAuthentication(with:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP21confirmAuthentication4with0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGAA16LoginCredentialsV_tF">confirmAuthentication(with:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">confirmAuthentication</span><span class="p">(</span><span class="n">with</span> <span class="nv">loginCredentials</span><span class="p">:</span> <span class="kt"><a href="../Structs/LoginCredentials.html">LoginCredentials</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
                     <a name="/s:10RxFireAuth15UserManagerTypeP06deleteD016resetToAnonymous0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSb_tF"></a>
                     <a name="//apple_ref/swift/Method/deleteUser(resetToAnonymous:)" class="dashAnchor"></a>
                     <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP06deleteD016resetToAnonymous0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSb_tF">deleteUser(resetToAnonymous:<wbr>)</a>
@@ -627,6 +686,19 @@ logged-out every time you instantiate a user manager.</p>
                     </section>
                   </div>
                 </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Sign%20in%20with%20Apple"></a>
+                <a name="//apple_ref/swift/Section/Sign in with Apple" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Sign%20in%20with%20Apple"></a>
+                  <h3 class="section-name"><p>Sign in with Apple</p>
+</h3>
+                </div>
+              </div>
+              <ul>
                 <li class="item">
                   <div>
                     <code>
@@ -654,12 +726,104 @@ logged-out every time you instantiate a user manager.</p>
                     </section>
                   </div>
                 </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP30confirmAuthenticationWithApple2in0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSo16UIViewControllerC_tF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAuthenticationWithApple(in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP30confirmAuthenticationWithApple2in0A5Swift17PrimitiveSequenceVyAF16CompletableTraitOs5NeverOGSo16UIViewControllerC_tF">confirmAuthenticationWithApple(in:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">@available</span><span class="p">(</span><span class="n">iOS</span> <span class="mf">13.0</span><span class="p">,</span> <span class="o">*</span><span class="p">)</span>
+<span class="kd">public</span> <span class="kd">func</span> <span class="nf">confirmAuthenticationWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Google%20Sign-in"></a>
+                <a name="//apple_ref/swift/Section/Google Sign-in" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Google%20Sign-in"></a>
+                  <h3 class="section-name"><p>Google Sign-in</p>
+</h3>
+                </div>
+              </div>
+              <ul>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP16signInWithGoogle2as2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAI11SingleTraitOAA0D10DescriptorVGSS_So16UIViewControllerCS2bSgtF"></a>
+                    <a name="//apple_ref/swift/Method/signInWithGoogle(as:in:updateUserDisplayName:allowMigration:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP16signInWithGoogle2as2in21updateUserDisplayName14allowMigration0A5Swift17PrimitiveSequenceVyAI11SingleTraitOAA0D10DescriptorVGSS_So16UIViewControllerCS2bSgtF">signInWithGoogle(as:<wbr>in:<wbr>updateUserDisplayName:<wbr>allowMigration:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">signInWithGoogle</span><span class="p">(</span><span class="k">as</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth24LoginProviderManagerTypeP31confirmAuthenticationWithGoogle2as2in0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_So16UIViewControllerCtF"></a>
+                    <a name="//apple_ref/swift/Method/confirmAuthenticationWithGoogle(as:in:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth24LoginProviderManagerTypeP31confirmAuthenticationWithGoogle2as2in0A5Swift17PrimitiveSequenceVyAG16CompletableTraitOs5NeverOGSS_So16UIViewControllerCtF">confirmAuthenticationWithGoogle(as:<wbr>in:<wbr>)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="kd">func</span> <span class="nf">confirmAuthenticationWithGoogle</span><span class="p">(</span><span class="k">as</span> <span class="nv">clientId</span><span class="p">:</span> <span class="kt">String</span><span class="p">,</span> <span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt">UIViewController</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
               </ul>
             </div>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-05-16)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-05-17)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
