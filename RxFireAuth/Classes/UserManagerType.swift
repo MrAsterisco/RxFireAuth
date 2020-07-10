@@ -9,8 +9,8 @@
 import UIKit
 import RxSwift
 
-/// This protocol defines the public API of the main
-/// wrapper around Firebase Authentication SDK.
+/// This protocol defines the public APIs of the main
+/// wrapper around the Firebase Authentication SDK.
 ///
 /// When using the library in your code always make sure to
 /// reference this protocol instead of the default implementation `UserManager`,
@@ -27,6 +27,9 @@ public protocol UserManagerType {
     var loginHandler: LoginHandlerType? { get }
     
     /// Get if there is a currently logged-in user.
+    ///
+    /// This property will be `false` even if there is a currently logged-in user,
+    /// but it is anonymous.
     var isLoggedIn: Bool { get }
     
     /// Get if there is an anonymous user logged-in.
@@ -45,11 +48,14 @@ public protocol UserManagerType {
     /// - returns: A Single that completes with the result of the query on the backend.
     func accountExists(with email: String) -> Single<Bool>
     
-    /// Register a new account on the server with the passed email and credentials.
+    /// Register a new account on the server with the passed email and password.
     ///
-    /// - note: This function will return `UserError.alreadyLoggedIn` if there is already
+    /// - note: The resulting Completable will emit `UserError.alreadyLoggedIn` if there is already
     ///         a non-anonymous user logged-in. If the logged-in user is anonymous, this function
     ///         will call `self.linkAnonymousAccount` and return that value.
+    ///
+    /// - note: After registering, the new user will become the currently logged-in user
+    ///         automatically.
     ///
     /// - parameters:
     ///     - email: The user email address.
@@ -57,24 +63,29 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func register(email: String, password: String) -> Completable
     
-    /// Login an anonymous user on the app.
+    /// Login an anonymous user.
     ///
     /// - note: You can use this method to create an anonymous user on the server.
+    ///
+    /// - note: The resulting Completable will emit `UserError.alreadyLoggedIn` if there
+    ///         is already a non-anonymous user logged-in. It will also emit `UserError.alreadyAnonymous`
+    ///         if there is already an anonymous user logged-in.
     ///
     /// - returns: A Completable action to observe.
     func loginAnonymously() -> Completable
     
     /// Convert an anonymous user to a normal user with an email and a password.
     ///
-    /// - note: This function will return `UserError.noUser` if the currently logged-in user does not exists
-    ///         or is not anonymous.
+    /// - note: The resulting Completable will emit `UserError.noUser` if the currently logged-in user
+    ///         is not anonymous or is nil.
+    ///
     /// - parameters:
     ///     - email: The user email address.
     ///     - password: The user password.
     /// - returns: A Completable action to observe.
     func linkAnonymousAccount(toEmail email: String, password: String) -> Completable
     
-    /// Login the specified user on the app.
+    /// Login the user with the specified email address using the specified password.
     ///
     /// - note: This function will return `UserError.alreadyLoggedIn` if there is already
     ///         a non-anonymous user logged-in.
@@ -82,8 +93,8 @@ public protocol UserManagerType {
     /// - parameters:
     ///     - email: The user email address.
     ///     - password: The user password.
-    ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login in an existing account. This option will be passed back to the caller
-    ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be thrown.
+    ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
+    ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be emitted by the Single.
     /// - returns: A Single that emits errors or a `LoginDescriptor` instance.
     func login(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
     
@@ -93,10 +104,12 @@ public protocol UserManagerType {
     /// - parameters:
     ///     - email: An email address.
     ///     - password: A password.
-    /// - returns: A Single to observe for result.
+    ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
+    ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be emitted by the Single.
+    /// - returns: A Single to observe for results.
     func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
     
-    /// Sign in with the passed credentials on a provider.
+    /// Sign in with the passed credentials on a login provider.
     ///
     /// Use this function to sign in with a provider credentials. In a normal flow,
     /// you'll use this function with credentials obtained by one of the `signInWith…` methods
@@ -107,21 +120,23 @@ public protocol UserManagerType {
     /// - parameters:
     ///     - credentials: Credentials to use to login.
     ///     - updateUserDisplayName: If the passed credentials result in a successful login and this is set to `true`, this function will attempt to update the user display name by reading it from the resulting `LoginDescriptor`.
-    /// - returns: A Single to observe for result.
+    ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
+    ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be emitted by the Single.
+    /// - returns: A Single to observe for results.
     func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
     
-    /// Logout the currently logged-in user.
+    /// Sign out the currently logged-in user.
     ///
     /// Using the `resetToAnonymous` parameter, you can make sure
-    /// that there is always a user signed in.
+    /// that there is always a user signed in; in fact, if the parameter is set to `true`, this
+    /// function will call `loginAnonymously()` immediately after the logout operation has completed.
     ///
     /// - parameters:
     ///     - resetToAnonymous: If `true`, after having logged-out successfully, this function will immediately sign in a new anonymous user.
-    /// - throws:
     /// - returns: A Completable action to observe.
     func logout(resetToAnonymous: Bool) -> Completable
     
-    /// Update the currently logged-in user taking new values from the
+    /// Update the currently signed in user taking new values from the
     /// passed object.
     ///
     /// You cannot instantiate a `UserData` instance directly. To pass the parameter to this function,
@@ -136,11 +151,11 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func update(user: UserData) -> Completable
     
-    /// Retrieve the currently logged-in user and use the specified
-    /// configuration handler to update its properties.
+    /// Update the currently signed in user by retrieving its value and passing it
+    /// to the `userConfigurationHandler`.
     ///
-    /// - note: This function is only a wrapper that takes the first value of `self.autoupdatingUser`,
-    ///   maps it by calling the `userConfigurationHandler` and passes it to `self.update(user:)`.
+    /// - note: This function is a shorthand that takes the first value of `self.autoUpdatingUser`,
+    /// maps it by calling `userConfigurationHandler` and passes the result to `self.updateUser(user:)`.
     ///
     /// - since: version 1.1.0
     ///
@@ -149,14 +164,24 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func update(userConfigurationHandler: @escaping (UserData) -> UserData) -> Completable
     
-    /// Update the email of the currently logged-in user.
+    /// Update the email of the currently signed in user.
+    ///
+    /// All users have an email address associated, even those that have signed in using a login provider (such as Google).
+    /// Keep in mind that some login providers may return a relay email which may not be enabled to receive messages.
     ///
     /// - parameters:
     ///     - newEmail: The new email address.
     /// - returns: A Completable action to observe.
     func updateEmail(newEmail: String) -> Completable
     
-    /// Confirm the authentication of the passed credentials with the currently logged-in user.
+    /// Confirm the authentication of the passed credentials with the currently signed in user.
+    ///
+    /// You need to confirm the authentication of a user before performing sensitive operations, such
+    /// as deleting the account, associating a new login provider or changing the email or password.
+    ///
+    /// To confirm the authentication with a login provider (such as Google), use the appropriate method in
+    /// the "confirmAuthenticationWith" family, or confirm the authentication by other means and then call
+    /// `self.confirmAuthentication(with:)`.
     ///
     /// - parameters:
     ///     - email: The user email address.
@@ -164,19 +189,23 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func confirmAuthentication(email: String, password: String) -> Completable
     
-    /// Confirm the authentication of the passed credentials with the currently logged-in user.
+    /// Confirm the authentication of the passed credentials with the currently signed in user.
     ///
     /// - since: version 1.5.0
     ///
     /// - parameters:
-    ///     - loginCredentials: Credentials to use to login.
+    ///     - loginCredentials: A representation of the credentials used to login.
     /// - returns: A Completable action to observe.
     func confirmAuthentication(with loginCredentials: LoginCredentials) -> Completable
     
-    /// Delete the currently logged-in user.
+    /// Delete the currently signed in user.
+    ///
+    /// This is a sensitive action. If the user hasn't signed in recently, you'll need to confirm the authentication
+    /// through one of the methods in the "confirmAuthenticationWith…" family.
     ///
     /// Using the `resetToAnonymous` parameter, you can make sure
-    /// that there is always a user signed in.
+    /// that there is always a user signed in; in fact, if the parameter is set to `true`, this
+    /// function will call `loginAnonymously()` immediately after the logout operation has completed.
     ///
     /// - since: version 1.4.0
     ///
@@ -185,7 +214,7 @@ public protocol UserManagerType {
     /// - returns: A Completable action to observe.
     func deleteUser(resetToAnonymous: Bool) -> Completable
     
-    /// Update or set the password of the currently logged-in user.
+    /// Update or set the password of the currently signed in user.
     ///
     /// If the user does not have `password` among their `authenticationProviders`,
     /// this function will create a new provider using the user email and the specified password.

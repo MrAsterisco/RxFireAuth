@@ -50,6 +50,7 @@
 		EE4839DFF9311DA585A57B1D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		F2D9CFE62573321CD826326E /* Pods-RxFireAuth_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		FA3AA219244B52F400363BCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA6783D624B89AF900535FE3 /* RELEASE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = RELEASE.md; path = ../RELEASE.md; sourceTree = "<group>"; };
 		FAC78B512454B3F400D2F391 /* RxFireAuth_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RxFireAuth_Example.entitlements; sourceTree = "<group>"; };
 		FAC78B522454B46800D2F391 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
@@ -153,6 +154,7 @@
 				37E0099370B6231F1473F284 /* RxFireAuth.podspec */,
 				EE4839DFF9311DA585A57B1D /* README.md */,
 				2397EC64964095AD9D0AF655 /* LICENSE */,
+				FA6783D624B89AF900535FE3 /* RELEASE.md */,
 			);
 			name = "Podspec Metadata";
 			sourceTree = "<group>";
