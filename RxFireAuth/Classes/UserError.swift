@@ -41,7 +41,7 @@ public enum UserError: LocalizedError {
     case weakPassword(String?)
     /// The requested action would target a different user than the one currently signed-in.
     case wrongUser
-    /// The requested action requires a recent call to `self.confirmAuthentication(email:password:)`.
+    /// The requested action requires a recent call to `self.confirmAuthentication(email:password:)` or one of the related calls for other providers.
     case authenticationConfirmationRequired
     /// The specified provider is already linked with this user.
     case providerAlreadyLinked

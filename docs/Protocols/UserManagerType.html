@@ -14,7 +14,7 @@
     <a title="UserManagerType Protocol Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">RxFireAuth Docs</a> (93% documented)</p>
+        <p><a href="../index.html">RxFireAuth Docs</a> (96% documented)</p>
       </div>
     </header>
     <div class="content-wrapper">
@@ -100,8 +100,8 @@
 
                 </div>
               </div>
-            <p>This protocol defines the public API of the main
-wrapper around Firebase Authentication SDK.</p>
+            <p>This protocol defines the public APIs of the main
+wrapper around the Firebase Authentication SDK.</p>
 
 <p>When using the library in your code always make sure to
 reference this protocol instead of the default implementation <code><a href="../Classes/UserManager.html">UserManager</a></code>,
@@ -158,6 +158,9 @@ during a login operation with multiple steps (such as Sign in with Apple).</p>
                       <div class="pointer"></div>
                       <div class="abstract">
                         <p>Get if there is a currently logged-in user.</p>
+
+<p>This property will be <code>false</code> even if there is a currently logged-in user,
+but it is anonymous.</p>
 
                       </div>
                       <div class="declaration">
@@ -315,12 +318,17 @@ during a login operation with multiple steps (such as Sign in with Apple).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Register a new account on the server with the passed email and credentials.</p>
+                        <p>Register a new account on the server with the passed email and password.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>This function will return <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO15alreadyLoggedInyA2CmF">UserError.alreadyLoggedIn</a></code> if there is already
+    <p>The resulting Completable will emit <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO15alreadyLoggedInyA2CmF">UserError.alreadyLoggedIn</a></code> if there is already
     a non-anonymous user logged-in. If the logged-in user is anonymous, this function
     will call <code>self.linkAnonymousAccount</code> and return that value.</p>
+
+</div><div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>After registering, the new user will become the currently logged-in user
+    automatically.</p>
 
 </div>
 
@@ -384,10 +392,16 @@ during a login operation with multiple steps (such as Sign in with Apple).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Login an anonymous user on the app.</p>
+                        <p>Login an anonymous user.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>You can use this method to create an anonymous user on the server.</p>
+
+</div><div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    <p>The resulting Completable will emit <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO15alreadyLoggedInyA2CmF">UserError.alreadyLoggedIn</a></code> if there
+    is already a non-anonymous user logged-in. It will also emit <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO16alreadyAnonymousyA2CmF">UserError.alreadyAnonymous</a></code>
+    if there is already an anonymous user logged-in.</p>
 
 </div>
 
@@ -423,8 +437,8 @@ during a login operation with multiple steps (such as Sign in with Apple).</p>
                         <p>Convert an anonymous user to a normal user with an email and a password.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    This function will return <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO02noD0yA2CmF">UserError.noUser</a></code> if the currently logged-in user does not exists
-    or is not anonymous.
+    <p>The resulting Completable will emit <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO02noD0yA2CmF">UserError.noUser</a></code> if the currently logged-in user
+    is not anonymous or is nil.</p>
 
 </div>
 
@@ -488,7 +502,7 @@ during a login operation with multiple steps (such as Sign in with Apple).</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Login the specified user on the app.</p>
+                        <p>Login the user with the specified email address using the specified password.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
     <p>This function will return <code><a href="../Enums/UserError.html#/s:10RxFireAuth9UserErrorO15alreadyLoggedInyA2CmF">UserError.alreadyLoggedIn</a></code> if there is already
@@ -541,8 +555,8 @@ during a login operation with multiple steps (such as Sign in with Apple).</p>
                               </td>
                               <td>
                                 <div>
-                                  <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login in an existing account. This option will be passed back to the caller
-in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code>UserError.migrationRequired</code> error will be thrown.</p>
+                                  <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
+in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code>UserError.migrationRequired</code> error will be emitted by the Single.</p>
                                 </div>
                               </td>
                             </tr>
@@ -609,12 +623,25 @@ with the specified email address exists on the backend.</p>
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>allowMigration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
+in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code>UserError.migrationRequired</code> error will be emitted by the Single.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A Single to observe for result.</p>
+                        <p>A Single to observe for results.</p>
                       </div>
                     </section>
                   </div>
@@ -632,7 +659,7 @@ with the specified email address exists on the backend.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Sign in with the passed credentials on a provider.</p>
+                        <p>Sign in with the passed credentials on a login provider.</p>
 
 <p>Use this function to sign in with a provider credentials. In a normal flow,
 you&rsquo;ll use this function with credentials obtained by one of the <code>signInWith…</code> methods
@@ -680,12 +707,25 @@ provided by implementations of <code><a href="../Protocols/LoginProviderManagerT
                                 </div>
                               </td>
                             </tr>
+                            <tr>
+                              <td>
+                                <code>
+                                <em>allowMigration</em>
+                                </code>
+                              </td>
+                              <td>
+                                <div>
+                                  <p>An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
+in the resulting <code><a href="../Structs/LoginDescriptor.html#/s:10RxFireAuth15LoginDescriptorV16performMigrationSbvp">LoginDescriptor.performMigration</a></code>; if set to <code>nil</code>, the operation will not proceed and a <code>UserError.migrationRequired</code> error will be emitted by the Single.</p>
+                                </div>
+                              </td>
+                            </tr>
                           </tbody>
                         </table>
                       </div>
                       <div>
                         <h4>Return Value</h4>
-                        <p>A Single to observe for result.</p>
+                        <p>A Single to observe for results.</p>
                       </div>
                     </section>
                   </div>
@@ -703,14 +743,11 @@ provided by implementations of <code><a href="../Protocols/LoginProviderManagerT
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Logout the currently logged-in user.</p>
+                        <p>Sign out the currently logged-in user.</p>
 
 <p>Using the <code>resetToAnonymous</code> parameter, you can make sure
-that there is always a user signed in.</p>
-<div class="aside aside-throws">
-    <p class="aside-title">Throws</p>
-    
-</div>
+that there is always a user signed in; in fact, if the parameter is set to <code>true</code>, this
+function will call <code><a href="../Protocols/UserManagerType.html#/s:10RxFireAuth15UserManagerTypeP16loginAnonymously0A5Swift17PrimitiveSequenceVyAE16CompletableTraitOs5NeverOGyF">loginAnonymously()</a></code> immediately after the logout operation has completed.</p>
 
                       </div>
                       <div class="declaration">
@@ -760,7 +797,7 @@ that there is always a user signed in.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Update the currently logged-in user taking new values from the
+                        <p>Update the currently signed in user taking new values from the
 passed object.</p>
 
 <p>You cannot instantiate a <code><a href="../Structs/UserData.html">UserData</a></code> instance directly. To pass the parameter to this function,
@@ -824,12 +861,12 @@ further, use <code>self.update(userConfigurationHandler:)</code>.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Retrieve the currently logged-in user and use the specified
-configuration handler to update its properties.</p>
+                        <p>Update the currently signed in user by retrieving its value and passing it
+to the <code>userConfigurationHandler</code>.</p>
 <div class="aside aside-note">
     <p class="aside-title">Note</p>
-    <p>This function is only a wrapper that takes the first value of <code>self.autoupdatingUser</code>,
-maps it by calling the <code>userConfigurationHandler</code> and passes it to <code>self.update(user:)</code>.</p>
+    <p>This function is a shorthand that takes the first value of <code>self.autoUpdatingUser</code>,
+maps it by calling <code>userConfigurationHandler</code> and passes the result to <code>self.updateUser(user:)</code>.</p>
 
 </div><div class="aside aside-since">
     <p class="aside-title">Since</p>
@@ -885,7 +922,10 @@ maps it by calling the <code>userConfigurationHandler</code> and passes it to <c
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Update the email of the currently logged-in user.</p>
+                        <p>Update the email of the currently signed in user.</p>
+
+<p>All users have an email address associated, even those that have signed in using a login provider (such as Google).
+Keep in mind that some login providers may return a relay email which may not be enabled to receive messages.</p>
 
                       </div>
                       <div class="declaration">
@@ -935,7 +975,14 @@ maps it by calling the <code>userConfigurationHandler</code> and passes it to <c
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Confirm the authentication of the passed credentials with the currently logged-in user.</p>
+                        <p>Confirm the authentication of the passed credentials with the currently signed in user.</p>
+
+<p>You need to confirm the authentication of a user before performing sensitive operations, such
+as deleting the account, associating a new login provider or changing the email or password.</p>
+
+<p>To confirm the authentication with a login provider (such as Google), use the appropriate method in
+the &ldquo;confirmAuthenticationWith&rdquo; family, or confirm the authentication by other means and then call
+<code>self.confirmAuthentication(with:)</code>.</p>
 
                       </div>
                       <div class="declaration">
@@ -997,7 +1044,7 @@ maps it by calling the <code>userConfigurationHandler</code> and passes it to <c
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Confirm the authentication of the passed credentials with the currently logged-in user.</p>
+                        <p>Confirm the authentication of the passed credentials with the currently signed in user.</p>
 <div class="aside aside-since">
     <p class="aside-title">Since</p>
     <p>version 1.5.0</p>
@@ -1025,7 +1072,7 @@ maps it by calling the <code>userConfigurationHandler</code> and passes it to <c
                               </td>
                               <td>
                                 <div>
-                                  <p>Credentials to use to login.</p>
+                                  <p>A representation of the credentials used to login.</p>
                                 </div>
                               </td>
                             </tr>
@@ -1052,10 +1099,14 @@ maps it by calling the <code>userConfigurationHandler</code> and passes it to <c
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Delete the currently logged-in user.</p>
+                        <p>Delete the currently signed in user.</p>
+
+<p>This is a sensitive action. If the user hasn&rsquo;t signed in recently, you&rsquo;ll need to confirm the authentication
+through one of the methods in the &ldquo;confirmAuthenticationWith…&rdquo; family.</p>
 
 <p>Using the <code>resetToAnonymous</code> parameter, you can make sure
-that there is always a user signed in.</p>
+that there is always a user signed in; in fact, if the parameter is set to <code>true</code>, this
+function will call <code><a href="../Protocols/UserManagerType.html#/s:10RxFireAuth15UserManagerTypeP16loginAnonymously0A5Swift17PrimitiveSequenceVyAE16CompletableTraitOs5NeverOGyF">loginAnonymously()</a></code> immediately after the logout operation has completed.</p>
 <div class="aside aside-since">
     <p class="aside-title">Since</p>
     <p>version 1.4.0</p>
@@ -1110,7 +1161,7 @@ that there is always a user signed in.</p>
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Update or set the password of the currently logged-in user.</p>
+                        <p>Update or set the password of the currently signed in user.</p>
 
 <p>If the user does not have <code>password</code> among their <code>authenticationProviders</code>,
 this function will create a new provider using the user email and the specified password.
@@ -1163,7 +1214,7 @@ simply update their password.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-05-17)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-07-10)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.2</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>

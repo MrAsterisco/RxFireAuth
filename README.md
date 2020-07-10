@@ -4,9 +4,11 @@
 [![License](https://img.shields.io/cocoapods/l/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
 [![Platform](https://img.shields.io/cocoapods/p/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
 
-RxFireAuth is a wrapper around the [Firebase Authentication](https://firebase.google.com/docs/auth) SDK that exposes the most common use cases through [RxSwift](https://github.com/ReactiveX/RxSwift) objects.
+RxFireAuth is a wrapper around the [Firebase Authentication](https://firebase.google.com/docs/auth) SDK that exposes most of the available functions through [RxSwift](https://github.com/ReactiveX/RxSwift) objects. as well as improving the logic around managing and handling accounts throughout the lifecycle of your app.
 
 Firebase Authentication is a great way to support user authentication in your app easily. This library builds on top of that to simplify even further the process with pre-built algorithms that support registering, logging-in, linking accounts with other providers, and more.
+
+Looking for the Android version? You can find it [right here](https://github.com/MrAsterisco/RxFireAuth-Android).
 
 ## Installation
 
