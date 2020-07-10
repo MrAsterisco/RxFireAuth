@@ -42,6 +42,8 @@ extension UserManager: LoginProviderManagerType {
             }
             
             return disposable
+        }.do { [weak self] in
+            self?.loginHandler = nil
         }
     }
     
@@ -86,6 +88,8 @@ extension UserManager: LoginProviderManagerType {
             }
             
             return disposable
+        }.do { [weak self] in
+            self?.loginHandler = nil
         }
     }
     

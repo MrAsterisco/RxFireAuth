@@ -8,20 +8,6 @@
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/LoginHandlerType.swift",
-      "line": 10,
-      "symbol": "LoginHandlerType",
-      "symbol_kind": "source.lang.swift.decl.protocol",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/LoginHandlerType.swift",
-      "line": 12,
-      "symbol": "LoginHandlerType.handle(url:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
       "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 79,
       "symbol": "SignInWithAppleHandler.authorizationController(controller:didCompleteWithAuthorization:)",
@@ -39,13 +25,6 @@
       "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 110,
       "symbol": "SignInWithAppleHandler.presentationAnchor(for:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
-      "line": 119,
-      "symbol": "SignInWithAppleHandler.handle(url:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     }

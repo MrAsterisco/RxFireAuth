@@ -8,22 +8,24 @@
 import Foundation
 import FirebaseAuth
 
-/// An instance of this class is returned by
-/// methods of `LoginProviderManagerType`
-/// when a `UserError.migrationRequired` error occurs.
+/// This class represents a set of credentials used
+/// to perform a sign in with a specific authentication provider.
+///
+/// Instances of this class are returned when a recoverable
+/// error, such as `UserError.migrationRequired`, occurs during a sign in.
 ///
 /// You shouldn't need to inspect the content of this struct.
 /// Its main purpose is to temporary store credentials in order
-/// to continue the login action when clients have handled the error.
+/// to continue the login action when your client has handled the error.
 public struct LoginCredentials {
     
-    /// A provider represent a supported login provider.
+    /// A provider represents a supported authentication provider.
     public enum Provider: String {
         /// Email & Password
         case password = "password"
         /// Sign in with Apple.
         case apple = "apple.com"
-        /// Google Sign-in
+        /// Google Sign In
         case google = "google.com"
     }
     
@@ -42,7 +44,7 @@ public struct LoginCredentials {
     /// Get or set the user password.
     var password: String?
     
-    /// Get or set the login provider.
+    /// Get or set the authentication provider.
     var provider: Provider
     
     /// Get or set the nonce.

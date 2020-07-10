@@ -6,24 +6,24 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
-/// A login descriptor represents a login operation
-/// result.
+/// A login descriptor represents
+/// the result of a login action.
 ///
-/// Instances of this class are returned from all `login` functions in `UserManagerType`,
-/// regardless of the actual method that is being used (i.e. email/password, Sign in with Apple).
+/// Instances of this class are returned from all the functions
+/// that perform a sign in.
 public struct LoginDescriptor {
     
     /// Get the full user name.
     ///
-    /// This field inherits its value from the login method.
-    /// Some login methods don't return this information, hence you may find it `nil`.
+    /// This field inherits its value from the sign in method.
+    /// Some sign in methods don't return this information.
     public let fullName: String?
     
-    /// Get if this login operation requires a data migration.
+    /// Get if this sign in operation requires a data migration.
     ///
     /// This property holds the same value that you have passed
-    /// to the `allowMigration` parameter of all `login` functions
-    /// in `UserManagerType`.
+    /// to the `allowMigration` parameter of all the functions
+    /// that perform a sign in.
     ///
     /// You can use this value to know if your code actually has to perform
     /// data migration. If `true`, you should detach all
@@ -40,7 +40,7 @@ public struct LoginDescriptor {
     /// Get the new user ID.
     ///
     /// This property holds the Firebase `uid` of the user that is currently logged-in
-    /// as a result of a `login` action.
+    /// as a result of a sign in action.
     public let newUserId: String?
     
 }
