@@ -25,7 +25,7 @@ To find out the latest version, look at the Releases tab of this repository.
 ## Get Started
 To get started with RxFireAuth, you can download the example project or dive right into the [documentation](https://mrasterisco.github.io/RxFireAuth/).
 
-## Example Project
+### Example Project
 This library includes a sample project that shows how to support a user log in, including anonymous accounts.
 
 To see it in action, follow these steps:
@@ -39,7 +39,7 @@ To see it in action, follow these steps:
 
 *To test Sign in with Apple, you need a valid signing identity. If you don't have one now, you can turn off Sign in with Apple under the "Signing & Capabilities" tab of the Xcode project.*
 
-## Usage
+### References
 The whole library is built around the `UserManagerType` protocol. The library provides the default implementation of it through the `UserManager` class, that you can instantiate directly or get through Dependency Injection.
 
 ### Configuration
@@ -53,16 +53,20 @@ RxFireAuth assumes that you have already gone through the [Get Started](https://
 
 *In your Podfile, you can omit the `Firebase/Auth` reference as it is already a dependency of this library and will be included automatically.*
 
-To support OAuth providers (such as Google Sign-in), add the following method into your `AppDelegate`:
+- To support OAuth providers (such as Google Sign-in), add the following method into your `AppDelegate`:
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return self.userManager.loginHandler?.handle(url: url) ?? false
 }
 ```
+- If you did everything right, you can now begin to use RxFireAuth.
 
-### Login
-One of the things that RxFireAuth aims to simplify is the ability to build a Register/Login screen that works seamlessly for new and returning users, also considering the ability of Firebase to create anonymous accounts.
+## Features
+RxFireAuth offers several ways to interact with Firebase in a simple and reactive way.
+
+## Login
+One of the things that RxFireAuth aims to simplify is the ability to build a Register/Login screen that works seamlessly for new and returning users, also considering the ability of Firebase to create [anonymous accounts](https://firebase.google.com/docs/auth/ios/anonymous-auth).
 
 #### Anonymous Accounts Flow
 Modern applications should always try to delay sign-in as long as possible. From Apple Human Interface Guidelines:
@@ -128,7 +132,7 @@ func signInWithGoogle(as clientId: String, in viewController: UIViewController, 
 
 *These functions are available in implementations of `LoginProviderManagerType`, such as the `UserManager` class that we're already using.*
 
-You can use the `updateUserDisplayName` parameter to automatically set the Firebase User `displayName` property to the full name associated with the provider account. *Keep in mind that some providers, such as Apple, allow the user to change this information while signing-in for the first time.*
+You can use the `updateUserDisplayName` parameter to automatically set the Firebase User `displayName` property to the full name associated with the provider account. *Keep in mind that some providers, such as Apple, allow the user to change this information while signing-in for the first time and may return it only for new users that have never logged-in into your app.*
 
 This function will behave as the normal login, returning `UserError.migrationRequired`, if an anonymous account is going to be deleted and `allowMigration` is not set. When this happens, you can use the following function to continue signing-in after having asked the user what they would like to do:
 
@@ -159,6 +163,27 @@ func linkAnonymousAccount(toEmail email: String, password: String) -> Completabl
 ```
 
 These methods will bypass the logic around anonymous and existing/non-existing accounts and will let you use the bare Firebase SDK through RxSwift.
+
+## User Data
+You can get the profile of the currently logged-in user by calling
+
+```swift
+self.userManager.user
+```
+
+or subscribing to
+
+```swift
+self.userManager.autoupdatingUser
+```
+*This observable will emit new values every time something on the user profile has changed.*
+
+Once logged-in, you can quickly inspect the authentication providers of a certain user by cycling the `authenticationProviders` array of the `UserData` instance. For a list of the supported providers, see 
+
+## Authentication Confirmation
+When performing sensitive actions, such as changing the user password, linking new authentication providers or deleting the user account, Firebase will require you to get a new refresh token by forcing the user to login again. RxFireAuth offers convenient methods to confirm the authentication using one the supported providers.
+
+You can confirm the authentication using 
 
 ## Documentation
 **Always refer to the `UserManagerType` and `LoginProviderManagerType` protocols** in your code, because the `UserManager` implementation may introduce breaking changes over time even if the library major version hasn't changed.
