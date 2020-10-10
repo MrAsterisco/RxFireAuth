@@ -125,7 +125,7 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxFireAuth: 4cb62f2e9ea0daac4ca4b57c198a187805327e7c
+  RxFireAuth: 8af4cb694892afa7b8bda7dfca1f310e57e9a89b
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 

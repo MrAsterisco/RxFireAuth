@@ -6,7 +6,6 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
-import UIKit
 import RxSwift
 
 /// This protocol defines the public APIs of the main

@@ -6,7 +6,6 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
-import UIKit
 import FirebaseAuth
 import RxSwift
 

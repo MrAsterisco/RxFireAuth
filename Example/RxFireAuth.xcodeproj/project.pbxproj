@@ -788,7 +788,7 @@
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "$(SRCROOT)/RxFireAuth macOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RxFireAuth macOS/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -821,7 +821,7 @@
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				ENABLE_HARDENED_RUNTIME = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
-				INFOPLIST_FILE = "$(SRCROOT)/RxFireAuth macOS/Info.plist";
+				INFOPLIST_FILE = "$(SRCROOT)/RxFireAuth macOS/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
 				MARKETING_VERSION = 1.0;
 				MTL_FAST_MATH = YES;

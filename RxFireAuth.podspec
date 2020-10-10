@@ -35,6 +35,8 @@ Pod::Spec.new do |s|
   s.weak_framework = 'CryptoKit'
 
   s.source_files = 'RxFireAuth/Classes/**/*'
+  s.ios.source_files = 'RxFireAuth/iOS/**/*'
+  s.macos.source_files = 'RxFireAuth/macOS/**/*'
   
   s.dependency 'Firebase/Auth', '~> 6.5'
   s.ios.dependency 'GoogleSignIn', '~> 5.0.2'

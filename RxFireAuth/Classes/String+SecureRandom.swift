@@ -6,7 +6,6 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
-import UIKit
 #if canImport(CryptoKit)
 import CryptoKit
 #endif
@@ -48,7 +47,7 @@ extension String {
     
     var sha256: String {
         #if canImport(CryptoKit)
-        if #available(iOS 13, *) {
+        if #available(iOS 13, macOS 10.15, *) {
             return self.cryptoSha256
         }
         #endif
@@ -56,7 +55,7 @@ extension String {
     }
     
     #if canImport(CryptoKit)
-    @available(iOS 13.0, *)
+    @available(iOS 13.0, macOS 10.15, *)
     var cryptoSha256: String {
       let inputData = Data(self.utf8)
       let hashedData = SHA256.hash(data: inputData)
