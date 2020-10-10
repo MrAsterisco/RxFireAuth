@@ -69,7 +69,7 @@ PODS:
   - RxCocoa (5.1.1):
     - RxRelay (~> 5)
     - RxSwift (~> 5)
-  - RxFireAuth (1.4.0):
+  - RxFireAuth (1.5.1):
     - Firebase/Auth (~> 6.5)
     - GoogleSignIn (~> 5.0.2)
     - JWTDecode (~> 2.4)
@@ -125,10 +125,10 @@ SPEC CHECKSUMS:
   nanopb: c43f40fadfe79e8b8db116583945847910cbabc9
   PromisesObjC: c119f3cd559f50b7ae681fa59dc1acd19173b7e6
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxFireAuth: b74267df3e11ef51185b4111f6449bb5a68bfeae
+  RxFireAuth: 4cb62f2e9ea0daac4ca4b57c198a187805327e7c
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
-PODFILE CHECKSUM: b8c4e31753c84f355072fdfb959883f2bf46ef69
+PODFILE CHECKSUM: c1760aeb8ffce7504ce117e3060b0eed71c9d94a
 
-COCOAPODS: 1.9.1
+COCOAPODS: 1.9.3

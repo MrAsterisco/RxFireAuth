@@ -29,15 +29,15 @@ Pod::Spec.new do |s|
   s.documentation_url = 'https://mrasterisco.github.io/RxFireAuth/'
 
   s.swift_version = '5.1'
-  s.platform = :ios
   s.ios.deployment_target = '9.0'
+  s.osx.deployment_target = '10.11'
 
   s.weak_framework = 'CryptoKit'
 
   s.source_files = 'RxFireAuth/Classes/**/*'
   
   s.dependency 'Firebase/Auth', '~> 6.5'
-  s.dependency 'GoogleSignIn', '~> 5.0.2'
+  s.ios.dependency 'GoogleSignIn', '~> 5.0.2'
   s.dependency 'JWTDecode', '~> 2.4'
   s.dependency 'RxCocoa', '~> 5'
   s.static_framework = true
