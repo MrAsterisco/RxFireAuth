@@ -7,15 +7,21 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0A0307DED535E8702795888B /* Pods_RxFireAuth_Example_macOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3723C4F5711CAD0963463667 /* Pods_RxFireAuth_Example_macOS.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
 		607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 607FACD91AFB9204008FA782 /* Main.storyboard */; };
 		607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDC1AFB9204008FA782 /* Images.xcassets */; };
 		607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607FACDE1AFB9204008FA782 /* LaunchScreen.xib */; };
 		607FACEC1AFB9204008FA782 /* Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACEB1AFB9204008FA782 /* Tests.swift */; };
-		66774B58D2973FB029D59734 /* Pods_RxFireAuth_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6E44A537D04B4AD25BCA4E8B /* Pods_RxFireAuth_Tests.framework */; };
-		C4EDED199E5D6FAD9D6BD92C /* Pods_RxFireAuth_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 93D1018E205EC59B01C0D604 /* Pods_RxFireAuth_Example.framework */; };
-		FA3AA21A244B52F400363BCE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA3AA219244B52F400363BCE /* GoogleService-Info.plist */; };
+		73148134F0DD167CDC20047B /* Pods_RxFireAuth_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B6DF76627107B2961D13687C /* Pods_RxFireAuth_Example.framework */; };
+		90109AB6B8AD9BDCBB26C550 /* Pods_RxFireAuth_Tests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CE8E9736EC57062B924DF802 /* Pods_RxFireAuth_Tests.framework */; };
+		FA9A4EA32531C52300B4E3CF /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9A4EA22531C52300B4E3CF /* AppDelegate.swift */; };
+		FA9A4EA52531C52300B4E3CF /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA9A4EA42531C52300B4E3CF /* ViewController.swift */; };
+		FA9A4EA72531C52400B4E3CF /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA9A4EA62531C52400B4E3CF /* Assets.xcassets */; };
+		FA9A4EAA2531C52400B4E3CF /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA9A4EA82531C52400B4E3CF /* Main.storyboard */; };
+		FA9A4F392531C7F100B4E3CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA9A4F312531C73700B4E3CF /* GoogleService-Info.plist */; };
+		FA9A4F3D2531C7F400B4E3CF /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA9A4F352531C79900B4E3CF /* GoogleService-Info.plist */; };
 		FAC78B532454B46800D2F391 /* AuthenticationServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = FAC78B522454B46800D2F391 /* AuthenticationServices.framework */; };
 /* End PBXBuildFile section */
 
@@ -30,10 +36,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0AED3E55FA40FCB4B6C8E661 /* Pods-RxFireAuth_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Tests.release.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Tests/Pods-RxFireAuth_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		2397EC64964095AD9D0AF655 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		3723C4F5711CAD0963463667 /* Pods_RxFireAuth_Example_macOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxFireAuth_Example_macOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E0099370B6231F1473F284 /* RxFireAuth.podspec */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = RxFireAuth.podspec; path = ../RxFireAuth.podspec; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
-		3DBD179F238CA2B242FEE4F7 /* Pods-RxFireAuth_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Tests.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Tests/Pods-RxFireAuth_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		58248BFCF2F0C7076B3E72DB /* Pods-RxFireAuth_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example.debug.xcconfig"; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* RxFireAuth_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxFireAuth_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,14 +50,25 @@
 		607FACE51AFB9204008FA782 /* RxFireAuth_Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RxFireAuth_Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACEA1AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
-		6E44A537D04B4AD25BCA4E8B /* Pods_RxFireAuth_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxFireAuth_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		93D1018E205EC59B01C0D604 /* Pods_RxFireAuth_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxFireAuth_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		E5F34834E8AAEBED9D6B955D /* Pods-RxFireAuth_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example.release.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example.release.xcconfig"; sourceTree = "<group>"; };
+		6E1DC5BDD24B019B31C882F6 /* Pods-RxFireAuth_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Tests.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Tests/Pods-RxFireAuth_Tests.debug.xcconfig"; sourceTree = "<group>"; };
+		760B4922438057BF3412A0AE /* Pods-RxFireAuth_Example_macOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example_macOS.release.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example_macOS/Pods-RxFireAuth_Example_macOS.release.xcconfig"; sourceTree = "<group>"; };
+		760E075B74C3D59F41C8E0C6 /* Pods-RxFireAuth_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example.release.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example.release.xcconfig"; sourceTree = "<group>"; };
+		B6DF76627107B2961D13687C /* Pods_RxFireAuth_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxFireAuth_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		CE8E9736EC57062B924DF802 /* Pods_RxFireAuth_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RxFireAuth_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E8D2C6054C341A6E2B032C30 /* Pods-RxFireAuth_Example_macOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example_macOS.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example_macOS/Pods-RxFireAuth_Example_macOS.debug.xcconfig"; sourceTree = "<group>"; };
 		EE4839DFF9311DA585A57B1D /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		F2D9CFE62573321CD826326E /* Pods-RxFireAuth_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Example.debug.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		FA3AA219244B52F400363BCE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		F5AB83F4E7F91E2B63EB854C /* Pods-RxFireAuth_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RxFireAuth_Tests.release.xcconfig"; path = "Target Support Files/Pods-RxFireAuth_Tests/Pods-RxFireAuth_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		FA6783D624B89AF900535FE3 /* RELEASE.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; name = RELEASE.md; path = ../RELEASE.md; sourceTree = "<group>"; };
-		FAC78B512454B3F400D2F391 /* RxFireAuth_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = RxFireAuth_Example.entitlements; sourceTree = "<group>"; };
+		FA9A4EA02531C52300B4E3CF /* RxFireAuth_Example_macOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = RxFireAuth_Example_macOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA9A4EA22531C52300B4E3CF /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		FA9A4EA42531C52300B4E3CF /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		FA9A4EA62531C52400B4E3CF /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		FA9A4EA92531C52400B4E3CF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA9A4EAB2531C52400B4E3CF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		FA9A4EAC2531C52400B4E3CF /* RxFireAuth_Example_macOS.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RxFireAuth_Example_macOS.entitlements; path = "RxFireAuth macOS/Supporting Files/RxFireAuth_Example_macOS.entitlements"; sourceTree = SOURCE_ROOT; };
+		FA9A4F312531C73700B4E3CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FA9A4F352531C79900B4E3CF /* GoogleService-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = "GoogleService-Info.plist"; path = "RxFireAuth macOS/GoogleService-Info.plist"; sourceTree = SOURCE_ROOT; };
+		FAC78B512454B3F400D2F391 /* RxFireAuth_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RxFireAuth_Example.entitlements; path = RxFireAuth/RxFireAuth_Example.entitlements; sourceTree = SOURCE_ROOT; };
 		FAC78B522454B46800D2F391 /* AuthenticationServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AuthenticationServices.framework; path = System/Library/Frameworks/AuthenticationServices.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -61,7 +78,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				FAC78B532454B46800D2F391 /* AuthenticationServices.framework in Frameworks */,
-				C4EDED199E5D6FAD9D6BD92C /* Pods_RxFireAuth_Example.framework in Frameworks */,
+				73148134F0DD167CDC20047B /* Pods_RxFireAuth_Example.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -69,7 +86,15 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				66774B58D2973FB029D59734 /* Pods_RxFireAuth_Tests.framework in Frameworks */,
+				90109AB6B8AD9BDCBB26C550 /* Pods_RxFireAuth_Tests.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FA9A4E9D2531C52300B4E3CF /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				0A0307DED535E8702795888B /* Pods_RxFireAuth_Example_macOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -80,8 +105,9 @@
 			isa = PBXGroup;
 			children = (
 				FAC78B522454B46800D2F391 /* AuthenticationServices.framework */,
-				93D1018E205EC59B01C0D604 /* Pods_RxFireAuth_Example.framework */,
-				6E44A537D04B4AD25BCA4E8B /* Pods_RxFireAuth_Tests.framework */,
+				B6DF76627107B2961D13687C /* Pods_RxFireAuth_Example.framework */,
+				3723C4F5711CAD0963463667 /* Pods_RxFireAuth_Example_macOS.framework */,
+				CE8E9736EC57062B924DF802 /* Pods_RxFireAuth_Tests.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -89,9 +115,9 @@
 		607FACC71AFB9204008FA782 = {
 			isa = PBXGroup;
 			children = (
-				FAC78B512454B3F400D2F391 /* RxFireAuth_Example.entitlements */,
 				607FACF51AFB993E008FA782 /* Podspec Metadata */,
-				607FACD21AFB9204008FA782 /* Example for RxFireAuth */,
+				607FACD21AFB9204008FA782 /* RxFireAuth iOS */,
+				FA9A4EA12531C52300B4E3CF /* RxFireAuth macOS */,
 				607FACE81AFB9204008FA782 /* Tests */,
 				607FACD11AFB9204008FA782 /* Products */,
 				8AF67B9A4F4D28A73D70D7CB /* Pods */,
@@ -104,11 +130,12 @@
 			children = (
 				607FACD01AFB9204008FA782 /* RxFireAuth_Example.app */,
 				607FACE51AFB9204008FA782 /* RxFireAuth_Tests.xctest */,
+				FA9A4EA02531C52300B4E3CF /* RxFireAuth_Example_macOS.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		607FACD21AFB9204008FA782 /* Example for RxFireAuth */ = {
+		607FACD21AFB9204008FA782 /* RxFireAuth iOS */ = {
 			isa = PBXGroup;
 			children = (
 				607FACD51AFB9204008FA782 /* AppDelegate.swift */,
@@ -118,14 +145,15 @@
 				607FACDE1AFB9204008FA782 /* LaunchScreen.xib */,
 				607FACD31AFB9204008FA782 /* Supporting Files */,
 			);
-			name = "Example for RxFireAuth";
+			name = "RxFireAuth iOS";
 			path = RxFireAuth;
 			sourceTree = "<group>";
 		};
 		607FACD31AFB9204008FA782 /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				FA3AA219244B52F400363BCE /* GoogleService-Info.plist */,
+				FAC78B512454B3F400D2F391 /* RxFireAuth_Example.entitlements */,
+				FA9A4F312531C73700B4E3CF /* GoogleService-Info.plist */,
 				607FACD41AFB9204008FA782 /* Info.plist */,
 			);
 			name = "Supporting Files";
@@ -162,12 +190,36 @@
 		8AF67B9A4F4D28A73D70D7CB /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				F2D9CFE62573321CD826326E /* Pods-RxFireAuth_Example.debug.xcconfig */,
-				E5F34834E8AAEBED9D6B955D /* Pods-RxFireAuth_Example.release.xcconfig */,
-				3DBD179F238CA2B242FEE4F7 /* Pods-RxFireAuth_Tests.debug.xcconfig */,
-				0AED3E55FA40FCB4B6C8E661 /* Pods-RxFireAuth_Tests.release.xcconfig */,
+				58248BFCF2F0C7076B3E72DB /* Pods-RxFireAuth_Example.debug.xcconfig */,
+				760E075B74C3D59F41C8E0C6 /* Pods-RxFireAuth_Example.release.xcconfig */,
+				E8D2C6054C341A6E2B032C30 /* Pods-RxFireAuth_Example_macOS.debug.xcconfig */,
+				760B4922438057BF3412A0AE /* Pods-RxFireAuth_Example_macOS.release.xcconfig */,
+				6E1DC5BDD24B019B31C882F6 /* Pods-RxFireAuth_Tests.debug.xcconfig */,
+				F5AB83F4E7F91E2B63EB854C /* Pods-RxFireAuth_Tests.release.xcconfig */,
 			);
 			path = Pods;
+			sourceTree = "<group>";
+		};
+		FA9A4EA12531C52300B4E3CF /* RxFireAuth macOS */ = {
+			isa = PBXGroup;
+			children = (
+				FA9A4EA22531C52300B4E3CF /* AppDelegate.swift */,
+				FA9A4EA42531C52300B4E3CF /* ViewController.swift */,
+				FA9A4EA82531C52400B4E3CF /* Main.storyboard */,
+				FA9A4EA62531C52400B4E3CF /* Assets.xcassets */,
+				FA9A4F152531C65800B4E3CF /* Supporting Files */,
+			);
+			path = "RxFireAuth macOS";
+			sourceTree = "<group>";
+		};
+		FA9A4F152531C65800B4E3CF /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA9A4EAC2531C52400B4E3CF /* RxFireAuth_Example_macOS.entitlements */,
+				FA9A4F352531C79900B4E3CF /* GoogleService-Info.plist */,
+				FA9A4EAB2531C52400B4E3CF /* Info.plist */,
+			);
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -177,12 +229,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACEF1AFB9204008FA782 /* Build configuration list for PBXNativeTarget "RxFireAuth_Example" */;
 			buildPhases = (
-				F39C7514D95DBD09883A33A4 /* [CP] Check Pods Manifest.lock */,
+				99E9FDEC3F805D6FA2F4764E /* [CP] Check Pods Manifest.lock */,
 				607FACCC1AFB9204008FA782 /* Sources */,
 				607FACCD1AFB9204008FA782 /* Frameworks */,
 				607FACCE1AFB9204008FA782 /* Resources */,
-				C1BAF632BA6FCA31553E6CF2 /* [CP] Embed Pods Frameworks */,
-				3C45A16B9291D5B1A6254C9C /* [CP] Copy Pods Resources */,
+				2F443A744B5E0C370C3F3EC5 /* [CP] Embed Pods Frameworks */,
+				453431E5A734030F053F9A25 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -197,7 +249,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 607FACF21AFB9204008FA782 /* Build configuration list for PBXNativeTarget "RxFireAuth_Tests" */;
 			buildPhases = (
-				0534F2825B037BE52C5DDB9A /* [CP] Check Pods Manifest.lock */,
+				44CE70157244615C363F5CBA /* [CP] Check Pods Manifest.lock */,
 				607FACE11AFB9204008FA782 /* Sources */,
 				607FACE21AFB9204008FA782 /* Frameworks */,
 				607FACE31AFB9204008FA782 /* Resources */,
@@ -212,14 +264,33 @@
 			productReference = 607FACE51AFB9204008FA782 /* RxFireAuth_Tests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		FA9A4E9F2531C52300B4E3CF /* RxFireAuth_Example_macOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA9A4EAF2531C52400B4E3CF /* Build configuration list for PBXNativeTarget "RxFireAuth_Example_macOS" */;
+			buildPhases = (
+				2E665C7034262C17849CC050 /* [CP] Check Pods Manifest.lock */,
+				FA9A4E9C2531C52300B4E3CF /* Sources */,
+				FA9A4E9D2531C52300B4E3CF /* Frameworks */,
+				FA9A4E9E2531C52300B4E3CF /* Resources */,
+				0B4E17FD92C5D6C303FDB472 /* [CP] Embed Pods Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = RxFireAuth_Example_macOS;
+			productName = "RxFireAuth-Example-macOS";
+			productReference = FA9A4EA02531C52300B4E3CF /* RxFireAuth_Example_macOS.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		607FACC81AFB9204008FA782 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 0830;
-				LastUpgradeCheck = 1140;
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
 				ORGANIZATIONNAME = CocoaPods;
 				TargetAttributes = {
 					607FACCF1AFB9204008FA782 = {
@@ -232,14 +303,18 @@
 						LastSwiftMigration = 1140;
 						TestTargetID = 607FACCF1AFB9204008FA782;
 					};
+					FA9A4E9F2531C52300B4E3CF = {
+						CreatedOnToolsVersion = 12.0;
+						DevelopmentTeam = 43C9YP2S4Y;
+						ProvisioningStyle = Automatic;
+					};
 				};
 			};
 			buildConfigurationList = 607FACCB1AFB9204008FA782 /* Build configuration list for PBXProject "RxFireAuth" */;
 			compatibilityVersion = "Xcode 3.2";
-			developmentRegion = English;
+			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
-				English,
 				en,
 				Base,
 			);
@@ -249,6 +324,7 @@
 			projectRoot = "";
 			targets = (
 				607FACCF1AFB9204008FA782 /* RxFireAuth_Example */,
+				FA9A4E9F2531C52300B4E3CF /* RxFireAuth_Example_macOS */,
 				607FACE41AFB9204008FA782 /* RxFireAuth_Tests */,
 			);
 		};
@@ -260,9 +336,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
+				FA9A4F392531C7F100B4E3CF /* GoogleService-Info.plist in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
-				FA3AA21A244B52F400363BCE /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -273,10 +349,112 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA9A4E9E2531C52300B4E3CF /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA9A4EA72531C52400B4E3CF /* Assets.xcassets in Resources */,
+				FA9A4EAA2531C52400B4E3CF /* Main.storyboard in Resources */,
+				FA9A4F3D2531C7F400B4E3CF /* GoogleService-Info.plist in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0534F2825B037BE52C5DDB9A /* [CP] Check Pods Manifest.lock */ = {
+		0B4E17FD92C5D6C303FDB472 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example_macOS/Pods-RxFireAuth_Example_macOS-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth-macOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher-Core/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-macOS/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JWTDecode-macOS/JWTDecode.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC-macOS/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-macOS/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-macOS/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-macOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb-macOS/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example_macOS/Pods-RxFireAuth_Example_macOS-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2E665C7034262C17849CC050 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-RxFireAuth_Example_macOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		2F443A744B5E0C370C3F3EC5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AppAuth-iOS/AppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
+				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher.default-Core/GTMSessionFetcher.framework",
+				"${BUILT_PRODUCTS_DIR}/GoogleUtilities-iOS/GoogleUtilities.framework",
+				"${BUILT_PRODUCTS_DIR}/JWTDecode-iOS/JWTDecode.framework",
+				"${BUILT_PRODUCTS_DIR}/PromisesObjC-iOS/FBLPromises.framework",
+				"${BUILT_PRODUCTS_DIR}/RxCocoa-iOS/RxCocoa.framework",
+				"${BUILT_PRODUCTS_DIR}/RxRelay-iOS/RxRelay.framework",
+				"${BUILT_PRODUCTS_DIR}/RxSwift-iOS/RxSwift.framework",
+				"${BUILT_PRODUCTS_DIR}/nanopb-iOS/nanopb.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		44CE70157244615C363F5CBA /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -298,7 +476,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		3C45A16B9291D5B1A6254C9C /* [CP] Copy Pods Resources */ = {
+		453431E5A734030F053F9A25 /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -316,43 +494,7 @@
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		C1BAF632BA6FCA31553E6CF2 /* [CP] Embed Pods Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example-frameworks.sh",
-				"${BUILT_PRODUCTS_DIR}/AppAuth/AppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMAppAuth/GTMAppAuth.framework",
-				"${BUILT_PRODUCTS_DIR}/GTMSessionFetcher/GTMSessionFetcher.framework",
-				"${BUILT_PRODUCTS_DIR}/GoogleUtilities/GoogleUtilities.framework",
-				"${BUILT_PRODUCTS_DIR}/JWTDecode/JWTDecode.framework",
-				"${BUILT_PRODUCTS_DIR}/PromisesObjC/FBLPromises.framework",
-				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
-				"${BUILT_PRODUCTS_DIR}/RxRelay/RxRelay.framework",
-				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
-				"${BUILT_PRODUCTS_DIR}/nanopb/nanopb.framework",
-			);
-			name = "[CP] Embed Pods Frameworks";
-			outputPaths = (
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMAppAuth.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GTMSessionFetcher.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/GoogleUtilities.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/JWTDecode.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/FBLPromises.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxRelay.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
-				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/nanopb.framework",
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-RxFireAuth_Example/Pods-RxFireAuth_Example-frameworks.sh\"\n";
-			showEnvVarsInLog = 0;
-		};
-		F39C7514D95DBD09883A33A4 /* [CP] Check Pods Manifest.lock */ = {
+		99E9FDEC3F805D6FA2F4764E /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -394,6 +536,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		FA9A4E9C2531C52300B4E3CF /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA9A4EA52531C52300B4E3CF /* ViewController.swift in Sources */,
+				FA9A4EA32531C52300B4E3CF /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -419,6 +570,14 @@
 				607FACDF1AFB9204008FA782 /* Base */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		FA9A4EA82531C52400B4E3CF /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA9A4EA92531C52400B4E3CF /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -447,6 +606,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -472,7 +632,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -503,6 +664,7 @@
 				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
 				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
@@ -521,7 +683,8 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MACOSX_DEPLOYMENT_TARGET = 10.11;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
@@ -531,10 +694,10 @@
 		};
 		607FACF01AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = F2D9CFE62573321CD826326E /* Pods-RxFireAuth_Example.debug.xcconfig */;
+			baseConfigurationReference = 58248BFCF2F0C7076B3E72DB /* Pods-RxFireAuth_Example.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RxFireAuth_Example.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RxFireAuth/RxFireAuth_Example.entitlements;
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				INFOPLIST_FILE = RxFireAuth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -549,10 +712,10 @@
 		};
 		607FACF11AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = E5F34834E8AAEBED9D6B955D /* Pods-RxFireAuth_Example.release.xcconfig */;
+			baseConfigurationReference = 760E075B74C3D59F41C8E0C6 /* Pods-RxFireAuth_Example.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_ENTITLEMENTS = RxFireAuth_Example.entitlements;
+				CODE_SIGN_ENTITLEMENTS = RxFireAuth/RxFireAuth_Example.entitlements;
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				INFOPLIST_FILE = RxFireAuth/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
@@ -567,7 +730,7 @@
 		};
 		607FACF31AFB9204008FA782 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 3DBD179F238CA2B242FEE4F7 /* Pods-RxFireAuth_Tests.debug.xcconfig */;
+			baseConfigurationReference = 6E1DC5BDD24B019B31C882F6 /* Pods-RxFireAuth_Tests.debug.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -590,7 +753,7 @@
 		};
 		607FACF41AFB9204008FA782 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0AED3E55FA40FCB4B6C8E661 /* Pods-RxFireAuth_Tests.release.xcconfig */;
+			baseConfigurationReference = F5AB83F4E7F91E2B63EB854C /* Pods-RxFireAuth_Tests.release.xcconfig */;
 			buildSettings = {
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = (
@@ -604,6 +767,73 @@
 				SWIFT_SWIFT3_OBJC_INFERENCE = Default;
 				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/RxFireAuth_Example.app/RxFireAuth_Example";
+			};
+			name = Release;
+		};
+		FA9A4EAD2531C52400B4E3CF /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = E8D2C6054C341A6E2B032C30 /* Pods-RxFireAuth_Example_macOS.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "RxFireAuth macOS/Supporting Files/RxFireAuth_Example_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 43C9YP2S4Y;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/RxFireAuth macOS/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_VERSION = 5.0;
+			};
+			name = Debug;
+		};
+		FA9A4EAE2531C52400B4E3CF /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 760B4922438057BF3412A0AE /* Pods-RxFireAuth_Example_macOS.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CODE_SIGN_ENTITLEMENTS = "RxFireAuth macOS/Supporting Files/RxFireAuth_Example_macOS.entitlements";
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				COMBINE_HIDPI_IMAGES = YES;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 43C9YP2S4Y;
+				ENABLE_HARDENED_RUNTIME = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				INFOPLIST_FILE = "$(SRCROOT)/RxFireAuth macOS/Supporting Files/Info.plist";
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks";
+				MARKETING_VERSION = 1.0;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example-macOS";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = macosx;
+				SWIFT_VERSION = 5.0;
 			};
 			name = Release;
 		};
@@ -633,6 +863,15 @@
 			buildConfigurations = (
 				607FACF31AFB9204008FA782 /* Debug */,
 				607FACF41AFB9204008FA782 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA9A4EAF2531C52400B4E3CF /* Build configuration list for PBXNativeTarget "RxFireAuth_Example_macOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA9A4EAD2531C52400B4E3CF /* Debug */,
+				FA9A4EAE2531C52400B4E3CF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

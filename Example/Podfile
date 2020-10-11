@@ -1,13 +1,19 @@
-platform :ios, '9.0'
-
 target 'RxFireAuth_Example' do
   use_frameworks!
+  
+  platform :ios, '9.0'
 
   pod 'RxFireAuth', :path => '../'
 
   target 'RxFireAuth_Tests' do
     inherit! :search_paths
-
-    
   end
+end
+
+target 'RxFireAuth_Example_macOS' do
+  use_frameworks!
+  
+  platform :macos, '10.11'
+
+  pod 'RxFireAuth', :path => '../'
 end
