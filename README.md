@@ -26,17 +26,19 @@ To find out the latest version, look at the Releases tab of this repository.
 To get started with RxFireAuth, you can download the example project or dive right into the [documentation](https://mrasterisco.github.io/RxFireAuth/).
 
 ### Example Project
-This library includes a sample project that shows how to implement all the functions of the library.
+This library includes a sample project that shows how to implement all the functions of the library on both iOS and macOS.
 
 To see it in action, follow these steps:
 
 - Download this repository.
-- Navigate to your [Firebase Console](https://console.firebase.google.com/) and create a new project using `io.mrasterisco.github.RxFireAuth-Example` as bundle identifier *(or change the bundle identifier to match the one of a project you already have)*.
-- Download the `GoogleService-Info.plist` and place it in the `Example/RxFireAuth` folder.
-- In the Firebase Console, navigate to Authentication and enable the "Email/Password", "Anonymous", "Apple" and "Google".
+- Navigate to your [Firebase Console](https://console.firebase.google.com/) and create a new project (it's free!).
+- Add two iOS apps with the following bundle identifiers: `io.mrasterisco.github.RxFireAuth-Example` and `io.mrasterisco.github.RxFireAuth-Example-macOS`. If you are not interested in both platforms, you can also just one of the two.
+- Download the `GoogleService-Info.plist` per each platform and place the first one under  `Example/RxFireAuth` and the second one under `Example\RxFireAuth macOS`.
+- In the Firebase Console, navigate to the Authentication tab and enable "Email/Password", "Anonymous", "Apple" and "Google".
 - Run `pod install` inside the `Example` folder.
 - Open the `RxFireAuth.xcworkspace`, select a valid Signing Identity, build and run.
 
+***Note**: The Firebase Console does not support macOS apps, so you'll have to add the macOS version as an iOS app. Please also note that the Firebase SDK for macOS is not officially part of the Firebase product, but it is community supported. You can find further info [here](https://github.com/firebase/firebase-ios-sdk/blob/master/README.md).*
 *To test Sign in with Apple, you need a valid signing identity. If you don't have one now, you can turn off Sign in with Apple under the "Signing & Capabilities" tab of the Xcode project.*
 
 ### References
@@ -48,19 +50,51 @@ RxFireAuth assumes that you have already gone through the [Get Started](https://
 - You have already [created a new project](https://firebase.google.com/docs/ios/setup#create-firebase-project) in the [Firebase Console](https://console.firebase.google.com/).
 - You have [registered your app's bundle identifier](https://firebase.google.com/docs/ios/setup#register-app) and
 [added the `GoogleService-Info.plist` file](https://firebase.google.com/docs/ios/setup#add-config-file).
-- You have already called `FirebaseApp.configure()` in your `application:didFinishLaunchingWithOptions:` function in the AppDelegate, [as described here](https://firebase.google.com/docs/ios/setup#initialize-firebase).
+- You have already configured the Firebase SDK at the app startup:
+-- iOS: you have already called `FirebaseApp.configure()` in your `application:didFinishLaunchingWithOptions:` function in the AppDelegate, [as described here](https://firebase.google.com/docs/ios/setup#initialize-firebase).
+-- macOS: you have already called `FirebaseApp.configure()` in your `awakeFromNib` function in the AppDelegate.
 - You have already turned on and configured the authentication providers that you'd like to use in the Firebase Console.
 
 *In your Podfile, you can omit the `Firebase/Auth` reference as it is already a dependency of this library and will be included automatically.*
 
-- To support OAuth providers (such as Google Sign-in), add the following method into your `AppDelegate`:
+#### OAuth Providers
+To support OAuth providers such as Google SignIn, you also have to add the following to your `AppDelegate`:
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
         return self.userManager.loginHandler?.handle(url: url) ?? false
 }
 ```
-- If you did everything right, you can now begin to use RxFireAuth.
+
+Or, if you're using the library on macOS, add the following to your `AppDelegate`:
+
+```swift
+func applicationDidFinishLaunching(_ notification: Notification) {
+  NSAppleEventManager.shared().setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(event:replyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+}
+
+@objc func handleGetURLEvent(event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
+  let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue!
+  let url = URL(string: urlString!)!
+  _ = userManager.loginHandler?.handle(url: url)
+}
+```
+You also have to register the redirect URL for your app in the `Info.plist`:
+
+```xml
+<key>CFBundleURLTypes</key>
+<array>
+  <dict>
+    <key>CFBundleTypeRole</key>
+    <string>Editor</string>
+    <key>CFBundleURLSchemes</key>
+    <array>
+      <string>{{FIREBASE_REVERSED_CLIENT_ID}}</string>
+    </array>
+  </dict>
+</array>
+```
+You can find your `FIREBASE_REVERSED_CLIENT_ID` in the `GoogleService-Info.plist` file.
 
 ## Features
 RxFireAuth offers several ways to interact with Firebase Authentication in a simple and reactive way.
@@ -107,7 +141,7 @@ When signing in with an external provider, it is always good to just let the use
 Let's use the same short story from before, but Mike is now going to use Sign in with Apple.
 
 - On the first device, nothing changes: with the standard Firebase SDK, we can link the anonymous account with Mike's Apple ID.
-- On the second device, two things will happen: first of all, Apple has a different flow for apps that have already used Sign-in with Apple; and this is not controllable by you, so if the user registers and then deletes their account in your app, they'll still get a different sign-in flow in the case they return to the app and Sign-in with Apple once again (further on this [here](https://forums.developer.apple.com/thread/119826)). Secondly, you'll have to handle various cases.
+- On the second device, two things will happen: first of all, Apple has a different flow for apps that have already used Sign-in with Apple; and this is not controllable by you, so if the user registers and then deletes their account in your app, they'll still get a different sign-in flow in the case they return to the app and Sign-in with Apple once again (further on this [here](https://forums.developer.apple.com/thread/119826)). Secondly, you'll have to handle various situations.
 
 When using Sign-in with Apple *(or any other provider, such as Google)*, you'll find yourself in one of these cases:
 
@@ -121,7 +155,7 @@ With RxFireAuth's `login` method family, all of these cases are handled *automag
 
 ##### Code Showcase
 
-**All of these cases** are handled automatically for you by calling:
+**All of the possible cases** are handled automatically for you by calling:
 
 ```swift
 func signInWithApple(in viewController: UIViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
@@ -180,7 +214,7 @@ self.userManager.autoupdatingUser
 ```
 *This Observable will emit new values every time something on the user profile has changed.*
 
-Once signed in, you can quickly inspect the authentication providers of the user by cycling through the `authenticationProviders` array of the `UserData` instance. For a list of the supported providers, see the `Provider` enum, in `LoginCredentials`.
+Once signed in, you can inspect the authentication providers of the user by cycling through the `authenticationProviders` array of the `UserData` instance. For a list of the supported providers, see the `Provider` enum, in `LoginCredentials`.
 
 ## Authentication Confirmation
 When performing sensitive actions, such as changing the user password, linking new authentication providers or deleting the user account, Firebase will require you to get a new refresh token by forcing the user to login again. RxFireAuth offers convenient methods to confirm the authentication using one the supported providers.
@@ -210,14 +244,19 @@ These protocols are fully documented, as all of the involved structs and helper 
 You can find the [autogenerated documentation here](https://mrasterisco.github.io/RxFireAuth/).
 
 ## Compatibility
-RxFireAuth targets **iOS 9.0 or later** and has the following dependencies:
+RxFireAuth targets **iOS 9.0 or later** and **macOS 10.11 or later** and has the following shared dependencies:
 
 - `Firebase/Auth` version 6.5.
-- `GoogleSignIn` version 5.0.2.
 - `JWTDecode` version 2.4.
 - `RxCocoa` version 5.
 
-Compatibility with macOS is **planned**. Don't hesitate to open an issue to prioritize it.
+On iOS, it also needs:
+
+- `GoogleSignIn` version 5.0.2.
+
+On macOS, `GoogleSignIn` is replaced by:
+
+- `AppAuth` version 1.4.
 
 ## Contributions
 All contributions to expand the library are welcome. Fork the repo, make the changes you want, and open a Pull Request.
