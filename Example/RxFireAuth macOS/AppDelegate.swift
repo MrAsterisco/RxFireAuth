@@ -14,10 +14,21 @@ import RxFireAuth
 class AppDelegate: NSObject, NSApplicationDelegate {
   
   /// Get the user manager.
-  private(set) var userManager: UserManagerType = UserManager()
+  private(set) var userManager: UserManagerType & LoginProviderManagerType = UserManager()
   
   override func awakeFromNib() {
     FirebaseApp.configure()
+  }
+  
+  func applicationDidFinishLaunching(_ notification: Notification) {
+    let aem = NSAppleEventManager.shared()
+    aem.setEventHandler(self, andSelector: #selector(AppDelegate.handleGetURLEvent(event:replyEvent:)), forEventClass: AEEventClass(kInternetEventClass), andEventID: AEEventID(kAEGetURL))
+  }
+  
+  @objc func handleGetURLEvent(event: NSAppleEventDescriptor, replyEvent: NSAppleEventDescriptor) {
+    let urlString = event.paramDescriptor(forKeyword: AEKeyword(keyDirectObject))?.stringValue!
+    let url = URL(string: urlString!)!
+    _ = userManager.loginHandler?.handle(url: url)
   }
   
 }

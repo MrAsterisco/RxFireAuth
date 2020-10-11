@@ -140,7 +140,11 @@ class ViewController: UITableViewController {
   /// Start the Sign in with Google flow.
   @IBAction func signInWithGoogle(sender: AnyObject) {
     self.userManager.signInWithGoogle(as: self.googleClientId, in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
-      .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.handleSignInError(error:))
+      .subscribe(onSuccess: { [unowned self] in
+        self.handleLoggedIn($0)
+      }, onError: { [unowned self] in
+        self.show(error: $0)
+      })
       .disposed(by: self.disposeBag)
   }
   

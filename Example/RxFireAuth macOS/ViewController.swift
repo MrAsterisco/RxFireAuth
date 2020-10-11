@@ -10,6 +10,7 @@ import Cocoa
 import RxFireAuth
 import RxSwift
 import RxCocoa
+import Firebase
 
 class ViewController: NSViewController {
   
@@ -35,8 +36,12 @@ class ViewController: NSViewController {
   @IBOutlet weak var progressIndicator: NSProgressIndicator!
   @IBOutlet weak var progressLabel: NSTextField!
   
-  private var userManager: UserManagerType {
+  private var userManager: UserManagerType & LoginProviderManagerType {
     return (NSApp.delegate as! AppDelegate).userManager
+  }
+  
+  private var googleClientId: String {
+    return FirebaseApp.app()!.options.clientID!
   }
   
   private let disposeBag = DisposeBag()
@@ -115,6 +120,16 @@ class ViewController: NSViewController {
         })
         .disposed(by: self.disposeBag)
     }
+  }
+  
+  @IBAction func signInWithGoogle(sender: AnyObject) {
+    self.userManager.signInWithGoogle(as: googleClientId, in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
+      .subscribe(onSuccess: { [unowned self] in
+        self.handleLoggedIn($0)
+      }, onError: { [unowned self] in
+        self.show(error: $0)
+      })
+      .disposed(by: self.disposeBag)
   }
   
   @IBAction func signOut(sender: AnyObject) {

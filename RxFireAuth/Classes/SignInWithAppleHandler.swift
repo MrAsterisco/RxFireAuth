@@ -6,7 +6,6 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
-import UIKit
 import AuthenticationServices
 import JWTDecode
 
@@ -28,20 +27,20 @@ public typealias SignInWithAppleCompletionHandler = (_ idToken: String?, _ nonce
 /// by `UserManager` when you ask it to `signInWithApple(in:updateUserDisplayName:allowMigration:)`.
 /// You can use it also without a user manager associated.
 ///
-/// Sign in with Apple is only available on iOS 13 or later.
-@available(iOS 13.0, *)
+/// Sign in with Apple is only available on iOS 13 and macOS 10.15 or later.
+@available(iOS 13.0, macOS 10.15, *)
 public class SignInWithAppleHandler: NSObject {
     
     private var nonce: String?
     
-    private var viewController: UIViewController
+    private var viewController: ViewController
     private var completionHandler: SignInWithAppleCompletionHandler?
     
     /// Create a new instance using the passed view controller.
     ///
     /// - parameters:
     ///     - viewController: A view controller over which the Sign in with Apple flow must be presented.
-    init(viewController: UIViewController) {
+    init(viewController: ViewController) {
         self.viewController = viewController
     }
     
@@ -67,7 +66,7 @@ public class SignInWithAppleHandler: NSObject {
     
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
     
     private func extractName(from components: PersonNameComponents?) -> String? {
@@ -104,7 +103,7 @@ extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
     
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 extension SignInWithAppleHandler: ASAuthorizationControllerPresentationContextProviding {
     
     public func presentationAnchor(for controller: ASAuthorizationController) -> ASPresentationAnchor {
@@ -113,7 +112,7 @@ extension SignInWithAppleHandler: ASAuthorizationControllerPresentationContextPr
     
 }
 
-@available(iOS 13.0, *)
+@available(iOS 13.0, macOS 10.15, *)
 extension SignInWithAppleHandler: LoginHandlerType {
     
     public func handle(url: URL) -> Bool {

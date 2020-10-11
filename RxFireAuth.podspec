@@ -42,5 +42,6 @@ Pod::Spec.new do |s|
   s.ios.dependency 'GoogleSignIn', '~> 5.0.2'
   s.dependency 'JWTDecode', '~> 2.4'
   s.dependency 'RxCocoa', '~> 5'
+  s.osx.dependency 'AppAuth', '~> 1.4'
   s.static_framework = true
 end

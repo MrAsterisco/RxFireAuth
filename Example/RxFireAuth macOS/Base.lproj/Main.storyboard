@@ -884,7 +884,7 @@
                             <box title="Profile" translatesAutoresizingMaskIntoConstraints="NO" id="OXo-4i-eAI">
                                 <rect key="frame" x="17" y="287" width="741" height="114"/>
                                 <view key="contentView" id="AZu-RP-Vjy">
-                                    <rect key="frame" x="3" y="3" width="734" height="96"/>
+                                    <rect key="frame" x="3" y="3" width="735" height="96"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLC-Ac-o0d">
@@ -1038,12 +1038,15 @@
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="250.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OLO-vV-O83">
                                 <rect key="frame" x="575" y="48" width="180" height="54"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="g6q-ak-7gS">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iik-bq-dof">
                                         <rect key="frame" x="-6" y="26" width="192" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Sign in with Apple" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="rCo-mZ-QF8">
+                                        <buttonCell key="cell" type="push" title="Sign in with Google" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bac-jp-EDA">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
+                                        <connections>
+                                            <action selector="signInWithGoogleWithSender:" target="XfG-lQ-9wD" id="5kC-XZ-3c9"/>
+                                        </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hF9-u4-q35">
                                         <rect key="frame" x="-6" y="-7" width="192" height="32"/>
@@ -1056,9 +1059,6 @@
                                         </connections>
                                     </button>
                                 </subviews>
-                                <constraints>
-                                    <constraint firstItem="g6q-ak-7gS" firstAttribute="width" secondItem="hF9-u4-q35" secondAttribute="width" id="G2O-g8-2tz"/>
-                                </constraints>
                                 <visibilityPriorities>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
@@ -1069,10 +1069,10 @@
                                 </customSpacing>
                             </stackView>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flm-Ct-dvG">
-                                <rect key="frame" x="20" y="48" width="420" height="21"/>
+                                <rect key="frame" x="20" y="48" width="361" height="21"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IaX-eZ-SmW">
-                                        <rect key="frame" x="-6" y="-7" width="192" height="32"/>
+                                        <rect key="frame" x="-6" y="-7" width="133" height="32"/>
                                         <buttonCell key="cell" type="push" title="Sign out" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wHz-6q-WiJ">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1082,7 +1082,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uDH-Fg-fig">
-                                        <rect key="frame" x="186" y="2" width="236" height="18"/>
+                                        <rect key="frame" x="127" y="2" width="236" height="18"/>
                                         <buttonCell key="cell" type="check" title="Reset Anonymous user after logout" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Mhx-gp-m7M">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1099,7 +1099,7 @@
                                 </customSpacing>
                             </stackView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99K-vc-xEj">
-                                <rect key="frame" x="14" y="74" width="192" height="32"/>
+                                <rect key="frame" x="14" y="74" width="133" height="32"/>
                                 <buttonCell key="cell" type="push" title="Delete Account" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GCI-VH-f8P">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
@@ -1143,14 +1143,12 @@
                             <constraint firstAttribute="trailing" secondItem="F62-Ry-9Ol" secondAttribute="trailing" constant="20" symbolic="YES" id="4eC-we-lB6"/>
                             <constraint firstAttribute="trailing" secondItem="AEP-d7-mg2" secondAttribute="trailing" constant="20" symbolic="YES" id="4uc-dR-enZ"/>
                             <constraint firstItem="Hhm-lm-rD3" firstAttribute="top" secondItem="woZ-tb-DMI" secondAttribute="bottom" constant="8" symbolic="YES" id="6hh-K4-hJm"/>
-                            <constraint firstItem="99K-vc-xEj" firstAttribute="width" secondItem="g6q-ak-7gS" secondAttribute="width" id="6un-ck-RnB"/>
                             <constraint firstItem="AEP-d7-mg2" firstAttribute="top" secondItem="g15-Rm-nru" secondAttribute="bottom" constant="8" symbolic="YES" id="7hR-Du-42u"/>
                             <constraint firstAttribute="trailing" secondItem="OXo-4i-eAI" secondAttribute="trailing" constant="20" symbolic="YES" id="8fO-ia-TuY"/>
                             <constraint firstItem="woZ-tb-DMI" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Aib-mL-CVO"/>
                             <constraint firstItem="woZ-tb-DMI" firstAttribute="top" secondItem="OXo-4i-eAI" secondAttribute="bottom" constant="8" symbolic="YES" id="ArB-C9-Uih"/>
                             <constraint firstItem="ROF-xK-C2Q" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="BdF-e1-kjr"/>
                             <constraint firstAttribute="bottom" secondItem="OLO-vV-O83" secondAttribute="bottom" constant="48" id="Ejq-lv-8GZ"/>
-                            <constraint firstItem="99K-vc-xEj" firstAttribute="centerY" secondItem="g6q-ak-7gS" secondAttribute="centerY" id="Fd0-gz-yP6"/>
                             <constraint firstItem="k3o-9A-78d" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="Mc8-Xz-q1D"/>
                             <constraint firstItem="YF7-Wr-nxb" firstAttribute="width" secondItem="6pb-b6-AGd" secondAttribute="width" id="Oce-J9-c7l"/>
                             <constraint firstItem="Hhm-lm-rD3" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="W8d-wF-2e1"/>
