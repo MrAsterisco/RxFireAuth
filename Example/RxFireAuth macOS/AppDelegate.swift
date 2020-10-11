@@ -8,11 +8,15 @@
 
 import Cocoa
 import Firebase
+import RxFireAuth
 
 @NSApplicationMain
 class AppDelegate: NSObject, NSApplicationDelegate {
   
-  func applicationDidFinishLaunching(_ aNotification: Notification) {
+  /// Get the user manager.
+  private(set) var userManager: UserManagerType = UserManager()
+  
+  override func awakeFromNib() {
     FirebaseApp.configure()
   }
   
