@@ -32,14 +32,15 @@ To see it in action, follow these steps:
 
 - Download this repository.
 - Navigate to your [Firebase Console](https://console.firebase.google.com/) and create a new project (it's free!).
-- Add two iOS apps with the following bundle identifiers: `io.mrasterisco.github.RxFireAuth-Example` and `io.mrasterisco.github.RxFireAuth-Example-macOS`. If you are not interested in both platforms, you can also just one of the two.
-- Download the `GoogleService-Info.plist` per each platform and place the first one under  `Example/RxFireAuth` and the second one under `Example\RxFireAuth macOS`.
+- Add two iOS apps with the following bundle identifiers: `io.mrasterisco.github.RxFireAuth-Example` and `io.mrasterisco.github.RxFireAuth-Example-macOS`. If you are not interested in both platforms, you can also add just one of the two.
+- Download the `GoogleService-Info.plist` per each platform and place the first one *(iOS)* under  `Example/RxFireAuth` and the second one *(macOS)* under `Example\RxFireAuth macOS`.
 - In the Firebase Console, navigate to the Authentication tab and enable "Email/Password", "Anonymous", "Apple" and "Google".
 - Run `pod install` inside the `Example` folder.
 - Open the `RxFireAuth.xcworkspace`, select a valid Signing Identity, build and run.
 
-***Note**: The Firebase Console does not support macOS apps, so you'll have to add the macOS version as an iOS app. Please also note that the Firebase SDK for macOS is not officially part of the Firebase product, but it is community supported. You can find further info [here](https://github.com/firebase/firebase-ios-sdk/blob/master/README.md).*
-*To test Sign in with Apple, you need a valid signing identity. If you don't have one now, you can turn off Sign in with Apple under the "Signing & Capabilities" tab of the Xcode project.*
+***Note**: the Firebase Console does not support macOS apps, so you'll have to add the macOS version as an iOS app. Please also note that the Firebase SDK for macOS is not officially part of the Firebase product, but it is community supported. You can find further info [here](https://github.com/firebase/firebase-ios-sdk/blob/master/README.md).*
+
+***Note 2**: to test Sign in with Apple, you need a valid signing identity. If you don't have one now, you can turn off Sign in with Apple under the "Signing & Capabilities" tab of the Xcode project.*
 
 ### References
 The whole library is built around the `UserManagerType` protocol. The library provides the default implementation of it through the `UserManager` class, that you can instantiate directly or get through Dependency Injection.
@@ -62,7 +63,7 @@ To support OAuth providers such as Google SignIn, you also have to add the follo
 
 ```swift
 func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        return self.userManager.loginHandler?.handle(url: url) ?? false
+  return self.userManager.loginHandler?.handle(url: url) ?? false
 }
 ```
 
@@ -170,7 +171,7 @@ func signInWithGoogle(as clientId: String, in viewController: UIViewController, 
 
 You can use the `updateUserDisplayName` parameter to automatically set the Firebase User `displayName` property to the full name associated with the provider account. *Keep in mind that some providers, such as Apple, allow the user to change this information while signing in for the first time and may return it for new users only that have never signed into your app before.*
 
-This function will behave as the normal sign in, returning `UserError.migrationRequired`, if an anonymous account is going to be deleted and `allowMigration` is not set. When this happens, you can use the following function to continue signing in after asking the user what they'd like to do:
+This function will behave as the normal sign in, returning `UserError.migrationRequired`, if an anonymous account will have to be deleted and `allowMigration` is not set. When this happens, you can use the following function to continue signing in after having asked the user what they'd like to do:
 
 ```swift
 func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>

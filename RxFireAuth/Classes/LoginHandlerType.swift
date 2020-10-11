@@ -16,12 +16,12 @@ import Foundation
 /// from the system browser, for example, when authenticating with a OAuth provider that
 /// redirects directly to your app (such as Google Sign In).
 public protocol LoginHandlerType {
-    
-    /// Handle the specified URL.
-    ///
-    /// - parameters:
-    ///     - url: A URL.
-    /// - returns: `true` if the URL was handled, `false` if it should be handled by someone else.
-    func handle(url: URL) -> Bool
-    
+  
+  /// Handle the specified URL.
+  ///
+  /// - parameters:
+  ///     - url: A URL.
+  /// - returns: `true` if the URL was handled, `false` if it should be handled by someone else.
+  func handle(url: URL) -> Bool
+  
 }

@@ -5,7 +5,6 @@
 //  Created by Alessio Moiso on 17/05/2020.
 //
 
-import Foundation
 import AppAuth
 
 public typealias GoogleSignInCompletionHandler = (_ idToken: String?, _ accessToken: String?, _ email: String?, _ fullName: String?, _ error: Error?) -> Void

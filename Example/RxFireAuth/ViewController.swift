@@ -201,7 +201,7 @@ class ViewController: UITableViewController {
   /// Delete the currently logged-in account.
   @IBAction func deleteAccount(sender: AnyObject) {
     self.toggleProgress(true)
-    self.userManager.deleteUser(resetToAnonymous: self.resetAnonymousCheckbox.state == .on)
+    self.userManager.deleteUser(resetToAnonymous: self.resetAnononymousSwitch.isOn)
       .subscribe(onCompleted: { [unowned self] in
         self.toggleProgress(false)
       }, onError: { [unowned self] in
