@@ -22,6 +22,7 @@ class ViewController: NSViewController {
   
   @IBOutlet weak var signInButton: NSButton!
   @IBOutlet weak var signOutButton: NSButton!
+  @IBOutlet weak var signInWithAppleButton: NSControl!
   
   @IBOutlet weak var dataMigrationControl: NSSegmentedControl!
   
@@ -92,6 +93,9 @@ class ViewController: NSViewController {
         self.signInButton.title = $0
       })
       .disposed(by: self.disposeBag)
+    
+    self.signInWithAppleButton.target = self
+    self.signInWithAppleButton.action = #selector(signInWithApple(sender:))
   }
   
   override func viewDidAppear() {
@@ -119,6 +123,20 @@ class ViewController: NSViewController {
           self.handleSignInError(error: $0)
         })
         .disposed(by: self.disposeBag)
+    }
+  }
+  
+  @IBAction func signInWithApple(sender: AnyObject) {
+    if #available(macOS 10.15, *) {
+      self.userManager.signInWithApple(in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
+        .subscribe(onSuccess: { [unowned self] in
+          self.handleLoggedIn($0)
+        }, onError: { [unowned self] in
+          self.show(error: $0)
+        })
+        .disposed(by: self.disposeBag)
+    } else {
+      self.showMacOS1015OrLater()
     }
   }
   
@@ -207,6 +225,10 @@ class ViewController: NSViewController {
   
   // MARK: - Logic
   
+  private func showMacOS1015OrLater() {
+    self.show(title: "Sign in with Apple is not available on macOS Mojave 10.14 or earlier.", message: "Use a device running macOS Mojave 10.14 or later to test this feature.")
+  }
+  
   private func handleSignInError(error: Error) {
     if case UserError.migrationRequired(let credentials) = error {
       self.handleMigration(credentials: credentials)
@@ -216,6 +238,7 @@ class ViewController: NSViewController {
   }
   
   private func confirmAuthentication(for provider: LoginCredentials.Provider) {
+    self.toggleProgress(true)
     switch provider {
     case .password:
       let email = self.loginField.stringValue
@@ -236,8 +259,33 @@ class ViewController: NSViewController {
           self.show(error: $0)
         })
         .disposed(by: disposeBag)
-    default:
-      break
+    
+    case .apple:
+      if #available(macOS 10.15, *) {
+        self.userManager.confirmAuthenticationWithApple(in: self)
+          .observeOn(MainScheduler.instance)
+          .subscribe(onCompleted: { [unowned self] in
+            self.toggleProgress(false)
+            self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
+          }, onError: { [unowned self] in
+            self.show(error: $0)
+          })
+          .disposed(by: self.disposeBag)
+      } else {
+        self.showMacOS1015OrLater()
+      }
+      
+    case .google:
+      self.userManager.confirmAuthenticationWithGoogle(as: self.googleClientId, in: self)
+        .observeOn(MainScheduler.instance)
+        .subscribe(onCompleted: { [unowned self] in
+          self.toggleProgress(false)
+          self.show(title: "Authentication Confirmed with Google!", message: "You can now perform sensitive operations.")
+        }, onError: { [unowned self] in
+          self.show(error: $0)
+        })
+        .disposed(by: self.disposeBag)
+      
     }
   }
   

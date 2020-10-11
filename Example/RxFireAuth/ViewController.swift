@@ -265,7 +265,10 @@ class ViewController: UITableViewController {
           .subscribe(onCompleted: { [unowned self] in
             self.toggleProgress(false)
             self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
-          }, onError: self.show(error:)).disposed(by: self.disposeBag)
+          }, onError: { [unowned self] in
+            self.show(error: $0)
+          })
+          .disposed(by: self.disposeBag)
       } else {
         self.showiOS13OrLater()
       }
@@ -276,7 +279,10 @@ class ViewController: UITableViewController {
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
           self.show(title: "Authentication Confirmed with Google!", message: "You can now perform sensitive operations.")
-        }, onError: self.show(error:)).disposed(by: self.disposeBag)
+        }, onError: { [unowned self] in
+          self.show(error: $0)
+        })
+        .disposed(by: self.disposeBag)
       
     }
   }

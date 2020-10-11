@@ -1036,16 +1036,19 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="250.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OLO-vV-O83">
-                                <rect key="frame" x="575" y="48" width="180" height="54"/>
+                                <rect key="frame" x="575" y="48" width="180" height="90"/>
                                 <subviews>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="Iik-bq-dof">
+                                    <customView placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="24" translatesAutoresizingMaskIntoConstraints="NO" id="Yiu-eY-5h2" customClass="ASAuthorizationAppleIDButton">
+                                        <rect key="frame" x="0.0" y="66" width="180" height="24"/>
+                                    </customView>
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1j2-XD-zWC">
                                         <rect key="frame" x="-6" y="26" width="192" height="32"/>
-                                        <buttonCell key="cell" type="push" title="Sign in with Google" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="bac-jp-EDA">
+                                        <buttonCell key="cell" type="push" title="Sign in with Google" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nnL-iB-6Nr">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
                                         </buttonCell>
                                         <connections>
-                                            <action selector="signInWithGoogleWithSender:" target="XfG-lQ-9wD" id="5kC-XZ-3c9"/>
+                                            <action selector="signInWithGoogleWithSender:" target="XfG-lQ-9wD" id="iRL-XY-F0J"/>
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="hF9-u4-q35">
@@ -1059,11 +1062,16 @@
                                         </connections>
                                     </button>
                                 </subviews>
+                                <constraints>
+                                    <constraint firstItem="Yiu-eY-5h2" firstAttribute="height" secondItem="1j2-XD-zWC" secondAttribute="height" multiplier="1.14286" id="UgG-tI-UdL"/>
+                                </constraints>
                                 <visibilityPriorities>
+                                    <integer value="1000"/>
                                     <integer value="1000"/>
                                     <integer value="1000"/>
                                 </visibilityPriorities>
                                 <customSpacing>
+                                    <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                     <real value="3.4028234663852886e+38"/>
                                 </customSpacing>
@@ -1185,6 +1193,7 @@
                         <outlet property="providersField" destination="ScC-B0-aXr" id="7la-5b-Eb4"/>
                         <outlet property="resetAnonymousCheckbox" destination="uDH-Fg-fig" id="h8e-BL-EZK"/>
                         <outlet property="signInButton" destination="hF9-u4-q35" id="knW-lz-loS"/>
+                        <outlet property="signInWithAppleButton" destination="Yiu-eY-5h2" id="MmS-Wp-eSJ"/>
                         <outlet property="signOutButton" destination="IaX-eZ-SmW" id="AZK-lH-eAX"/>
                         <outlet property="subtitleLabel" destination="VCm-21-7g4" id="sdB-uN-Zub"/>
                         <outlet property="updateProfileButton" destination="5oP-La-chh" id="618-Ln-OhV"/>
