@@ -6,6 +6,7 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
+import Foundation
 #if canImport(CryptoKit)
 import CryptoKit
 #endif

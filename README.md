@@ -1,6 +1,9 @@
 # RxFireAuth
 
 [![Version](https://img.shields.io/cocoapods/v/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
+<a href="https://swift.org/package-manager">
+  <img src="https://img.shields.io/badge/spm-compatible-brightgreen.svg?style=flat" alt="Swift Package Manager" />
+</a>
 [![License](https://img.shields.io/cocoapods/l/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
 [![Platform](https://img.shields.io/cocoapods/p/RxFireAuth.svg?style=flat)](https://cocoapods.org/pods/RxFireAuth)
 
@@ -12,13 +15,29 @@ Looking for the Android version? You can find it [right here](https://github.com
 
 ## Installation
 
-RxFireAuth is available through [CocoaPods](https://cocoapods.org). We don't support other package managers at the moment, mainly because the Firebase SDK is available through CocoaPods only.
+RxFireAuth is available through [CocoaPods](https://cocoapods.org) and [Swift Package Manager](https://swift.org/package-manager) *(in Beta)*.
+
+### CocoaPods
 
 To install RxFireAuth in your project add:
 
 ```ruby
 pod 'RxFireAuth'
 ```
+
+### Swift Package Manager
+
+To install RxFireAuth in your project, add this repository as dependency using Xcode or add the following in your `Package.swift` file:
+
+```swift
+.package(url: "https://github.com/MrAsterisco/RxFireAuth", branch: "develop")
+```
+
+*Please note that Swift Package Manager support relies on the Firebase SDK Swift Package Manager beta branch, which is not yet officially supported by the Firebase team. You can find more information [here](https://github.com/firebase/firebase-ios-sdk/blob/master/SwiftPackageManager.md).*
+
+*The Google SignIn SDK is not available through Swift Package Manager and it is automatically replaced by a standard implementation of [AppAuth](https://appauth.io/).*
+
+### Latest Release
 
 To find out the latest version, look at the Releases tab of this repository.
 
@@ -35,8 +54,15 @@ To see it in action, follow these steps:
 - Add two iOS apps with the following bundle identifiers: `io.mrasterisco.github.RxFireAuth-Example` and `io.mrasterisco.github.RxFireAuth-Example-macOS`. If you are not interested in both platforms, you can also add just one of the two.
 - Download the `GoogleService-Info.plist` per each platform and place the first one *(iOS)* under  `Example/RxFireAuth` and the second one *(macOS)* under `Example\RxFireAuth macOS`.
 - In the Firebase Console, navigate to the Authentication tab and enable "Email/Password", "Anonymous", "Apple" and "Google".
-- Run `pod install` inside the `Example` folder.
-- Open the `RxFireAuth.xcworkspace`, select a valid Signing Identity, build and run.
+
+#### Test with CocoaPods
+
+- Navigate to the `Example` folder and run `pod install`.
+- Open `RxFireAuth.xcworkspace`, select a valid Signing Identity, build and run.
+
+#### Test with Swift Package Manager
+
+- Open `RxFireAuth.xcodeproj` under the `Example-SwiftPM` folder.
 
 ***Note**: the Firebase Console does not support macOS apps, so you'll have to add the macOS version as an iOS app. Please also note that the Firebase SDK for macOS is not officially part of the Firebase product, but it is community supported. You can find further info [here](https://github.com/firebase/firebase-ios-sdk/blob/master/README.md).*
 
@@ -178,29 +204,6 @@ func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allo
 ```
 The login credentials are embedded in the `migrationRequired` error and, except for particular cases, you shouldn't need to inspect them.
 
-#### Standard Flow
-If you don't want to support anonymous authentication, you can use this library anyway as all of the methods are built to work even when no account is logged-in.
-
-You can make direct calls to:
-
-```swift
-func register(email: String, password: String) -> Completable
-```
-
-and to:
-
-```swift
-func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
-```
-
-and also to:
-
-```swift
-func linkAnonymousAccount(toEmail email: String, password: String) -> Completable
-```
-
-These and other similar methods bypass the logic around anonymous and existing/non-existing accounts and provide you direct access to the bare Firebase SDK through RxSwift.
-
 ## User Data
 You can get the profile of the currently logged-in user by calling:
 
@@ -251,11 +254,11 @@ RxFireAuth targets **iOS 9.0 or later** and **macOS 10.11 or later** and has the
 - `JWTDecode` version 2.4.
 - `RxCocoa` version 5.
 
-On iOS, it also needs:
+On iOS, *when included via CocoaPods*, it also needs:
 
 - `GoogleSignIn` version 5.0.2.
 
-On macOS, `GoogleSignIn` is replaced by:
+On macOS and when included via Swift Package Manager, `GoogleSignIn` is replaced by:
 
 - `AppAuth` version 1.4.
 

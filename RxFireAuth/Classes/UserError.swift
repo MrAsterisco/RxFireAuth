@@ -6,6 +6,8 @@
 //  Copyright © 2020 Alessio Moiso. All rights reserved.
 //
 
+import Foundation
+
 /// Errors thrown by  `UserManagerType` implementations.
 ///
 /// Most of these errors are never thrown directly, but are always
