@@ -1,0 +1,359 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		FA112E14253B266A0085A27D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA112E13253B266A0085A27D /* AppDelegate.swift */; };
+		FA112E17253B26730085A27D /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA112E16253B26730085A27D /* Images.xcassets */; };
+		FA112E1F253B26830085A27D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA112E1E253B26830085A27D /* ViewController.swift */; };
+		FA112E25253B268C0085A27D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA112E21253B268C0085A27D /* Main.storyboard */; };
+		FA112E26253B268C0085A27D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA112E23253B268C0085A27D /* LaunchScreen.xib */; };
+		FA112E56253B27140085A27D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA112E55253B27140085A27D /* GoogleService-Info.plist */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		FA112DFC253B26300085A27D /* RxFireAuth-Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "RxFireAuth-Example.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FA112E13253B266A0085A27D /* AppDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AppDelegate.swift; path = ../../Example/RxFireAuth/AppDelegate.swift; sourceTree = "<group>"; };
+		FA112E16253B26730085A27D /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = ../../Example/RxFireAuth/Images.xcassets; sourceTree = "<group>"; };
+		FA112E1E253B26830085A27D /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewController.swift; path = ../../Example/RxFireAuth/ViewController.swift; sourceTree = "<group>"; };
+		FA112E22253B268C0085A27D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = ../../Example/RxFireAuth/Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		FA112E24253B268C0085A27D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = ../../Example/RxFireAuth/Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
+		FA112E4F253B27010085A27D /* RxFireAuth_Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; name = RxFireAuth_Example.entitlements; path = ../../Example/RxFireAuth/RxFireAuth_Example.entitlements; sourceTree = "<group>"; };
+		FA112E51253B270B0085A27D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = ../../Example/RxFireAuth/Info.plist; sourceTree = "<group>"; };
+		FA112E55253B27140085A27D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Example/RxFireAuth/GoogleService-Info.plist"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		FA112DF9253B26300085A27D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		FA112DF1253B25DC0085A27D = {
+			isa = PBXGroup;
+			children = (
+				FA112DFE253B26300085A27D /* RxFireAuth iOS */,
+				FA112DFD253B26300085A27D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		FA112DFD253B26300085A27D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				FA112DFC253B26300085A27D /* RxFireAuth-Example.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		FA112DFE253B26300085A27D /* RxFireAuth iOS */ = {
+			isa = PBXGroup;
+			children = (
+				FA112E13253B266A0085A27D /* AppDelegate.swift */,
+				FA112E1E253B26830085A27D /* ViewController.swift */,
+				FA112E21253B268C0085A27D /* Main.storyboard */,
+				FA112E16253B26730085A27D /* Images.xcassets */,
+				FA112E23253B268C0085A27D /* LaunchScreen.xib */,
+				FA112E4E253B26C90085A27D /* Supporting Files */,
+			);
+			path = "RxFireAuth iOS";
+			sourceTree = "<group>";
+		};
+		FA112E4E253B26C90085A27D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				FA112E4F253B27010085A27D /* RxFireAuth_Example.entitlements */,
+				FA112E55253B27140085A27D /* GoogleService-Info.plist */,
+				FA112E51253B270B0085A27D /* Info.plist */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		FA112DFB253B26300085A27D /* RxFireAuth-Example */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = FA112E10253B26310085A27D /* Build configuration list for PBXNativeTarget "RxFireAuth-Example" */;
+			buildPhases = (
+				FA112DF8253B26300085A27D /* Sources */,
+				FA112DF9253B26300085A27D /* Frameworks */,
+				FA112DFA253B26300085A27D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "RxFireAuth-Example";
+			productName = "RxFireAuth-Example";
+			productReference = FA112DFC253B26300085A27D /* RxFireAuth-Example.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		FA112DF2253B25DC0085A27D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1200;
+				LastUpgradeCheck = 1200;
+				TargetAttributes = {
+					FA112DFB253B26300085A27D = {
+						CreatedOnToolsVersion = 12.0;
+						LastSwiftMigration = 1200;
+					};
+				};
+			};
+			buildConfigurationList = FA112DF5253B25DC0085A27D /* Build configuration list for PBXProject "RxFireAuth" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = FA112DF1253B25DC0085A27D;
+			productRefGroup = FA112DFD253B26300085A27D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				FA112DFB253B26300085A27D /* RxFireAuth-Example */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		FA112DFA253B26300085A27D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA112E26253B268C0085A27D /* LaunchScreen.xib in Resources */,
+				FA112E56253B27140085A27D /* GoogleService-Info.plist in Resources */,
+				FA112E25253B268C0085A27D /* Main.storyboard in Resources */,
+				FA112E17253B26730085A27D /* Images.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		FA112DF8253B26300085A27D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				FA112E1F253B26830085A27D /* ViewController.swift in Sources */,
+				FA112E14253B266A0085A27D /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		FA112E21253B268C0085A27D /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA112E22253B268C0085A27D /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		FA112E23253B268C0085A27D /* LaunchScreen.xib */ = {
+			isa = PBXVariantGroup;
+			children = (
+				FA112E24253B268C0085A27D /* Base */,
+			);
+			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		FA112DF6253B25DC0085A27D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		FA112DF7253B25DC0085A27D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		FA112E0E253B26310085A27D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ../Example/RxFireAuth/RxFireAuth_Example.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEVELOPMENT_TEAM = 43C9YP2S4Y;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = ../Example/RxFireAuth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		FA112E0F253B26310085A27D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_ENTITLEMENTS = ../Example/RxFireAuth/RxFireAuth_Example.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEVELOPMENT_TEAM = 43C9YP2S4Y;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				INFOPLIST_FILE = ../Example/RxFireAuth/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 1;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		FA112DF5253B25DC0085A27D /* Build configuration list for PBXProject "RxFireAuth" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA112DF6253B25DC0085A27D /* Debug */,
+				FA112DF7253B25DC0085A27D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		FA112E10253B26310085A27D /* Build configuration list for PBXNativeTarget "RxFireAuth-Example" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				FA112E0E253B26310085A27D /* Debug */,
+				FA112E0F253B26310085A27D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = FA112DF2253B25DC0085A27D /* Project object */;
+}

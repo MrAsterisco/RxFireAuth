@@ -6,8 +6,13 @@
 //
 
 import AppAuth
+#if os(macOS)
+import Cocoa
+#elseif os(iOS)
+import UIKit
+#endif
 
-class MacExternalUserAgent: NSObject, OIDExternalUserAgent {
+class ExternalUserAgent: NSObject, OIDExternalUserAgent {
   
   private var inProgress: Bool = false
   private var session: OIDExternalUserAgentSession?
@@ -18,7 +23,13 @@ class MacExternalUserAgent: NSObject, OIDExternalUserAgent {
     self.inProgress = true
     self.session = session
     
-    let openedBrowser = NSWorkspace.shared.open(request.externalUserAgentRequestURL())
+    var openedBrowser = false
+    #if os(macOS)
+    openedBrowser = NSWorkspace.shared.open(request.externalUserAgentRequestURL())
+    #elseif os(iOS)
+    openedBrowser = UIApplication.shared.openURL(request.externalUserAgentRequestURL())
+    #endif
+    
     if (!openedBrowser) {
       self.cleanUp()
       session.failExternalUserAgentFlowWithError(

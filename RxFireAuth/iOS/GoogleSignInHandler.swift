@@ -5,6 +5,7 @@
 //  Created by Alessio Moiso on 17/05/2020.
 //
 
+#if canImport(GoogleSignIn)
 import Foundation
 import GoogleSignIn
 
@@ -43,3 +44,4 @@ class GoogleSignInHandler: NSObject, GIDSignInDelegate, LoginHandlerType {
   }
   
 }
+#endif
