@@ -1,7 +1,7 @@
 target 'RxFireAuth_Example' do
   use_frameworks!
   
-  platform :ios, '9.0'
+  platform :ios, '10.0'
 
   pod 'RxFireAuth', :path => '../'
 
@@ -13,7 +13,7 @@ end
 target 'RxFireAuth_Example_macOS' do
   use_frameworks!
   
-  platform :macos, '10.11'
+  platform :macos, '10.12'
 
   pod 'RxFireAuth', :path => '../'
 end

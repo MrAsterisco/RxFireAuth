@@ -47,7 +47,7 @@ public protocol UserManagerType {
   /// so you don't have to worry about that.
   ///
   /// - warning: The access token should be treated as sensitive information.
-  /// - since: version 1.7.0
+  /// - since: version 2.0.0
   var accessToken: Single<String?> { get }
   
   /// Verify if an account exists on the server with the passed email address.
