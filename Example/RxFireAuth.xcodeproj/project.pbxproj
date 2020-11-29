@@ -716,7 +716,7 @@
 				CODE_SIGN_ENTITLEMENTS = RxFireAuth/RxFireAuth_Example.entitlements;
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				INFOPLIST_FILE = RxFireAuth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example";
@@ -734,7 +734,7 @@
 				CODE_SIGN_ENTITLEMENTS = RxFireAuth/RxFireAuth_Example.entitlements;
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				INFOPLIST_FILE = RxFireAuth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				MODULE_NAME = ExampleApp;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example";

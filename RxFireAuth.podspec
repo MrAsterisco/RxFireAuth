@@ -44,4 +44,10 @@ Pod::Spec.new do |s|
   s.dependency 'RxCocoa', '~> 5'
   s.osx.dependency 'AppAuth', '~> 1.4'
   s.static_framework = true
+  
+  # See https://github.com/CocoaPods/CocoaPods/issues/10065
+  s.pod_target_xcconfig = {
+    'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64'
+  }
+  s.user_target_xcconfig = { 'EXCLUDED_ARCHS[sdk=iphonesimulator*]' => 'arm64' }
 end
