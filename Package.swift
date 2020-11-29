@@ -6,8 +6,8 @@ import PackageDescription
 let package = Package(
   name: "RxFireAuth",
   platforms: [
-    .macOS(.v10_11),
-    .iOS(.v9)
+    .macOS(.v10_12),
+    .iOS(.v10)
   ],
   products: [
     .library(
@@ -15,8 +15,8 @@ let package = Package(
       targets: ["RxFireAuth"]),
   ],
   dependencies: [
-    .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk", .branch("6.34-spm-beta")),
-    .package(name: "JWTDecode", url: "https://github.com/auth0/JWTDecode.swift", from: "2.4.0"),
+    .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk", .branch("7.0-spm-beta")),
+    .package(name: "JWTDecode", url: "https://github.com/auth0/JWTDecode.swift", from: "2.5.0"),
     .package(name: "RxSwift", url: "https://github.com/ReactiveX/RxSwift", from: "5.0.0"),
     .package(name: "AppAuth", url: "https://github.com/openid/AppAuth-iOS", from: "1.4.0")
   ],

@@ -17,7 +17,7 @@
     <a title="UserManager Class Reference"></a>
     <header>
       <div class="content-wrapper">
-        <p><a href="../index.html">RxFireAuth 1.6.0 Docs</a> (95% documented)</p>
+        <p><a href="../index.html">RxFireAuth 2.0.0 Docs</a> (95% documented)</p>
         <p class="header-right">
           <form role="search" action="../search.json">
             <input type="text" placeholder="Search documentation" data-typeahead>
@@ -305,6 +305,32 @@ logged-out every time you instantiate a user manager.</p>
                         <div class="language">
                           <p class="aside-title">Swift</p>
                           <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">autoupdatingUser</span><span class="p">:</span> <span class="kt">Observable</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/UserData.html">UserData</a></span><span class="p">?</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:10RxFireAuth15UserManagerTypeP11accessToken0A5Swift17PrimitiveSequenceVyAE11SingleTraitOSSSgGvp"></a>
+                    <a name="//apple_ref/swift/Property/accessToken" class="dashAnchor"></a>
+                    <a class="token" href="#/s:10RxFireAuth15UserManagerTypeP11accessToken0A5Swift17PrimitiveSequenceVyAE11SingleTraitOSSSgGvp">accessToken</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">var</span> <span class="nv">accessToken</span><span class="p">:</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt">String</span><span class="p">?</span><span class="o">&gt;</span> <span class="p">{</span> <span class="k">get</span> <span class="p">}</span></code></pre>
 
                         </div>
                       </div>
@@ -733,7 +759,7 @@ logged-out every time you instantiate a user manager.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, OSX 10.15, *)</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, macOS 10.15, *)</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">signInWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/ViewController">ViewController</a></span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -760,7 +786,7 @@ logged-out every time you instantiate a user manager.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, OSX 10.15, *)</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, macOS 10.15, *)</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">confirmAuthenticationWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/ViewController">ViewController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
 
                         </div>
@@ -865,7 +891,7 @@ logged-out every time you instantiate a user manager.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, OSX 10.15, *)</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, macOS 10.15, *)</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">signInWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/ViewController">ViewController</a></span><span class="p">,</span> <span class="nv">updateUserDisplayName</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">,</span> <span class="nv">allowMigration</span><span class="p">:</span> <span class="kt">Bool</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Single</span><span class="o">&lt;</span><span class="kt"><a href="../Structs/LoginDescriptor.html">LoginDescriptor</a></span><span class="o">&gt;</span></code></pre>
 
                         </div>
@@ -892,7 +918,7 @@ logged-out every time you instantiate a user manager.</p>
                         <h4>Declaration</h4>
                         <div class="language">
                           <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, OSX 10.15, *)</span>
+                          <pre class="highlight swift"><code><span class="kd">@available(iOS 13.0, macOS 10.15, *)</span>
 <span class="kd">public</span> <span class="kd">func</span> <span class="nf">confirmAuthenticationWithApple</span><span class="p">(</span><span class="k">in</span> <span class="nv">viewController</span><span class="p">:</span> <span class="kt"><a href="../Typealiases.html#/ViewController">ViewController</a></span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Completable</span></code></pre>
 
                         </div>
@@ -970,7 +996,7 @@ logged-out every time you instantiate a user manager.</p>
           </section>
         </section>
         <section id="footer">
-          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-10-17)</p>
+          <p>&copy; 2020 <a class="link" href="https://github.com/mrasterisco/RxFireAuth" target="_blank" rel="external">Alessio Moiso</a>. All rights reserved. (Last updated: 2020-11-29)</p>
           <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.5</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
         </section>
       </article>
