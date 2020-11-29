@@ -62,24 +62,14 @@ public class UserManager: UserManagerType {
   /// to my email address "example@example.com", observers will not receive the updated email address.
   private var forceRefreshAutoUpdatingUser = BehaviorSubject<Void>(value: ())
   
-  public var autoupdatingUser: Observable<UserData?> {
-    return Observable.create { (observer) -> Disposable in
+  private var autoupdatingFirebaseUser: Observable<User?> {
+    return Observable.create { [unowned self] (observer) -> Disposable in
       let listener = Auth.auth().addStateDidChangeListener { (auth, user) in
-        if let user = user {
-          observer.onNext(
-            UserData(user: user)
-          )
-        } else {
-          observer.onNext(nil)
-        }
+        observer.onNext(user)
       }
       
       let subscription = self.forceRefreshAutoUpdatingUser.subscribe(onNext: { _ in
-        if let currentUser = Auth.auth().currentUser {
-          observer.onNext(UserData(user: currentUser))
-        } else {
-          observer.onNext(nil)
-        }
+        observer.onNext(Auth.auth().currentUser)
       })
       
       let disposable = Disposables.create {
@@ -89,6 +79,40 @@ public class UserManager: UserManagerType {
       
       return disposable
     }
+  }
+  
+  public var autoupdatingUser: Observable<UserData?> {
+    autoupdatingFirebaseUser
+      .map { user in
+        guard let user = user else {
+          return nil
+        }
+        return .init(user: user)
+      }
+  }
+  
+  public var accessToken: Single<String?> {
+    autoupdatingFirebaseUser
+      .take(1).asSingle()
+      .flatMap { (user: User?) in
+        Single<String?>.create { (observer) -> Disposable in
+          let disposable = Disposables.create { }
+          
+          if let user = user {
+            user.getIDToken(completion: { (token, error) in
+              if let token = token {
+                observer(.success(token))
+              } else if let error = error {
+                observer(.error(error))
+              }
+            })
+          } else {
+            observer(.success(nil))
+          }
+          
+          return disposable
+        }
+      }
   }
   
   public func accountExists(with email: String) -> Single<Bool> {

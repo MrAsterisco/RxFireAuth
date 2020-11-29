@@ -40,6 +40,16 @@ public protocol UserManagerType {
   /// Get an Observable that emits a new item every time the logged-in user is updated.
   var autoupdatingUser: Observable<UserData?> { get }
   
+  /// Get the current access token for the logged-in user.
+  ///
+  /// You can use values from this Observable to authenticate with your backend.
+  /// This function will cause a refresh of the access token if the stored one is expired,
+  /// so you don't have to worry about that.
+  ///
+  /// - warning: The access token should be treated as sensitive information.
+  /// - since: version 2.0.0
+  var accessToken: Single<String?> { get }
+  
   /// Verify if an account exists on the server with the passed email address.
   ///
   /// - parameters:
