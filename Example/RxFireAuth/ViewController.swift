@@ -18,6 +18,7 @@ class ViewController: UITableViewController {
   
   @IBOutlet weak var welcomeLabel: UILabel!
   @IBOutlet weak var subtitleLabel: UILabel!
+  @IBOutlet weak var accessTokenLabel: UILabel!
   
   @IBOutlet weak var loginField: UITextField!
   @IBOutlet weak var passwordField: UITextField!
@@ -79,6 +80,21 @@ class ViewController: UITableViewController {
           self.providersField.text = "Not logged-in."
         }
       }).disposed(by: self.disposeBag)
+    
+    /// Since the Firebase SDK doesn't expose a way to
+    /// actually observe the user access token, instances of `UserManagerType`
+    /// expose it as a `Single` which retrieves the current access token and terminates.
+    /// In this case, we want to update the displayed value every time the user changes,
+    /// so we also have to subscribe to the `autoupdatingUser`.
+    self.userManager.autoupdatingUser
+      .flatMap { [unowned self] _ in
+        self.userManager.accessToken
+      }
+      .asObservable()
+      .observeOn(MainScheduler.instance)
+      .map { $0 != nil ? $0 : "No access token." }
+      .bind(to: self.accessTokenLabel.rx.text)
+      .disposed(by: disposeBag)
     
     self.loginField.rx.text
       .map { ($0 ?? "").count > 0 }
