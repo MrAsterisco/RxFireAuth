@@ -25,10 +25,6 @@ PODS:
     - nanopb (~> 2.30906.0)
   - GoogleDataTransport (8.0.1):
     - nanopb (~> 2.30906.0)
-  - GoogleSignIn (5.0.2):
-    - AppAuth (~> 1.2)
-    - GTMAppAuth (~> 1.0)
-    - GTMSessionFetcher/Core (~> 1.1)
   - GoogleUtilities/AppDelegateSwizzler (7.1.1):
     - GoogleUtilities/Environment
     - GoogleUtilities/Logger
@@ -44,14 +40,7 @@ PODS:
   - "GoogleUtilities/NSData+zlib (7.1.1)"
   - GoogleUtilities/Reachability (7.1.1):
     - GoogleUtilities/Logger
-  - GTMAppAuth (1.1.0):
-    - AppAuth/Core (~> 1.4)
-    - GTMSessionFetcher (~> 1.4)
-  - GTMSessionFetcher (1.5.0):
-    - GTMSessionFetcher/Full (= 1.5.0)
   - GTMSessionFetcher/Core (1.5.0)
-  - GTMSessionFetcher/Full (1.5.0):
-    - GTMSessionFetcher/Core (= 1.5.0)
   - JWTDecode (2.5.0)
   - nanopb (2.30906.0):
     - nanopb/decode (= 2.30906.0)
@@ -65,7 +54,6 @@ PODS:
   - RxFireAuth (2.0.0):
     - AppAuth (~> 1.4)
     - Firebase/Auth (~> 7.1)
-    - GoogleSignIn (~> 5.0.2)
     - JWTDecode (~> 2.5)
     - RxCocoa (~> 5)
   - RxRelay (5.1.1):
@@ -83,9 +71,7 @@ SPEC REPOS:
     - FirebaseCore
     - FirebaseCoreDiagnostics
     - GoogleDataTransport
-    - GoogleSignIn
     - GoogleUtilities
-    - GTMAppAuth
     - GTMSessionFetcher
     - JWTDecode
     - nanopb
@@ -105,18 +91,16 @@ SPEC CHECKSUMS:
   FirebaseCore: 20046127eef0fcb8fa25df7fc12f7b97d4e48611
   FirebaseCoreDiagnostics: 872cdb9b749b23346dddd5c1014d1babd2257de3
   GoogleDataTransport: e4085e6762f36a6141738f46b0153473ce57fb18
-  GoogleSignIn: 7137d297ddc022a7e0aa4619c86d72c909fa7213
   GoogleUtilities: 3dc4ff0d5e4840e2fa8eef0889620e8c33d4218c
-  GTMAppAuth: 197a8dabfea5d665224aa00d17f164fc2248dab9
   GTMSessionFetcher: b3503b20a988c4e20cc189aa798fd18220133f52
   JWTDecode: d4c176a28a29f7e6f9abf5c90ad3002f69b98c7c
   nanopb: 1bf24dd71191072e120b83dd02d08f3da0d65e53
   PromisesObjC: 8c196f5a328c2cba3e74624585467a557dcb482f
   RxCocoa: 32065309a38d29b5b0db858819b5bf9ef038b601
-  RxFireAuth: 5d74945f56a7c662f92740b3af7749763fd870f0
+  RxFireAuth: 28a2b31f9f9c8fdb82d8a7c45d282205db9e5471
   RxRelay: d77f7d771495f43c556cbc43eebd1bb54d01e8e9
   RxSwift: 81470a2074fa8780320ea5fe4102807cb7118178
 
 PODFILE CHECKSUM: ea8f92f08b272f64f10836eef47c81b25232df3f
 
-COCOAPODS: 1.10.0
+COCOAPODS: 1.10.1

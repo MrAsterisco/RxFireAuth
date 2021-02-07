@@ -5,7 +5,6 @@
 //  Created by Alessio Moiso on 17/05/2020.
 //
 
-#if !canImport(GoogleSignIn)
 import AppAuth
 
 public typealias GoogleSignInCompletionHandler = (_ idToken: String?, _ accessToken: String?, _ email: String?, _ fullName: String?, _ error: Error?) -> Void
@@ -41,7 +40,8 @@ class GoogleSignInHandler: LoginHandlerType {
       }
       
       let request = OIDAuthorizationRequest(configuration: configuration, clientId: self.clientId, clientSecret: "", scopes: [OIDScopeOpenID, OIDScopeProfile, OIDScopeEmail], redirectURL: self.redirectURL, responseType: OIDResponseTypeCode, additionalParameters: nil)
-      self.session = OIDAuthState.authState(byPresenting: request, externalUserAgent: ExternalUserAgent(), callback: { (authState, error) in
+      
+      let callback: (OIDAuthState?, Error?) -> Void = { (authState, error) in
         guard let authState = authState, let lastTokenResponse = authState.lastTokenResponse, error == nil else {
           completionHandler(nil, nil, nil, nil, error)
           return
@@ -49,7 +49,13 @@ class GoogleSignInHandler: LoginHandlerType {
         
         let idToken = OIDIDToken(idTokenString: lastTokenResponse.idToken ?? "")
         completionHandler(nil, authState.lastTokenResponse?.accessToken, idToken?.claims["email"] as? String, idToken?.claims["name"] as? String, nil)
-      })
+      }
+      
+      #if os(macOS)
+      self.session = OIDAuthState.authState(byPresenting: request, externalUserAgent: ExternalUserAgent(), callback: callback)
+      #elseif os(iOS)
+      self.session = OIDAuthState.authState(byPresenting: request, presenting: viewController, callback: callback)
+      #endif
     }
   }
   
@@ -58,4 +64,3 @@ class GoogleSignInHandler: LoginHandlerType {
   }
   
 }
-#endif

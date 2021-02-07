@@ -5,12 +5,9 @@
 //  Created by Alessio Moiso on 11.10.20.
 //
 
-import AppAuth
 #if os(macOS)
+import AppAuth
 import Cocoa
-#elseif os(iOS)
-import UIKit
-#endif
 
 class ExternalUserAgent: NSObject, OIDExternalUserAgent {
   
@@ -23,12 +20,7 @@ class ExternalUserAgent: NSObject, OIDExternalUserAgent {
     self.inProgress = true
     self.session = session
     
-    var openedBrowser = false
-    #if os(macOS)
-    openedBrowser = NSWorkspace.shared.open(request.externalUserAgentRequestURL())
-    #elseif os(iOS)
-    openedBrowser = UIApplication.shared.openURL(request.externalUserAgentRequestURL())
-    #endif
+    let openedBrowser = NSWorkspace.shared.open(request.externalUserAgentRequestURL())
     
     if (!openedBrowser) {
       self.cleanUp()
@@ -56,3 +48,4 @@ class ExternalUserAgent: NSObject, OIDExternalUserAgent {
   }
   
 }
+#endif
