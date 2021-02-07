@@ -229,6 +229,7 @@ class ViewController: UITableViewController {
   /// Confirm authentication with one of the available providers.
   @IBAction func confirmAuthentication(sender: AnyObject) {
     let alertController = UIAlertController(title: "Confirm Authentication", message: "Select the provider you'd like to use to confirm authentication.", preferredStyle: .actionSheet)
+    alertController.popoverPresentationController?.sourceView = (sender as? UIButton)
     self.userManager.user?.authenticationProviders.forEach { (provider) in
       alertController.addAction(UIAlertAction(title: provider.rawValue, style: .default, handler: { [unowned self] _ in
         alertController.dismiss(animated: true) { [unowned self] in
@@ -363,6 +364,7 @@ class ViewController: UITableViewController {
   /// a new login attempt can be made seamlessly without asking anything to the user.
   private func handleMigration(credentials: LoginCredentials?) {
     let migrationAlert = UIAlertController(title: "Migration Required", message: "You are trying to login into an existing account while being logged-in with an anonymous account. When doing this in a real app, you should check if the user has data in the anonymous account and, if so, offer the option to merge the anonymous account with the one that the user is trying to sign into.", preferredStyle: .actionSheet)
+    migrationAlert.popoverPresentationController?.sourceView = self.subtitleLabel
     migrationAlert.addAction(UIAlertAction(title: "Migrate", style: .destructive, handler: { [unowned self] _ in
       if let credentials = credentials {
         self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
