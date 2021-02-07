@@ -50,8 +50,8 @@
         "package": "Firebase",
         "repositoryURL": "https://github.com/firebase/firebase-ios-sdk",
         "state": {
-          "branch": "6.34-spm-beta",
-          "revision": "70b54ba972e5768fe84f69f700ae362c8fbf8e8b",
+          "branch": "7.0-spm-beta",
+          "revision": "ab758f2ac842b12560354af0526e21d73235d4d3",
           "version": null
         }
       },
@@ -131,8 +131,8 @@
         "package": "RxFireAuth",
         "repositoryURL": "https://github.com/MrAsterisco/RxFireAuth",
         "state": {
-          "branch": "feature/swiftPM",
-          "revision": "946638fada20a3b6d20dc88f93d8e20268d44e75",
+          "branch": "feature/remove_google_signin_sdk",
+          "revision": "0c485fc0da174e57667722d8c441a50c8ae1f4f7",
           "version": null
         }
       },

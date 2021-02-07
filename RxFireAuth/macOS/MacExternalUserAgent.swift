@@ -5,6 +5,7 @@
 //  Created by Alessio Moiso on 11.10.20.
 //
 
+#if os(macOS)
 import AppAuth
 import Cocoa
 
@@ -47,3 +48,4 @@ class ExternalUserAgent: NSObject, OIDExternalUserAgent {
   }
   
 }
+#endif
