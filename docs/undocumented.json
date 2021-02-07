@@ -1,75 +1,75 @@
 {
   "warnings": [
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/LoginProviderManagerType.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/GoogleOAuthSignInHandler.swift",
+      "line": 10,
+      "symbol": "GoogleSignInCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/GoogleOAuthSignInHandler.swift",
+      "line": 10,
+      "symbol": "GoogleSignInCompletionHandler",
+      "symbol_kind": "source.lang.swift.decl.typealias",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/LoginProviderManagerType.swift",
       "line": 13,
       "symbol": "ViewController",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/LoginProviderManagerType.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/LoginProviderManagerType.swift",
       "line": 16,
       "symbol": "ViewController",
       "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 78,
       "symbol": "SignInWithAppleHandler.authorizationController(controller:didCompleteWithAuthorization:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 78,
       "symbol": "SignInWithAppleHandler.authorizationController(controller:didCompleteWithAuthorization:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 100,
       "symbol": "SignInWithAppleHandler.authorizationController(controller:didCompleteWithError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 100,
       "symbol": "SignInWithAppleHandler.authorizationController(controller:didCompleteWithError:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 109,
       "symbol": "SignInWithAppleHandler.presentationAnchor(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
+      "file": "/Users/alex/Documents/Open/RxFireAuth/RxFireAuth/Classes/SignInWithAppleHandler.swift",
       "line": 109,
       "symbol": "SignInWithAppleHandler.presentationAnchor(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/iOS/GoogleSignInHandler.swift",
-      "line": 12,
-      "symbol": "GoogleSignInCompletionHandler",
-      "symbol_kind": "source.lang.swift.decl.typealias",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/alex/Documents/Open Source/RxFireAuth/RxFireAuth/macOS/GoogleOAuthSignInHandler.swift",
-      "line": 11,
-      "symbol": "GoogleSignInCompletionHandler",
-      "symbol_kind": "source.lang.swift.decl.typealias",
       "warning": "undocumented"
     }
   ],
-  "source_directory": "/Users/alex/Documents/Open Source/RxFireAuth"
+  "source_directory": "/Users/alex/Documents/Open/RxFireAuth"
 }

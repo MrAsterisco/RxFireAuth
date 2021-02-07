@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxFireAuth'
-  s.version          = '2.0.0'
+  s.version          = '2.1.0'
   s.summary          = 'A smart Rx wrapper around Firebase Authentication SDK'
 
 # This description is used to generate tags and improve search results.
@@ -39,10 +39,9 @@ Pod::Spec.new do |s|
   s.macos.source_files = 'RxFireAuth/macOS/**/*'
   
   s.dependency 'Firebase/Auth', '~> 7.1'
-  s.ios.dependency 'GoogleSignIn', '~> 5.0.2'
   s.dependency 'JWTDecode', '~> 2.5'
   s.dependency 'RxCocoa', '~> 5'
-  s.osx.dependency 'AppAuth', '~> 1.4'
+  s.dependency 'AppAuth', '~> 1.4'
   s.static_framework = true
   
   # See https://github.com/CocoaPods/CocoaPods/issues/10065
