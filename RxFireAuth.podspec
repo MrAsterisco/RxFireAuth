@@ -8,7 +8,7 @@
 
 Pod::Spec.new do |s|
   s.name             = 'RxFireAuth'
-  s.version          = '2.0.0'
+  s.version          = '2.1.0'
   s.summary          = 'A smart Rx wrapper around Firebase Authentication SDK'
 
 # This description is used to generate tags and improve search results.
