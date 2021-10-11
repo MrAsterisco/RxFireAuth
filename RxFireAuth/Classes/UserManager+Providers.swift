@@ -27,11 +27,11 @@ extension UserManager: LoginProviderManagerType {
         guard !disposable.isDisposed else { return }
         
         guard error == nil else {
-          observer(.error(error!))
+          observer(.failure(error!))
           return
         }
         
-        guard let email = email else { observer(.error(UserError.invalidEmail)); return }
+        guard let email = email else { observer(.failure(UserError.invalidEmail)); return }
         
         observer(
           .success(
@@ -75,7 +75,7 @@ extension UserManager: LoginProviderManagerType {
         guard !disposable.isDisposed else { return }
         
         guard error == nil else {
-          observer(.error(error!))
+          observer(.failure(error!))
           return
         }
         

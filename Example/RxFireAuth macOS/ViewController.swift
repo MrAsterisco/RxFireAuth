@@ -53,7 +53,7 @@ class ViewController: NSViewController {
     self.toggleProgress(false)
     
     self.userManager.autoupdatingUser
-      .observeOn(MainScheduler.instance)
+      .observe(on: MainScheduler.instance)
       .subscribe(onNext: { [unowned self] (user) in
         if let user = user {
           if user.isAnonymous {
@@ -88,7 +88,7 @@ class ViewController: NSViewController {
         self.userManager.accessToken
       }
       .asObservable()
-      .observeOn(MainScheduler.instance)
+      .observe(on: MainScheduler.instance)
       .map { $0 != nil ? $0 : "No access token." }
       .bind(to: self.accessTokenLabel.rx.text)
       .disposed(by: disposeBag)
@@ -135,7 +135,7 @@ class ViewController: NSViewController {
       self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: self.migrationAllowance)
         .subscribe(onSuccess: { [unowned self] in
           self.handleLoggedIn($0)
-        }, onError: { [unowned self] in
+        }, onFailure: { [unowned self] in
           self.handleSignInError(error: $0)
         })
         .disposed(by: self.disposeBag)
@@ -147,7 +147,7 @@ class ViewController: NSViewController {
       self.userManager.signInWithApple(in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
         .subscribe(onSuccess: { [unowned self] in
           self.handleLoggedIn($0)
-        }, onError: { [unowned self] in
+        }, onFailure: { [unowned self] in
           self.show(error: $0)
         })
         .disposed(by: self.disposeBag)
@@ -160,7 +160,7 @@ class ViewController: NSViewController {
     self.userManager.signInWithGoogle(as: googleClientId, in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
       .subscribe(onSuccess: { [unowned self] in
         self.handleLoggedIn($0)
-      }, onError: { [unowned self] in
+      }, onFailure: { [unowned self] in
         self.show(error: $0)
       })
       .disposed(by: self.disposeBag)
@@ -267,7 +267,7 @@ class ViewController: NSViewController {
       
       self.toggleProgress(true)
       self.userManager.confirmAuthentication(email: email, password: password)
-        .observeOn(MainScheduler.instance)
+        .observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
           self.show(title: "Authentication Confirmed!", message: "You can now perform sensitive operations.")
@@ -279,7 +279,7 @@ class ViewController: NSViewController {
     case .apple:
       if #available(macOS 10.15, *) {
         self.userManager.confirmAuthenticationWithApple(in: self)
-          .observeOn(MainScheduler.instance)
+          .observe(on: MainScheduler.instance)
           .subscribe(onCompleted: { [unowned self] in
             self.toggleProgress(false)
             self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
@@ -293,7 +293,7 @@ class ViewController: NSViewController {
       
     case .google:
       self.userManager.confirmAuthenticationWithGoogle(as: self.googleClientId, in: self)
-        .observeOn(MainScheduler.instance)
+        .observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
           self.show(title: "Authentication Confirmed with Google!", message: "You can now perform sensitive operations.")
@@ -320,7 +320,7 @@ class ViewController: NSViewController {
     alert.beginSheetModal(for: view.window!) { [unowned self] (response) in
       if response == .alertFirstButtonReturn {
         self.userManager.confirmAuthentication(email: self.userManager.user!.email!, password: textField.stringValue)
-          .observeOn(MainScheduler.instance)
+          .observe(on: MainScheduler.instance)
           .subscribe(onCompleted: { [unowned self] in
             self.setNewPassword()
           }, onError: { [unowned self] in
@@ -345,7 +345,7 @@ class ViewController: NSViewController {
     
     alert.beginSheetModal(for: view.window!) { [unowned self] (response) in
       self.userManager.updatePassword(newPassword: textField.stringValue)
-        .observeOn(MainScheduler.instance)
+        .observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.show(title: "Password set!", message: "Your new password has been set.")
         }, onError: { [unowned self] in
@@ -366,11 +366,11 @@ class ViewController: NSViewController {
       case .alertFirstButtonReturn:
         if let credentials = credentials {
           self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
-            .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+            .subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
             .disposed(by: self.disposeBag)
         } else {
           self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: true)
-            .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+            .subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
             .disposed(by: self.disposeBag)
         }
       default:
