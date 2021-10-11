@@ -103,7 +103,7 @@ public class UserManager: UserManagerType {
               if let token = token {
                 observer(.success(token))
               } else if let error = error {
-                observer(.error(error))
+                observer(.failure(error))
               }
             })
           } else {
@@ -124,7 +124,7 @@ public class UserManager: UserManagerType {
         guard !disposable.isDisposed else { return }
         
         if let error = error {
-          observer(.error(self.map(error: error)))
+          observer(.failure(self.map(error: error)))
         } else if let methods = methods, methods.count > 0 {
           observer(.success(true))
         } else {
@@ -244,7 +244,7 @@ public class UserManager: UserManagerType {
       
       let signInCompletionHandler: (Error?) -> Void = { [unowned self] (error) in
         if let error = error {
-          observer(.error(self.map(error: error)))
+          observer(.failure(self.map(error: error)))
         } else if let newUser = Auth.auth().currentUser {
           observer(.success(
             LoginDescriptor(
@@ -256,13 +256,13 @@ public class UserManager: UserManagerType {
           )
           )
         } else {
-          observer(.error(UserError.noUser))
+          observer(.failure(UserError.noUser))
         }
       }
       
       if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
         if allowMigration == nil {
-          observer(.error(UserError.migrationRequired(nil)))
+          observer(.failure(UserError.migrationRequired(nil)))
           return disposable
         }
         
@@ -270,7 +270,7 @@ public class UserManager: UserManagerType {
         
         currentUser.delete { [unowned self] (error) in
           if let error = error {
-            observer(.error(self.map(error: error)))
+            observer(.failure(self.map(error: error)))
           } else {
             self.signIn(with: EmailAuthProvider.credential(withEmail: email, password: password), in: disposable, completionHandler: signInCompletionHandler)
           }
@@ -293,7 +293,7 @@ public class UserManager: UserManagerType {
       let signInCompletionHandler: (Error?) -> Void = { (error) in
         guard !disposable.isDisposed else { return }
         if let error = error {
-          observer(.error(self.map(error: error)))
+          observer(.failure(self.map(error: error)))
         } else if let newUser = Auth.auth().currentUser {
           observer(
             .success(
@@ -301,21 +301,21 @@ public class UserManager: UserManagerType {
             )
           )
         } else {
-          observer(.error(UserError.noUser))
+          observer(.failure(UserError.noUser))
         }
       }
       
       /// Get if this user already exists
       Auth.auth().fetchSignInMethods(forEmail: credentials.email) { (methods, error) in
         guard !disposable.isDisposed else { return }
-        guard error == nil else { observer(.error(error!)); return }
+        guard error == nil else { observer(.failure(error!)); return }
         
         if let methods = methods, methods.count > 0, let currentUser = Auth.auth().currentUser {
           /// This user exists.
           /// There is a currently logged-in user.
           if currentUser.isAnonymous {
             if allowMigration == nil {
-              observer(.error(UserError.migrationRequired(credentials)))
+              observer(.failure(UserError.migrationRequired(credentials)))
               return
             }
             
@@ -326,7 +326,7 @@ public class UserManager: UserManagerType {
             currentUser.delete { (error) in
               guard !disposable.isDisposed else { return }
               if let error = error {
-                observer(.error(self.map(error: error)))
+                observer(.failure(self.map(error: error)))
               } else {
                 self.signIn(with: firebaseCredentials, in: disposable, completionHandler: signInCompletionHandler)
               }
