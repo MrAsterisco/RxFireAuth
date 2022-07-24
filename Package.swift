@@ -34,7 +34,6 @@ let package = Package(
       sources: [
         ".",
         "Classes",
-        "iOS",
         "macOS"
       ]
     )
