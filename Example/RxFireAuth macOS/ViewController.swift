@@ -232,7 +232,7 @@ class ViewController: NSViewController {
   }
   
   @objc func confirmAuthentication(of sender: NSMenuItem) {
-    guard let provider = LoginCredentials.Provider(rawValue: sender.title) else {
+    guard let provider = AuthenticationProvider(rawValue: sender.title) else {
       return
     }
     
@@ -253,7 +253,7 @@ class ViewController: NSViewController {
     }
   }
   
-  private func confirmAuthentication(for provider: LoginCredentials.Provider) {
+  private func confirmAuthentication(for provider: AuthenticationProvider) {
     self.toggleProgress(true)
     switch provider {
     case .password:
@@ -355,7 +355,7 @@ class ViewController: NSViewController {
     }
   }
   
-  private func handleMigration(credentials: LoginCredentials?) {
+  private func handleMigration(credentials: Credentials?) {
     let alert = NSAlert()
     alert.messageText = "Migration Required"
     alert.informativeText = "You are trying to login into an existing account while being logged-in with an anonymous account. When doing this in a real app, you should check if the user has data in the anonymous account and, if so, offer the option to merge the anonymous account with the one that the user is trying to sign into."

@@ -52,9 +52,13 @@ public protocol UserManagerType {
   
   /// Verify if an account exists on the server with the passed email address.
   ///
+	/// - warning: This query will always return `false` if your project is using Email Enumeration Protection.
+	///
+	///	- seealso: https://cloud.google.com/identity-platform/docs/admin/email-enumeration-protection
   /// - parameters:
   ///     - email: The account email address.
   /// - returns: A Single that completes with the result of the query on the backend.
+	@available(*, deprecated, message: "This function will be removed when it is removed by the Firebase SDK. If your project is using Email Enumeration Protection, this query will always return false.")
   func accountExists(with email: String) -> Single<Bool>
   
   /// Register a new account on the server with the passed email and password.
@@ -98,6 +102,9 @@ public protocol UserManagerType {
   ///
   /// - note: This function will return `UserError.alreadyLoggedIn` if there is already
   ///         a non-anonymous user logged-in.
+	///
+	/// - note: This function is a shorthand for calling ``login(with:updateUserDisplayName:allowMigration:)`` passing
+	/// ``Credentials.password``.
   ///
   /// - parameters:
   ///     - email: The user email address.
@@ -116,15 +123,14 @@ public protocol UserManagerType {
   ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
   ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be emitted by the Single.
   /// - returns: A Single to observe for results.
+	@available(*, deprecated, message: "Use the other login functions instead. With Email Enumeration Protection, it is no longer possible to check whether an account exists, so the normal `login` function now behaves exactly like this one used to do.")
   func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
   
   /// Sign in with the passed credentials on a login provider.
-  ///
-  /// Use this function to sign in with a provider credentials. In a normal flow,
-  /// you'll use this function with credentials obtained by one of the `signInWith…` methods
-  /// provided by implementations of `LoginProviderManagerType`.
-  ///
+	///
   /// - since: version 1.3.0
+	///
+	/// - note: This function will fail when attempting to login with `Credentials.password` on an account that has no password set.
   ///
   /// - parameters:
   ///     - credentials: Credentials to use to login.
@@ -132,7 +138,7 @@ public protocol UserManagerType {
   ///     - allowMigration: An optional boolean that defines the behavior in case there is an anonymous user logged-in and the user is trying to login into an existing account. This option will be passed back to the caller
   ///     in the resulting `LoginDescriptor.performMigration`; if set to `nil`, the operation will not proceed and a `UserError.migrationRequired` error will be emitted by the Single.
   /// - returns: A Single to observe for results.
-  func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
+  func login(with credentials: Credentials, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor>
   
   /// Sign out the currently logged-in user.
   ///
@@ -178,10 +184,27 @@ public protocol UserManagerType {
   /// All users have an email address associated, even those that have signed in using a login provider (such as Google).
   /// Keep in mind that some login providers may return a relay email which may not be enabled to receive messages.
   ///
+	/// - warning: If your project has Email Enumeration Protection enabled, this call will fail.
+	/// - seealso: https://cloud.google.com/identity-platform/docs/admin/email-enumeration-protection
   /// - parameters:
   ///     - newEmail: The new email address.
   /// - returns: A Completable action to observe.
+	@available(*, deprecated, message: "This function will be removed when it is removed by the Firebase SDK. If your project is using Email Enumeration Protection, you should invoke `verifyEmailToUpdate` instead.")
   func updateEmail(newEmail: String) -> Completable
+	
+	/// Send a verification email to the specified email address and, if the verification succeeds,
+	/// update the email address.
+	///
+	/// All users have an email address associated, even those that have signed in using a login provider (such as Google).
+	/// Keep in mind that some login providers may return a relay email which may not be enabled to receive messages.
+	///
+	/// - note: If your project does not have Email Enumeration Protection enabled, you can also invoke ``updateEmail(newEmail:)``
+	/// directly, but this will not send a verification email to confirm ownership of the email address.
+	///
+	/// - parameters:
+	/// 	- newEmail: The new email address to be verified.
+	/// - returns: A Completable action to observe.
+	func verifyAndChange(toNewEmail newEmail: String) -> Completable
   
   /// Confirm the authentication of the passed credentials with the currently signed in user.
   ///
@@ -205,7 +228,7 @@ public protocol UserManagerType {
   /// - parameters:
   ///     - loginCredentials: A representation of the credentials used to login.
   /// - returns: A Completable action to observe.
-  func confirmAuthentication(with loginCredentials: LoginCredentials) -> Completable
+  func confirmAuthentication(with loginCredentials: Credentials) -> Completable
   
   /// Delete the currently signed in user.
   ///

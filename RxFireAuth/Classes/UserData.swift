@@ -36,7 +36,7 @@ public struct UserData {
   public let isAnonymous: Bool
   
   /// Get a list of providers that this user has connected.
-  public let authenticationProviders: [LoginCredentials.Provider]
+  public let authenticationProviders: [AuthenticationProvider]
   
   /// Initialize a new instance using data from the passed Firebase User.
   ///
@@ -47,7 +47,7 @@ public struct UserData {
     self.email = user.email
     self.displayName = user.displayName
     self.isAnonymous = user.isAnonymous
-    self.authenticationProviders = user.providerData.compactMap { LoginCredentials.Provider(rawValue: $0.providerID) }
+		self.authenticationProviders = user.providerData.compactMap { .init(rawValue: $0.providerID) }
   }
   
 }

@@ -9,7 +9,7 @@
 import RxSwift
 
 #if os(macOS)
-import Cocoa
+import AppKit
 public typealias ViewController = NSViewController
 #elseif os(iOS)
 import UIKit

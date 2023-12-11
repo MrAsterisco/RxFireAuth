@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 52;
+	objectVersion = 60;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -13,13 +13,13 @@
 		FA112E25253B268C0085A27D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA112E21253B268C0085A27D /* Main.storyboard */; };
 		FA112E26253B268C0085A27D /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = FA112E23253B268C0085A27D /* LaunchScreen.xib */; };
 		FA112E56253B27140085A27D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA112E55253B27140085A27D /* GoogleService-Info.plist */; };
-		FA112E63253B2B1E0085A27D /* RxFireAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA112E62253B2B1E0085A27D /* RxFireAuth */; };
 		FA112EC9253B2D1E0085A27D /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA112EBE253B2D1D0085A27D /* AppDelegate.swift */; };
 		FA112ECB253B2D1E0085A27D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = FA112EC2253B2D1D0085A27D /* Assets.xcassets */; };
 		FA112ECD253B2D1E0085A27D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = FA112EC5253B2D1E0085A27D /* Main.storyboard */; };
 		FA112ECE253B2D1E0085A27D /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = FA112EC7253B2D1E0085A27D /* ViewController.swift */; };
 		FA112EE5253B2D9D0085A27D /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = FA112EE3253B2D9D0085A27D /* GoogleService-Info.plist */; };
-		FA112EF5253B2E4C0085A27D /* RxFireAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FA112EF4253B2E4C0085A27D /* RxFireAuth */; };
+		FADC2B452B27991E00E64660 /* RxFireAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FADC2B442B27991E00E64660 /* RxFireAuth */; };
+		FADC2B482B27996100E64660 /* RxFireAuth in Frameworks */ = {isa = PBXBuildFile; productRef = FADC2B472B27996100E64660 /* RxFireAuth */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +44,7 @@
 		FA112EE1253B2D9D0085A27D /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = "../../Example/RxFireAuth macOS/Supporting Files/Info.plist"; sourceTree = "<group>"; };
 		FA112EE2253B2D9D0085A27D /* RxFireAuth_Example_macOS.entitlements */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.entitlements; name = RxFireAuth_Example_macOS.entitlements; path = "../../Example/RxFireAuth macOS/Supporting Files/RxFireAuth_Example_macOS.entitlements"; sourceTree = "<group>"; };
 		FA112EE3253B2D9D0085A27D /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../Example/RxFireAuth macOS/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		FADC2B462B27993600E64660 /* RxFireAuth */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = RxFireAuth; path = /Users/alex/Developer/Open/RxFireAuth; sourceTree = "<absolute>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,7 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA112E63253B2B1E0085A27D /* RxFireAuth in Frameworks */,
+				FADC2B452B27991E00E64660 /* RxFireAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -59,7 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FA112EF5253B2E4C0085A27D /* RxFireAuth in Frameworks */,
+				FADC2B482B27996100E64660 /* RxFireAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -112,6 +113,7 @@
 		FA112E6F253B2C0E0085A27D /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				FADC2B462B27993600E64660 /* RxFireAuth */,
 				FA112E77253B2C1E0085A27D /* SystemConfiguration.framework */,
 				FA112E75253B2C160085A27D /* SafariServices.framework */,
 				FA112E71253B2C0E0085A27D /* AuthenticationServices.framework */,
@@ -160,7 +162,7 @@
 			);
 			name = "RxFireAuth-Example";
 			packageProductDependencies = (
-				FA112E62253B2B1E0085A27D /* RxFireAuth */,
+				FADC2B442B27991E00E64660 /* RxFireAuth */,
 			);
 			productName = "RxFireAuth-Example";
 			productReference = FA112DFC253B26300085A27D /* RxFireAuth-Example.app */;
@@ -180,7 +182,7 @@
 			);
 			name = "RxFireAuth-Example-macOS";
 			packageProductDependencies = (
-				FA112EF4253B2E4C0085A27D /* RxFireAuth */,
+				FADC2B472B27996100E64660 /* RxFireAuth */,
 			);
 			productName = "RxFireAuth-Example-macOS";
 			productReference = FA112E85253B2CF70085A27D /* RxFireAuth-Example-macOS.app */;
@@ -192,8 +194,9 @@
 		FA112DF2253B25DC0085A27D /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1200;
-				LastUpgradeCheck = 1200;
+				LastUpgradeCheck = 1500;
 				TargetAttributes = {
 					FA112DFB253B26300085A27D = {
 						CreatedOnToolsVersion = 12.0;
@@ -206,7 +209,7 @@
 				};
 			};
 			buildConfigurationList = FA112DF5253B25DC0085A27D /* Build configuration list for PBXProject "RxFireAuth" */;
-			compatibilityVersion = "Xcode 9.3";
+			compatibilityVersion = "Xcode 15.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -215,7 +218,7 @@
 			);
 			mainGroup = FA112DF1253B25DC0085A27D;
 			packageReferences = (
-				FA112E61253B2B1E0085A27D /* XCRemoteSwiftPackageReference "RxFireAuth" */,
+				FADC2B432B27991E00E64660 /* XCLocalSwiftPackageReference ".." */,
 			);
 			productRefGroup = FA112DFD253B26300085A27D /* Products */;
 			projectDirPath = "";
@@ -303,16 +306,76 @@
 		FA112DF6253B25DC0085A27D /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
+				ONLY_ACTIVE_ARCH = YES;
 			};
 			name = Debug;
 		};
 		FA112DF7253B25DC0085A27D /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				MACOSX_DEPLOYMENT_TARGET = 10.11;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				DEAD_CODE_STRIPPING = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12;
+				MACOSX_DEPLOYMENT_TARGET = 10.13;
 			};
 			name = Release;
 		};
@@ -378,12 +441,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ../Example/RxFireAuth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -455,12 +518,12 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				INFOPLIST_FILE = ../Example/RxFireAuth/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				"IPHONEOS_DEPLOYMENT_TARGET[sdk=macosx*]" = 14.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				OTHER_LDFLAGS = "$(OTHER_LDFLAGS)";
@@ -515,6 +578,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = dwarf;
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -539,6 +603,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -590,6 +655,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEAD_CODE_STRIPPING = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEVELOPMENT_TEAM = 43C9YP2S4Y;
 				ENABLE_HARDENED_RUNTIME = YES;
@@ -608,6 +674,7 @@
 					"$(inherited)",
 					"@executable_path/../Frameworks",
 				);
+				MACOSX_DEPLOYMENT_TARGET = "$(RECOMMENDED_MACOSX_DEPLOYMENT_TARGET)";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = "io.mrasterisco.github.RxFireAuth-Example-macOS";
@@ -651,26 +718,20 @@
 		};
 /* End XCConfigurationList section */
 
-/* Begin XCRemoteSwiftPackageReference section */
-		FA112E61253B2B1E0085A27D /* XCRemoteSwiftPackageReference "RxFireAuth" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/MrAsterisco/RxFireAuth";
-			requirement = {
-				branch = feature/remove_google_signin_sdk;
-				kind = branch;
-			};
+/* Begin XCLocalSwiftPackageReference section */
+		FADC2B432B27991E00E64660 /* XCLocalSwiftPackageReference ".." */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = ..;
 		};
-/* End XCRemoteSwiftPackageReference section */
+/* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		FA112E62253B2B1E0085A27D /* RxFireAuth */ = {
+		FADC2B442B27991E00E64660 /* RxFireAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA112E61253B2B1E0085A27D /* XCRemoteSwiftPackageReference "RxFireAuth" */;
 			productName = RxFireAuth;
 		};
-		FA112EF4253B2E4C0085A27D /* RxFireAuth */ = {
+		FADC2B472B27996100E64660 /* RxFireAuth */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = FA112E61253B2B1E0085A27D /* XCRemoteSwiftPackageReference "RxFireAuth" */;
 			productName = RxFireAuth;
 		};
 /* End XCSwiftPackageProductDependency section */

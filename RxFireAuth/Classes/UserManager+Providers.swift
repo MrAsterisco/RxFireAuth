@@ -14,8 +14,8 @@ extension UserManager: LoginProviderManagerType {
   // MARK: - Sign in with Apple
   
   @available(iOS 13.0, macOS 10.15, *)
-  private func signInWithAppleHandler(in viewController: ViewController) -> Single<LoginCredentials> {
-    return Single<LoginCredentials>.create { [unowned self] (observer) -> Disposable in
+  private func signInWithAppleHandler(in viewController: ViewController) -> Single<Credentials> {
+    return Single<Credentials>.create { [unowned self] (observer) -> Disposable in
       let disposable = Disposables.create { [unowned self] in
         self.loginHandler = nil
       }
@@ -35,7 +35,12 @@ extension UserManager: LoginProviderManagerType {
         
         observer(
           .success(
-            LoginCredentials(idToken: idToken ?? "", fullName: fullName, email: email, provider: .apple, nonce: nonce ?? "")
+						.apple(
+							idToken: idToken ?? "",
+							fullName: fullName,
+							email: email,
+							nonce: nonce
+						)
           )
         )
       }
@@ -62,8 +67,8 @@ extension UserManager: LoginProviderManagerType {
   
   // MARK: - Google Sign-in
   
-  private func signInWithGoogleHandler(as clientId: String, in viewController: ViewController) -> Single<LoginCredentials> {
-    return Single<LoginCredentials>.create { [unowned self] (observer) -> Disposable in
+  private func signInWithGoogleHandler(as clientId: String, in viewController: ViewController) -> Single<Credentials> {
+    return Single<Credentials>.create { [unowned self] (observer) -> Disposable in
       let disposable = Disposables.create {
         self.loginHandler = nil
       }
@@ -81,7 +86,12 @@ extension UserManager: LoginProviderManagerType {
         
         observer(
           .success(
-            LoginCredentials(idToken: idToken ?? "", accessToken: accessToken, fullName: fullName, email: email ?? "", password: nil, provider: .google, nonce: "")
+						.google(
+							idToken: idToken ?? "",
+							accessToken: accessToken ?? "",
+							fullName: fullName,
+							email: email ?? ""
+						)
           )
         )
       }
