@@ -217,73 +217,22 @@ public class UserManager: UserManagerType {
   }
   
   public func login(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor> {
-    return Single.deferred { [unowned self] in
-      guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
-      
-      return self.accountExists(with: email)
-        .flatMap { (accountExists) -> Single<LoginDescriptor> in
-          if accountExists {
-            return self.loginWithoutChecking(email: email, password: password, allowMigration: allowMigration)
-          } else {
-            return self.register(email: email, password: password)
-              .andThen(
-                Single.just(
-                  LoginDescriptor(fullName: nil, performMigration: false, oldUserId: nil, newUserId: self.user?.id)
-                )
-              )
-          }
-        }
-    }
+		login(
+			with: .password(email: email, password: password),
+			updateUserDisplayName: true,
+			allowMigration: allowMigration
+		)
   }
   
   public func loginWithoutChecking(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor> {
-    return Single.create { [unowned self] (observer) -> Disposable in
-      let disposable = Disposables.create { }
-      
-      var oldUserId: String?
-      
-      let signInCompletionHandler: (Error?) -> Void = { [unowned self] (error) in
-        if let error = error {
-          observer(.failure(self.map(error: error)))
-        } else if let newUser = Auth.auth().currentUser {
-          observer(.success(
-            LoginDescriptor(
-              fullName: nil,
-              performMigration: allowMigration ?? false,
-              oldUserId: oldUserId,
-              newUserId: newUser.uid
-            )
-          )
-          )
-        } else {
-          observer(.failure(UserError.noUser))
-        }
-      }
-      
-      if let currentUser = Auth.auth().currentUser, currentUser.isAnonymous {
-        if allowMigration == nil {
-          observer(.failure(UserError.migrationRequired(nil)))
-          return disposable
-        }
-        
-        oldUserId = currentUser.uid
-        
-        currentUser.delete { [unowned self] (error) in
-          if let error = error {
-            observer(.failure(self.map(error: error)))
-          } else {
-            self.signIn(with: EmailAuthProvider.credential(withEmail: email, password: password), in: disposable, completionHandler: signInCompletionHandler)
-          }
-        }
-      } else {
-        self.signIn(with: EmailAuthProvider.credential(withEmail: email, password: password), in: disposable, completionHandler: signInCompletionHandler)
-      }
-      
-      return disposable
-    }
+		login(
+			email: email,
+			password: password,
+			allowMigration: allowMigration
+		)
   }
   
-  public func login(with credentials: LoginCredentials, updateUserDisplayName: Bool, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
+  public func login(with credentials: Credentials, updateUserDisplayName: Bool, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
     return Single<LoginDescriptor>.create { [unowned self] observer -> Disposable in
       let disposable = Disposables.create { }
       
@@ -295,9 +244,15 @@ public class UserManager: UserManagerType {
         if let error = error {
           observer(.failure(self.map(error: error)))
         } else if let newUser = Auth.auth().currentUser {
+					
           observer(
             .success(
-              LoginDescriptor(fullName: credentials.fullName, performMigration: allowMigration ?? false, oldUserId: oldUserId, newUserId: newUser.uid)
+              LoginDescriptor(
+								fullName: credentials.fullName,
+								performMigration: allowMigration ?? false,
+								oldUserId: oldUserId,
+								newUserId: newUser.uid
+							)
             )
           )
         } else {
@@ -305,53 +260,58 @@ public class UserManager: UserManagerType {
         }
       }
       
-      /// Get if this user already exists
-      Auth.auth().fetchSignInMethods(forEmail: credentials.email) { (methods, error) in
-        guard !disposable.isDisposed else { return }
-        guard error == nil else { observer(.failure(error!)); return }
-        
-        if let methods = methods, methods.count > 0, let currentUser = Auth.auth().currentUser {
-          /// This user exists.
-          /// There is a currently logged-in user.
-          if currentUser.isAnonymous {
-            if allowMigration == nil {
-              observer(.failure(UserError.migrationRequired(credentials)))
-              return
-            }
-            
-            oldUserId = currentUser.uid
-            
-            /// The currently logged-in user is anonymous
-            /// We'll delete the anonymous account and login with the new account.
-            currentUser.delete { (error) in
-              guard !disposable.isDisposed else { return }
-              if let error = error {
-                observer(.failure(self.map(error: error)))
-              } else {
-                self.signIn(with: firebaseCredentials, in: disposable, completionHandler: signInCompletionHandler)
-              }
-            }
-          } else {
-            /// The logged-in user is not anonymous.
-            /// We'll try to link this authentication method to the existing account.
-            currentUser.link(with: firebaseCredentials) { (_, error) in
-              signInCompletionHandler(error)
-            }
-          }
-        } else if let currentUser = Auth.auth().currentUser {
-          /// This user does not exist.
-          /// There is a logged-in user.
-          /// We'll try to link the new authentication method to the existing account.
-          currentUser.link(with: firebaseCredentials) { (_, error) in
-            signInCompletionHandler(error)
-          }
-        } else {
-          /// This user does not exist.
-          /// There's nobody logged-in.
-          /// We'll go ahead and sign in with the authentication method.
-          self.signIn(with: firebaseCredentials, in: disposable, completionHandler: signInCompletionHandler)
-        }
-      }
+			if let currentUser = Auth.auth().currentUser {
+				/// There is a logged-in user.
+				/// We'll try to link the new authentication method to the existing account.
+				currentUser.link(with: firebaseCredentials) { [forceRefreshAutoUpdatingUser] (_, error) in
+					let nsError = error as? NSError
+					
+					if nsError?.code == AuthErrorCode.emailAlreadyInUse.rawValue && currentUser.isAnonymous {
+						/// An error occurred while trying to link.
+						/// 	When Email Enumeration Protection is enabled, this is the only signal we have
+						/// 	to determine that a user with the provided email address already exists.
+						/// This user exists.
+						/// The currently logged-in user is anonymous, so we can try to migrate.
+						if allowMigration == nil {
+							/// Fail early because a migration would be required, but the caller is unprepared.
+							observer(.failure(UserError.migrationRequired(credentials)))
+							return
+						}
+						
+						oldUserId = currentUser.uid
+						
+						/// The currently logged-in user is anonymous
+						/// We'll delete the anonymous account and login with the new account.
+						currentUser.delete { (error) in
+							guard !disposable.isDisposed else { return }
+							if let error = error {
+								observer(.failure(self.map(error: error)))
+							} else {
+								self.signIn(
+									with: firebaseCredentials,
+									in: disposable,
+									completionHandler: signInCompletionHandler
+								)
+							}
+						}
+					} else {
+						if error == nil {
+							forceRefreshAutoUpdatingUser.onNext(())
+						}
+						
+						/// Linking succeeded or failed with a different error, so we return.
+						signInCompletionHandler(error)
+					}
+				}
+			} else {
+				/// There's nobody logged-in.
+				/// We'll go ahead and sign in with the authentication method.
+				self.signIn(
+					with: firebaseCredentials,
+					in: disposable,
+					completionHandler: signInCompletionHandler
+				)
+			}
       
       return disposable
     }
@@ -472,12 +432,34 @@ public class UserManager: UserManagerType {
       }
     }
   }
+	
+	public func verifyAndChange(toNewEmail newEmail: String) -> Completable {
+		return Completable.deferred { [unowned self] in
+			guard let user = Auth.auth().currentUser else { return Completable.error(UserError.noUser) }
+			
+			return Completable.create { (observer) -> Disposable in
+				let disposable = Disposables.create { }
+				
+				user.sendEmailVerification(beforeUpdatingEmail: newEmail) { (error) in
+					if let error = error {
+						observer(.error(self.map(error: error)))
+					} else {
+						observer(.completed)
+					}
+				}
+				
+				return disposable
+			}
+		}
+	}
   
   public func confirmAuthentication(email: String, password: String) -> Completable {
-    return self.confirmAuthentication(with: LoginCredentials(idToken: "", fullName: nil, email: email, password: password, provider: .password, nonce: ""))
+		confirmAuthentication(
+			with: .password(email: email, password: password)
+		)
   }
   
-  public func confirmAuthentication(with loginCredentials: LoginCredentials) -> Completable {
+  public func confirmAuthentication(with loginCredentials: Credentials) -> Completable {
     return Completable.create { (observer) -> Disposable in
       let disposable = Disposables.create { }
       

@@ -57,7 +57,7 @@ class ViewController: UITableViewController {
     /// You should use this to bind your UI to make sure that
     /// everything is always updated.
     self.userManager.autoupdatingUser
-      .observeOn(MainScheduler.instance)
+			.observe(on: MainScheduler.instance)
       .subscribe(onNext: { [unowned self] (user) in
         if let user = user {
           if user.isAnonymous {
@@ -91,7 +91,7 @@ class ViewController: UITableViewController {
         self.userManager.accessToken
       }
       .asObservable()
-      .observeOn(MainScheduler.instance)
+			.observe(on: MainScheduler.instance)
       .map { $0 != nil ? $0 : "No access token." }
       .bind(to: self.accessTokenLabel.rx.text)
       .disposed(by: disposeBag)
@@ -135,7 +135,7 @@ class ViewController: UITableViewController {
       self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: self.migrationAllowance)
         .subscribe(onSuccess: { [unowned self] in
           self.handleLoggedIn($0)
-        }, onError: { [unowned self] in
+				}, onFailure: { [unowned self] in
           self.handleSignInError(error: $0)
         })
         .disposed(by: self.disposeBag)
@@ -146,7 +146,7 @@ class ViewController: UITableViewController {
   @IBAction func signInWithApple(sender: AnyObject) {
     if #available(iOS 13.0, *) {
       self.userManager.signInWithApple(in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
-        .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.handleSignInError(error:))
+				.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.handleSignInError(error:))
         .disposed(by: self.disposeBag)
     } else {
       self.showiOS13OrLater()
@@ -158,7 +158,7 @@ class ViewController: UITableViewController {
     self.userManager.signInWithGoogle(as: self.googleClientId, in: self, updateUserDisplayName: true, allowMigration: self.migrationAllowance)
       .subscribe(onSuccess: { [unowned self] in
         self.handleLoggedIn($0)
-      }, onError: { [unowned self] in
+			}, onFailure: { [unowned self] in
         self.show(error: $0)
       })
       .disposed(by: self.disposeBag)
@@ -253,7 +253,7 @@ class ViewController: UITableViewController {
   }
   
   /// Confirm authentication with the specified provider.
-  private func confirmAuthentication(for provider: LoginCredentials.Provider) {
+  private func confirmAuthentication(for provider: AuthenticationProvider) {
     switch provider {
     case .password:
       let email = self.loginField.text ?? ""
@@ -266,7 +266,7 @@ class ViewController: UITableViewController {
       
       self.toggleProgress(true)
       self.userManager.confirmAuthentication(email: email, password: password)
-        .observeOn(MainScheduler.instance)
+				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
           self.show(title: "Authentication Confirmed!", message: "You can now perform sensitive operations.")
@@ -278,7 +278,7 @@ class ViewController: UITableViewController {
     case .apple:
       if #available(iOS 13.0, *) {
         self.userManager.confirmAuthenticationWithApple(in: self)
-          .observeOn(MainScheduler.instance)
+					.observe(on: MainScheduler.instance)
           .subscribe(onCompleted: { [unowned self] in
             self.toggleProgress(false)
             self.show(title: "Authentication Confirmed with Apple!", message: "You can now perform sensitive operations.")
@@ -292,7 +292,7 @@ class ViewController: UITableViewController {
       
     case .google:
       self.userManager.confirmAuthenticationWithGoogle(as: self.googleClientId, in: self)
-        .observeOn(MainScheduler.instance)
+				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
           self.show(title: "Authentication Confirmed with Google!", message: "You can now perform sensitive operations.")
@@ -318,7 +318,7 @@ class ViewController: UITableViewController {
       alertController.dismiss(animated: true)
       
       self.userManager.confirmAuthentication(email: self.userManager.user!.email!, password: alertController.textFields!.first!.text!)
-        .observeOn(MainScheduler.instance)
+				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.setNewPassword()
         }, onError: { [unowned self] in
@@ -344,7 +344,7 @@ class ViewController: UITableViewController {
       alertController.dismiss(animated: true)
       
       self.userManager.updatePassword(newPassword: alertController.textFields!.first!.text!)
-        .observeOn(MainScheduler.instance)
+				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.show(title: "Password set!", message: "Your new password has been set.")
         }, onError: { [unowned self] in
@@ -362,17 +362,17 @@ class ViewController: UITableViewController {
   /// using `login(with credentials:updateUserDisplayName:allowMigration:)`. No credentials are
   /// passed when the `UserError.migrationRequired` error is thrown during a sign in with email and password, because
   /// a new login attempt can be made seamlessly without asking anything to the user.
-  private func handleMigration(credentials: LoginCredentials?) {
+  private func handleMigration(credentials: Credentials?) {
     let migrationAlert = UIAlertController(title: "Migration Required", message: "You are trying to login into an existing account while being logged-in with an anonymous account. When doing this in a real app, you should check if the user has data in the anonymous account and, if so, offer the option to merge the anonymous account with the one that the user is trying to sign into.", preferredStyle: .actionSheet)
     migrationAlert.popoverPresentationController?.sourceView = self.subtitleLabel
     migrationAlert.addAction(UIAlertAction(title: "Migrate", style: .destructive, handler: { [unowned self] _ in
       if let credentials = credentials {
         self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
-          .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
           .disposed(by: self.disposeBag)
       } else {
         self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: true)
-          .subscribe(onSuccess: self.handleLoggedIn(_:), onError: self.show(error:))
+					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
           .disposed(by: self.disposeBag)
       }
     }))

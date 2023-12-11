@@ -8,59 +8,60 @@
 import Foundation
 import FirebaseAuth
 
-/// This class represents a set of credentials used
-/// to perform a sign in with a specific authentication provider.
+/// An authentication provider.
 ///
-/// Instances of this class are returned when a recoverable
+/// - since: version 4.0.0
+public enum AuthenticationProvider: String {
+	/// Email & Password
+	case password = "password"
+	/// Sign in with Apple.
+	case apple = "apple.com"
+	/// Google Sign In
+	case google = "google.com"
+}
+
+/// Credentials used to perform a sign in
+/// with an authentication provider.
+///
+/// Cases of this enums are returned when a recoverable
 /// error, such as `UserError.migrationRequired`, occurs during a sign in.
 ///
-/// You shouldn't need to inspect the content of this struct.
-/// Its main purpose is to temporary store credentials in order
-/// to continue the login action when your client has handled the error.
-public struct LoginCredentials {
+/// - since: version 4.0.0
+public enum Credentials {
+	case password(email: String, password: String)
+	case apple(idToken: String, fullName: String?, email: String, nonce: String?)
+	case google(idToken: String, accessToken: String, fullName: String?, email: String)
   
-  /// A provider represents a supported authentication provider.
-  public enum Provider: String {
-    /// Email & Password
-    case password = "password"
-    /// Sign in with Apple.
-    case apple = "apple.com"
-    /// Google Sign In
-    case google = "google.com"
-  }
-  
-  /// Get or set the ID token.
-  var idToken: String
-  
-  /// Get or set the access token.
-  var accessToken: String?
-  
-  /// Get or set the user full name.
-  var fullName: String?
-  
-  /// Get or set the user email.
-  var email: String
-  
-  /// Get or set the user password.
-  var password: String?
-  
-  /// Get or set the authentication provider.
-  var provider: Provider
-  
-  /// Get or set the nonce.
-  var nonce: String
-  
-  /// Get the Firebase representation of these credentials.
+	var fullName: String? {
+		switch self {
+		case let .apple(_, fullName, _, _), let .google(_, _, fullName, _):
+			return fullName
+		case .password:
+			return nil
+		}
+	}
+	
+  /// Get the Firebase representation of the credentials.
   ///
   /// - returns: A Firebase Auth Credentials.
   func asAuthCredentials() -> AuthCredential {
-    switch self.provider {
-    case .password:
-      return EmailAuthProvider.credential(withEmail: self.email, password: self.password ?? "")
-    case .apple:
-      return OAuthProvider.credential(withProviderID: self.provider.rawValue, idToken: self.idToken, rawNonce: self.nonce)
-    case .google:
-      return GoogleAuthProvider.credential(withIDToken: self.idToken, accessToken: self.accessToken ?? "")
+    switch self {
+    case let .password(email, password):
+      return EmailAuthProvider.credential(
+				withEmail: email,
+				password: password
+			)
+    case let .apple(idToken, _, _, nonce):
+      return OAuthProvider.credential(
+				withProviderID: AuthenticationProvider.apple.rawValue,
+				idToken: idToken,
+				rawNonce: nonce
+			)
+    case let .google(idToken, accessToken, _, _):
+      return GoogleAuthProvider.credential(
+				withIDToken: idToken,
+				accessToken: accessToken
+			)
     }
   }
   
