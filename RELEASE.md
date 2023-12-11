@@ -10,7 +10,7 @@ To release a new version of RxFireAuth, follow these steps:
 - If you made any change that affects the documentation, run the following command in a Terminal in the RxFireAuth root folder:
 
 ```bash
-swift package --allow-writing-to-directory docs generate-documentation --target RxFireAuth --disable-indexing --transform-for-static-hosting --hosting-base-path https://mrasterisco.github.io/RxFireAuth/ --output-path docs
+swift package --allow-writing-to-directory docs generate-documentation --target RxFireAuth --disable-indexing --transform-for-static-hosting --hosting-base-path RxFireAuth --output-path docs
 ```
 
 - Commit all your changes, push them and finish the `hotfix` or `release` branch using a git-flow compatible client. Some clients let you tag a release/hotfix immediately: make sure to follow the naming convention when creating your tag (i.e. `v1.5.0`).

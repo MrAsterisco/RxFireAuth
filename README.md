@@ -32,7 +32,7 @@ As of version 4.0.0, CocoaPods is no longer supported. No new updates will be re
 To find out the latest version, look at the Releases tab of this repository.
 
 ## Get Started
-To get started with RxFireAuth, you can download the example project or dive right into the [documentation](https://mrasterisco.github.io/RxFireAuth/).
+To get started with RxFireAuth, you can download the example project or dive right into the [documentation](https://mrasterisco.github.io/RxFireAuth/documentation/rxfireauth).
 
 ### Example Project
 This library includes a sample project that shows how to implement all the functions of the library on both iOS and macOS.
