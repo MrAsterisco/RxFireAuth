@@ -64,5 +64,18 @@ public enum Credentials {
 			)
     }
   }
+	
+	/// Get whether this credential is reusable after it has been sent to the server
+	///
+	/// Sign in with Apple credentials are not reusable. If you need to authenticate the user twice,
+	/// you will have to present the SIWA screen twice.
+	var isReusable: Bool {
+		return switch self {
+		case .password, .google:
+			true
+		default:
+			false
+		}
+	}
   
 }

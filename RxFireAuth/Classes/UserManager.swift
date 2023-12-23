@@ -9,6 +9,10 @@
 import FirebaseAuth
 import RxSwift
 
+enum UserInternalError: Error {
+	case duplicatedCredentials
+}
+
 /// The default implementation of `UserManagerType`.
 ///
 /// As a general rule, you should never use this class directly, as it may change
@@ -232,41 +236,51 @@ public class UserManager: UserManagerType {
 		)
   }
   
-  public func login(with credentials: Credentials, updateUserDisplayName: Bool, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
-    return Single<LoginDescriptor>.create { [unowned self] observer -> Disposable in
-      let disposable = Disposables.create { }
-      
-      let firebaseCredentials = credentials.asAuthCredentials()
-      
-      var oldUserId: String?
-      let signInCompletionHandler: (Error?) -> Void = { (error) in
-        guard !disposable.isDisposed else { return }
-        if let error = error {
-          observer(.failure(self.map(error: error)))
-        } else if let newUser = Auth.auth().currentUser {
+	func login(
+		with credentials: Credentials,
+		updateUserDisplayName: Bool,
+		allowMigration: Bool? = nil,
+		credentialsProvider: Single<Credentials>?
+	) -> Single<LoginDescriptor> {
+		return Single<LoginDescriptor>.create { [unowned self] observer -> Disposable in
+			let disposable = Disposables.create { }
+			
+			let firebaseCredentials = credentials.asAuthCredentials()
+			
+			var oldUserId: String?
+			let signInCompletionHandler: (Error?) -> Void = { (error) in
+				guard !disposable.isDisposed else { return }
+				if let error = error {
+					observer(.failure(self.map(error: error)))
+				} else if let newUser = Auth.auth().currentUser {
 					
-          observer(
-            .success(
-              LoginDescriptor(
+					observer(
+						.success(
+							LoginDescriptor(
 								fullName: credentials.fullName,
 								performMigration: allowMigration ?? false,
 								oldUserId: oldUserId,
 								newUserId: newUser.uid
 							)
-            )
-          )
-        } else {
-          observer(.failure(UserError.noUser))
-        }
-      }
-      
+						)
+					)
+				} else {
+					observer(.failure(UserError.noUser))
+				}
+			}
+			
 			if let currentUser = Auth.auth().currentUser {
 				/// There is a logged-in user.
 				/// We'll try to link the new authentication method to the existing account.
 				currentUser.link(with: firebaseCredentials) { [forceRefreshAutoUpdatingUser] (_, error) in
 					let nsError = error as? NSError
 					
-					if nsError?.code == AuthErrorCode.emailAlreadyInUse.rawValue && currentUser.isAnonymous {
+					/// Thrown when the provided email is already associated with another account
+					let isEmailAlreadyInUse = nsError?.code == AuthErrorCode.emailAlreadyInUse.rawValue
+					/// Thrown when the provided credential (eg. Sign in with Apple) is already associated with another account.
+					let isCredentialAlreadyInUse = nsError?.code == AuthErrorCode.credentialAlreadyInUse.rawValue
+					
+					if (isEmailAlreadyInUse || isCredentialAlreadyInUse) && currentUser.isAnonymous {
 						/// An error occurred while trying to link.
 						/// 	When Email Enumeration Protection is enabled, this is the only signal we have
 						/// 	to determine that a user with the provided email address already exists.
@@ -287,11 +301,18 @@ public class UserManager: UserManagerType {
 							if let error = error {
 								observer(.failure(self.map(error: error)))
 							} else {
-								self.signIn(
-									with: firebaseCredentials,
-									in: disposable,
-									completionHandler: signInCompletionHandler
-								)
+								if credentials.isReusable {
+									self.signIn(
+										with: firebaseCredentials,
+										in: disposable,
+										completionHandler: signInCompletionHandler
+									)
+								} else {
+									/// The provided credential is not reusable, so we cannot login the user
+									/// again transparently. We have to invoke the same login method again to get new credentials.
+									/// This means that the user will see the login screen twice.
+									observer(.failure(UserInternalError.duplicatedCredentials))
+								}
 							}
 						}
 					} else {
@@ -312,19 +333,47 @@ public class UserManager: UserManagerType {
 					completionHandler: signInCompletionHandler
 				)
 			}
-      
-      return disposable
-    }
-    .flatMap { (loginDescriptor) -> Single<LoginDescriptor> in
-      if updateUserDisplayName, let fullName = loginDescriptor.fullName, fullName.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
-        return self.update { (userData) -> UserData in
-          var newUserData = userData
-          newUserData.displayName = fullName
-          return newUserData
-        }.andThen(Single.just(loginDescriptor))
-      }
-      return Single.just(loginDescriptor)
-    }
+			
+			return disposable
+		}
+		.catch({ error in
+			guard
+				let error = error as? UserInternalError,
+				error == UserInternalError.duplicatedCredentials,
+				let credentialsProvider
+			else {
+				return Single.error(error)
+			}
+			
+			return credentialsProvider
+				.flatMap { (credentials) -> Single<LoginDescriptor> in
+					self.login(
+						with: credentials,
+						updateUserDisplayName: updateUserDisplayName,
+						allowMigration: allowMigration,
+						credentialsProvider: nil
+					)
+				}
+		})
+		.flatMap { (loginDescriptor) -> Single<LoginDescriptor> in
+			if updateUserDisplayName, let fullName = loginDescriptor.fullName, fullName.trimmingCharacters(in: .whitespacesAndNewlines).count > 0 {
+				return self.update { (userData) -> UserData in
+					var newUserData = userData
+					newUserData.displayName = fullName
+					return newUserData
+				}.andThen(Single.just(loginDescriptor))
+			}
+			return Single.just(loginDescriptor)
+		}
+	}
+	
+  public func login(with credentials: Credentials, updateUserDisplayName: Bool, allowMigration: Bool? = nil) -> Single<LoginDescriptor> {
+    login(
+			with: credentials,
+			updateUserDisplayName: updateUserDisplayName,
+			allowMigration: allowMigration,
+			credentialsProvider: nil
+		)
   }
   
   /// Sign in with the passed credentials in the specified disposable
