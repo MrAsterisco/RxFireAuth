@@ -42,8 +42,18 @@ class GoogleSignInHandler: LoginHandlerType {
       let request = OIDAuthorizationRequest(configuration: configuration, clientId: self.clientId, clientSecret: "", scopes: [OIDScopeOpenID, OIDScopeProfile, OIDScopeEmail], redirectURL: self.redirectURL, responseType: OIDResponseTypeCode, additionalParameters: nil)
       
       let callback: (OIDAuthState?, Error?) -> Void = { (authState, error) in
-        guard let authState = authState, let lastTokenResponse = authState.lastTokenResponse, error == nil else {
-          completionHandler(nil, nil, nil, nil, error)
+        guard 
+					let authState = authState,
+					let lastTokenResponse = authState.lastTokenResponse,
+					error == nil
+				else {
+					completionHandler(
+						nil,
+						nil,
+						nil,
+						nil,
+						ProvidersError.fromAppAuth(error: error)
+					)
           return
         }
         
@@ -63,4 +73,16 @@ class GoogleSignInHandler: LoginHandlerType {
     return URL(string: "\(self.reversedClientId):/oauthredirect")!
   }
   
+}
+
+private extension ProvidersError {
+	static func fromAppAuth(error: Error?) -> Self {
+		guard let error else { return .unknown }
+		
+		if (error as NSError).code == OIDErrorCode.userCanceledAuthorizationFlow.rawValue {
+			return .userCancelled
+		}
+		
+		return .unexpected(error)
+	}
 }

@@ -78,11 +78,23 @@ extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
   public func authorizationController(controller: ASAuthorizationController, didCompleteWithAuthorization authorization: ASAuthorization) {
     guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
     guard let nonce = self.nonce else {
-      self.completionHandler?(nil, nil, nil, nil, SignInWithAppleError.invalidCallback)
+			self.completionHandler?(
+				nil,
+				nil,
+				nil,
+				nil,
+				SignInWithAppleError.invalidCallback
+			)
       return
     }
     guard let idTokenData = credential.identityToken, let idToken = String(data: idTokenData, encoding: .utf8) else {
-      self.completionHandler?(nil, nil, nil, nil, SignInWithAppleError.invalidIdToken)
+			self.completionHandler?(
+				nil,
+				nil,
+				nil,
+				nil,
+				SignInWithAppleError.invalidIdToken
+			)
       return
     }
     
@@ -98,7 +110,13 @@ extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
   }
   
   public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
-    self.completionHandler?(nil, nil, nil, nil, error)
+		self.completionHandler?(
+			nil,
+			nil,
+			nil,
+			nil,
+			ProvidersError.fromApple(error: error)
+		)
   }
   
 }
@@ -119,4 +137,20 @@ extension SignInWithAppleHandler: LoginHandlerType {
     return false
   }
   
+}
+
+@available(iOS 13.0, macOS 10.15, *)
+private extension ProvidersError {
+	static func fromApple(error: Error) -> Self {
+		guard
+			let error = error as? ASAuthorizationError
+		else { return .unknown }
+		
+		switch error.code {
+		case .canceled:
+			return .userCancelled
+		default:
+			return .unexpected(error)
+		}
+	}
 }
