@@ -8,6 +8,7 @@
 
 import RxSwift
 import FirebaseAuth
+import AppAuth
 
 extension UserManager: LoginProviderManagerType {
   
@@ -85,7 +86,7 @@ extension UserManager: LoginProviderManagerType {
         guard !disposable.isDisposed else { return }
         
         guard error == nil else {
-          observer(.failure(error!))
+					observer(.failure(error!))
           return
         }
         
