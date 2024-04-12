@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="17506" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
+<document type="com.apple.InterfaceBuilder3.Cocoa.Storyboard.XIB" version="3.0" toolsVersion="32700.99.1234" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none" useAutolayout="YES" initialViewController="B8D-0N-5wS">
     <dependencies>
         <deployment identifier="macosx"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="17506"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="22689"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -708,11 +708,11 @@
             <objects>
                 <viewController id="XfG-lQ-9wD" customClass="ViewController" customModule="RxFireAuth_Example_macOS" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="620" height="761"/>
+                        <rect key="frame" x="0.0" y="0.0" width="622" height="761"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="0.0" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="F62-Ry-9Ol">
-                                <rect key="frame" x="20" y="680" width="580" height="61"/>
+                                <rect key="frame" x="20" y="680" width="582" height="61"/>
                                 <subviews>
                                     <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="4Wu-YI-psj">
                                         <rect key="frame" x="-2" y="30" width="119" height="31"/>
@@ -754,16 +754,16 @@
                                 </customSpacing>
                             </stackView>
                             <box title="Email &amp; Password" translatesAutoresizingMaskIntoConstraints="NO" id="k3o-9A-78d">
-                                <rect key="frame" x="17" y="546" width="586" height="114"/>
+                                <rect key="frame" x="17" y="546" width="588" height="114"/>
                                 <view key="contentView" id="byd-Gw-EMI">
-                                    <rect key="frame" x="3" y="3" width="580" height="96"/>
+                                    <rect key="frame" x="4" y="5" width="580" height="94"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="E07-qe-sDm">
-                                            <rect key="frame" x="20" y="20" width="540" height="56"/>
+                                            <rect key="frame" x="20" y="20" width="540" height="54"/>
                                             <subviews>
                                                 <stackView distribution="fill" orientation="vertical" alignment="trailing" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Rkw-8B-qxv">
-                                                    <rect key="frame" x="0.0" y="6" width="62" height="44"/>
+                                                    <rect key="frame" x="0.0" y="5" width="62" height="44"/>
                                                     <subviews>
                                                         <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="MP0-07-I5o">
                                                             <rect key="frame" x="-2" y="28" width="66" height="16"/>
@@ -796,7 +796,7 @@
                                                     </customSpacing>
                                                 </stackView>
                                                 <stackView distribution="fill" orientation="vertical" alignment="centerX" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="eJl-pR-R8W">
-                                                    <rect key="frame" x="70" y="1" width="470" height="54"/>
+                                                    <rect key="frame" x="70" y="0.0" width="470" height="54"/>
                                                     <subviews>
                                                         <textField verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="pea-qV-Gog">
                                                             <rect key="frame" x="0.0" y="33" width="470" height="21"/>
@@ -851,9 +851,9 @@
                                 </constraints>
                             </box>
                             <box title="Data Migration" translatesAutoresizingMaskIntoConstraints="NO" id="AEP-d7-mg2">
-                                <rect key="frame" x="17" y="426" width="586" height="80"/>
+                                <rect key="frame" x="17" y="424" width="588" height="82"/>
                                 <view key="contentView" id="Ed2-Lh-VfG">
-                                    <rect key="frame" x="3" y="3" width="580" height="62"/>
+                                    <rect key="frame" x="4" y="5" width="580" height="62"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <segmentedControl verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="cPf-NX-0QT">
@@ -877,7 +877,7 @@
                                 </view>
                             </box>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="g15-Rm-nru">
-                                <rect key="frame" x="18" y="514" width="584" height="28"/>
+                                <rect key="frame" x="18" y="514" width="586" height="28"/>
                                 <textFieldCell key="cell" controlSize="small" selectable="YES" id="Ipo-nD-Crd">
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="title">Leave these fields empty to sign in with an anonymous account. Fill them to sign in or create a new account (and optionally link it to an anonymous account).</string>
@@ -886,7 +886,7 @@
                                 </textFieldCell>
                             </textField>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Qur-Vf-gBc">
-                                <rect key="frame" x="18" y="394" width="584" height="28"/>
+                                <rect key="frame" x="18" y="392" width="586" height="28"/>
                                 <textFieldCell key="cell" controlSize="small" selectable="YES" id="6uq-y4-cQn">
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="title">If set to "Unspecified", attempting to link an existing account with an anonymous one will result in a error. When set to either "Allow" or "Deny", it will be circled back to the caller after a successful login.</string>
@@ -895,9 +895,9 @@
                                 </textFieldCell>
                             </textField>
                             <box title="Profile" translatesAutoresizingMaskIntoConstraints="NO" id="OXo-4i-eAI">
-                                <rect key="frame" x="17" y="274" width="586" height="112"/>
+                                <rect key="frame" x="17" y="270" width="588" height="114"/>
                                 <view key="contentView" id="AZu-RP-Vjy">
-                                    <rect key="frame" x="3" y="3" width="580" height="94"/>
+                                    <rect key="frame" x="4" y="5" width="580" height="94"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="horizontal" alignment="centerY" spacing="12" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="MLC-Ac-o0d">
@@ -994,9 +994,9 @@
                                 </view>
                             </box>
                             <box title="Providers" translatesAutoresizingMaskIntoConstraints="NO" id="woZ-tb-DMI">
-                                <rect key="frame" x="17" y="192" width="586" height="78"/>
+                                <rect key="frame" x="17" y="186" width="588" height="80"/>
                                 <view key="contentView" id="Ez9-ZB-uKe">
-                                    <rect key="frame" x="3" y="3" width="580" height="60"/>
+                                    <rect key="frame" x="4" y="5" width="580" height="60"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <stackView distribution="fill" orientation="horizontal" alignment="top" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="f1G-lt-0gL">
@@ -1040,7 +1040,7 @@
                                 </view>
                             </box>
                             <textField verticalHuggingPriority="750" horizontalCompressionResistancePriority="250" translatesAutoresizingMaskIntoConstraints="NO" id="Hhm-lm-rD3">
-                                <rect key="frame" x="18" y="160" width="584" height="28"/>
+                                <rect key="frame" x="18" y="154" width="586" height="28"/>
                                 <textFieldCell key="cell" controlSize="small" selectable="YES" id="dUS-wo-Ge4">
                                     <font key="font" metaFont="smallSystem"/>
                                     <string key="title">Confirming authentication will allow you to perform sensitive operations, such as changing your password or deleting your account, for a short period of time.</string>
@@ -1049,12 +1049,12 @@
                                 </textFieldCell>
                             </textField>
                             <stackView distribution="fill" orientation="vertical" alignment="leading" spacing="12" horizontalStackHuggingPriority="250.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="OLO-vV-O83">
-                                <rect key="frame" x="420" y="48" width="180" height="89"/>
+                                <rect key="frame" x="422" y="48" width="180" height="89"/>
                                 <subviews>
                                     <customView placeholderIntrinsicWidth="infinite" placeholderIntrinsicHeight="24" translatesAutoresizingMaskIntoConstraints="NO" id="Yiu-eY-5h2" customClass="ASAuthorizationAppleIDButton">
                                         <rect key="frame" x="0.0" y="65" width="180" height="24"/>
                                     </customView>
-                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1j2-XD-zWC">
+                                    <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="1j2-XD-zWC" customClass="GIDSignInButton">
                                         <rect key="frame" x="-7" y="25" width="194" height="33"/>
                                         <buttonCell key="cell" type="push" title="Sign in with Google" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="nnL-iB-6Nr">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
@@ -1090,10 +1090,10 @@
                                 </customSpacing>
                             </stackView>
                             <stackView distribution="fill" orientation="horizontal" alignment="centerY" horizontalStackHuggingPriority="249.99998474121094" verticalStackHuggingPriority="249.99998474121094" detachesHiddenViews="YES" translatesAutoresizingMaskIntoConstraints="NO" id="flm-Ct-dvG">
-                                <rect key="frame" x="20" y="48" width="360" height="20"/>
+                                <rect key="frame" x="20" y="48" width="359" height="20"/>
                                 <subviews>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="IaX-eZ-SmW">
-                                        <rect key="frame" x="-7" y="-7" width="128" height="32"/>
+                                        <rect key="frame" x="-7" y="-7" width="127" height="32"/>
                                         <buttonCell key="cell" type="push" title="Sign out" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="wHz-6q-WiJ">
                                             <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1103,7 +1103,7 @@
                                         </connections>
                                     </button>
                                     <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="uDH-Fg-fig">
-                                        <rect key="frame" x="120" y="1" width="240" height="18"/>
+                                        <rect key="frame" x="119" y="1" width="240" height="18"/>
                                         <buttonCell key="cell" type="check" title="Reset Anonymous user after logout" bezelStyle="regularSquare" imagePosition="left" state="on" inset="2" id="Mhx-gp-m7M">
                                             <behavior key="behavior" changeContents="YES" doesNotDimImage="YES" lightByContents="YES"/>
                                             <font key="font" metaFont="system"/>
@@ -1120,7 +1120,7 @@
                                 </customSpacing>
                             </stackView>
                             <button verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="99K-vc-xEj">
-                                <rect key="frame" x="13" y="73" width="128" height="32"/>
+                                <rect key="frame" x="13" y="73" width="127" height="32"/>
                                 <buttonCell key="cell" type="push" title="Delete Account" bezelStyle="rounded" alignment="center" borderStyle="border" imageScaling="proportionallyDown" inset="2" id="GCI-VH-f8P">
                                     <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
                                     <font key="font" metaFont="system"/>
