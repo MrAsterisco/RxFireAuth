@@ -20,7 +20,7 @@ class ViewController: NSViewController {
   
   @IBOutlet weak var loginField: NSTextField!
   @IBOutlet weak var passwordField: NSTextField!
-  
+	
   @IBOutlet weak var signInButton: NSButton!
   @IBOutlet weak var signOutButton: NSButton!
   @IBOutlet weak var signInWithAppleButton: NSControl!
