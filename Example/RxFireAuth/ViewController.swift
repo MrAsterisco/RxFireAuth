@@ -133,9 +133,9 @@ class ViewController: UITableViewController {
         .disposed(by: self.disposeBag)
     } else {
 			self.userManager.login(
-				email: self.loginField.text!,
-				password: self.passwordField.text!,
-				allowMigration: self.migrationAllowance,
+				with: .password(email: loginField.text!, password: passwordField.text!),
+				updateUserDisplayName: true,
+				allowMigration: migrationAllowance,
 				resetToAnonymousOnFailure: resetAnononymousSwitch.isOn
 			)
 			.subscribe(onSuccess: { [unowned self] in
@@ -270,7 +270,7 @@ class ViewController: UITableViewController {
       }
       
       self.toggleProgress(true)
-      self.userManager.confirmAuthentication(email: email, password: password)
+			self.userManager.confirmAuthentication(with: .password(email: email, password: password))
 				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
@@ -322,7 +322,7 @@ class ViewController: UITableViewController {
     alertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [unowned self] _ in
       alertController.dismiss(animated: true)
       
-      self.userManager.confirmAuthentication(email: self.userManager.user!.email!, password: alertController.textFields!.first!.text!)
+			userManager.confirmAuthentication(with: .password(email: self.userManager.user!.email!, password: alertController.textFields!.first!.text!))
 				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.setNewPassword()
@@ -379,9 +379,14 @@ class ViewController: UITableViewController {
 						.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
 						.disposed(by: self.disposeBag)
 				} else {
-					self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: true, resetToAnonymousOnFailure: self.resetAnononymousSwitch.isOn)
-						.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
-						.disposed(by: self.disposeBag)
+					self.userManager.login(
+						with: .password(email: self.loginField.text!, password: self.passwordField.text!),
+						updateUserDisplayName: true,
+						allowMigration: true,
+						resetToAnonymousOnFailure: self.resetAnononymousSwitch.isOn
+					)
+					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
+					.disposed(by: self.disposeBag)
 				}
 			}))
 			migrationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
