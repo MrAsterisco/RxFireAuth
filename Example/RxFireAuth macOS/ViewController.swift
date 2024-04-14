@@ -244,6 +244,25 @@ class ViewController: NSViewController {
     self.confirmAuthentication(for: provider)
   }
   
+	@IBAction func resetPassword(sender: AnyObject) {
+		guard !loginField.stringValue.isEmpty else {
+			show(title: "Insert your Email!", message: "Use the field above to input your email address.")
+			return
+		}
+		
+		let email = loginField.stringValue
+		
+		toggleProgress(true)
+		userManager.resetPassword(for: email)
+			.subscribe(onCompleted: { [unowned self] in
+				show(
+					title: "Password Reset Email Sent!",
+					message: "If \(email) is associated to a valid account, you will find an email in your inbox with instructions to reset your password."
+				)
+			})
+			.disposed(by: disposeBag)
+	}
+	
   // MARK: - Logic
   
   private func showMacOS1015OrLater() {

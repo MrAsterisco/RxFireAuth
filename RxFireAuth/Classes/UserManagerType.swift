@@ -285,6 +285,19 @@ public protocol UserManagerType {
 	
 	// MARK: - Password Management
 	
+	/// Trigger the password reset flow for the specified email address.
+	///
+	/// This function will send an email to the specified address with a link to reset the password.
+	/// The password reset will happen on the web.
+	///
+	/// - note:	If [Email Enumeration Protection](https://cloud.google.com/identity-platform/docs/admin/email-enumeration-protection)
+	/// 				is turned on in your project, this function will **not** fail for unexisting email addresses.
+	///
+	/// - parameters:
+	/// 	- email: A email address.
+	/// - returns: A Completable action to observe.
+	func resetPassword(for email: String) -> Completable
+	
 	/// Update or set the password of the currently signed in user.
 	///
 	/// If the user does not have `password` among their `authenticationProviders`,
