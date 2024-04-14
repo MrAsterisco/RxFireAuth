@@ -391,6 +391,23 @@ public class UserManager: UserManagerType {
 	
 	// MARK: - Password Management
 	
+	public func resetPassword(for email: String) -> Completable {
+		Completable.create { [unowned self] observer -> Disposable in
+			let disposable = Disposables.create { }
+			
+			Auth.auth().sendPasswordReset(withEmail: email) { error in
+				guard !disposable.isDisposed else { return }
+				if let error {
+					observer(.error(map(error: error)))
+				} else {
+					observer(.completed)
+				}
+			}
+			
+			return disposable
+		}
+	}
+	
 	public func updatePassword(newPassword: String) -> Completable {
 		return Completable.deferred { [unowned self] in
 			guard
