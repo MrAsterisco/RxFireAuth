@@ -132,7 +132,7 @@ class ViewController: NSViewController {
         })
         .disposed(by: self.disposeBag)
     } else {
-      self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: self.migrationAllowance)
+			self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: self.migrationAllowance, resetToAnonymousOnFailure: resetAnonymousCheckbox.state == .on)
         .subscribe(onSuccess: { [unowned self] in
           self.handleLoggedIn($0)
         }, onFailure: { [unowned self] in
@@ -365,11 +365,11 @@ class ViewController: NSViewController {
       switch response {
       case .alertFirstButtonReturn:
         if let credentials = credentials {
-          self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
+          self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true, resetToAnonymousOnFailure: resetAnonymousCheckbox.state == .on)
             .subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
             .disposed(by: self.disposeBag)
         } else {
-          self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: true)
+          self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: true, resetToAnonymousOnFailure: resetAnonymousCheckbox.state == .on)
             .subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
             .disposed(by: self.disposeBag)
         }
@@ -418,7 +418,9 @@ class ViewController: NSViewController {
   }
   
   private func show(error: Error) {
-    self.show(title: "An error occurred!", message: error.localizedDescription)
+		toggleProgress(false) { [weak self] in
+			self?.show(title: "An error occurred!", message: error.localizedDescription)
+		}
   }
   
   private func show(title: String, message: String) {

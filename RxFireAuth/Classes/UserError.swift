@@ -57,6 +57,8 @@ public enum UserError: LocalizedError {
   case invalidConfiguration
   /// An error occurred while attempting to access the keychain.
   case keychainError(Error?)
+	/// An error occurred while attempting to link an anonymous user account to an existing account.
+	case automaticLinkingFailed(LoginDescriptor?, Error)
   /// An unknown error has occurred.
   case unknown(Error?)
   
@@ -87,7 +89,7 @@ public enum UserError: LocalizedError {
     case .wrongPassword:
       return "The specified password is invalid."
     case .invalidCredential:
-      return "The specified credential is invalid."
+      return "The specified credentials are invalid."
     case .emailAlreadyInUse:
       return "This email address is already registered with another account."
     case .weakPassword(let reason):
@@ -106,6 +108,8 @@ public enum UserError: LocalizedError {
       return "There is an error in your app configuration."
     case .keychainError(let error):
       return "An error occurred while comunicating with the keychain: \(error?.localizedDescription ?? "unknown")"
+		case let .automaticLinkingFailed(_, internalError):
+			return "An error occurred while attempting to link this anonymous account with the existing one with the provided credentials: \(internalError.localizedDescription)"
     }
   }
   
