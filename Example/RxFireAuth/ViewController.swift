@@ -132,13 +132,18 @@ class ViewController: UITableViewController {
         })
         .disposed(by: self.disposeBag)
     } else {
-      self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: self.migrationAllowance)
-        .subscribe(onSuccess: { [unowned self] in
-          self.handleLoggedIn($0)
-				}, onFailure: { [unowned self] in
-          self.handleSignInError(error: $0)
-        })
-        .disposed(by: self.disposeBag)
+			self.userManager.login(
+				with: .password(email: loginField.text!, password: passwordField.text!),
+				updateUserDisplayName: true,
+				allowMigration: migrationAllowance,
+				resetToAnonymousOnFailure: resetAnononymousSwitch.isOn
+			)
+			.subscribe(onSuccess: { [unowned self] in
+				self.handleLoggedIn($0)
+			}, onFailure: { [unowned self] in
+				self.handleSignInError(error: $0)
+			})
+			.disposed(by: self.disposeBag)
     }
   }
   
@@ -265,7 +270,7 @@ class ViewController: UITableViewController {
       }
       
       self.toggleProgress(true)
-      self.userManager.confirmAuthentication(email: email, password: password)
+			self.userManager.confirmAuthentication(with: .password(email: email, password: password))
 				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
@@ -317,7 +322,7 @@ class ViewController: UITableViewController {
     alertController.addAction(UIAlertAction(title: "Confirm", style: .default, handler: { [unowned self] _ in
       alertController.dismiss(animated: true)
       
-      self.userManager.confirmAuthentication(email: self.userManager.user!.email!, password: alertController.textFields!.first!.text!)
+			userManager.confirmAuthentication(with: .password(email: self.userManager.user!.email!, password: alertController.textFields!.first!.text!))
 				.observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.setNewPassword()
@@ -363,22 +368,31 @@ class ViewController: UITableViewController {
   /// passed when the `UserError.migrationRequired` error is thrown during a sign in with email and password, because
   /// a new login attempt can be made seamlessly without asking anything to the user.
   private func handleMigration(credentials: Credentials?) {
-    let migrationAlert = UIAlertController(title: "Migration Required", message: "You are trying to login into an existing account while being logged-in with an anonymous account. When doing this in a real app, you should check if the user has data in the anonymous account and, if so, offer the option to merge the anonymous account with the one that the user is trying to sign into.", preferredStyle: .actionSheet)
-    migrationAlert.popoverPresentationController?.sourceView = self.subtitleLabel
-    migrationAlert.addAction(UIAlertAction(title: "Migrate", style: .destructive, handler: { [unowned self] _ in
-      if let credentials = credentials {
-        self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
+		toggleProgress(false) { [weak self] in
+			guard let self else { return }
+			
+			let migrationAlert = UIAlertController(title: "Migration Required", message: "You are trying to login into an existing account while being logged-in with an anonymous account. When doing this in a real app, you should check if the user has data in the anonymous account and, if so, offer the option to merge the anonymous account with the one that the user is trying to sign into.", preferredStyle: .actionSheet)
+			migrationAlert.popoverPresentationController?.sourceView = self.subtitleLabel
+			migrationAlert.addAction(UIAlertAction(title: "Migrate", style: .destructive, handler: { [unowned self] _ in
+				if let credentials = credentials {
+					self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true, resetToAnonymousOnFailure: self.resetAnononymousSwitch.isOn)
+						.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
+						.disposed(by: self.disposeBag)
+				} else {
+					self.userManager.login(
+						with: .password(email: self.loginField.text!, password: self.passwordField.text!),
+						updateUserDisplayName: true,
+						allowMigration: true,
+						resetToAnonymousOnFailure: self.resetAnononymousSwitch.isOn
+					)
 					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
-          .disposed(by: self.disposeBag)
-      } else {
-        self.userManager.login(email: self.loginField.text!, password: self.passwordField.text!, allowMigration: true)
-					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
-          .disposed(by: self.disposeBag)
-      }
-    }))
-    migrationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
-    
-    self.present(migrationAlert, animated: true, completion: nil)
+					.disposed(by: self.disposeBag)
+				}
+			}))
+			migrationAlert.addAction(UIAlertAction(title: "Cancel", style: .cancel))
+			
+			self.present(migrationAlert, animated: true, completion: nil)
+		}
   }
   
   // MARK: - Utilities
