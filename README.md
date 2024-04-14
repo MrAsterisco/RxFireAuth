@@ -244,6 +244,16 @@ or Google Sign In:
 func confirmAuthenticationWithGoogle(as clientId: String, in viewController: UIViewController) -> Completable
 ```
 
+## Password Reset
+
+With version 6.2.0, RxFireAuth introduces a new method to reset the user password. You can call:
+
+```swift
+func resetPassword(for email: String) -> Completable
+```
+
+This method will send an email to the user with a link to reset their password. You can customize the email content, sender, and more in the Firebase Console.
+
 ## Documentation
 
 **Always refer to the `UserManagerType` and `LoginProviderManagerType` protocols** in your code, because the `UserManager` implementation may introduce breaking changes over time even if the library major version hasn't changed.
