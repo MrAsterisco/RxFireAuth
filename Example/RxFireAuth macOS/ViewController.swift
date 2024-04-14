@@ -132,13 +132,18 @@ class ViewController: NSViewController {
         })
         .disposed(by: self.disposeBag)
     } else {
-      self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: self.migrationAllowance)
-        .subscribe(onSuccess: { [unowned self] in
-          self.handleLoggedIn($0)
-        }, onFailure: { [unowned self] in
-          self.handleSignInError(error: $0)
-        })
-        .disposed(by: self.disposeBag)
+			userManager.login(
+				with: .password(email: self.loginField.stringValue, password: self.passwordField.stringValue),
+				updateUserDisplayName: true,
+				allowMigration: migrationAllowance,
+				resetToAnonymousOnFailure: resetAnonymousCheckbox.state == .on
+			)
+			.subscribe(onSuccess: { [unowned self] in
+				self.handleLoggedIn($0)
+			}, onFailure: { [unowned self] in
+				self.handleSignInError(error: $0)
+			})
+			.disposed(by: self.disposeBag)
     }
   }
   
@@ -266,7 +271,7 @@ class ViewController: NSViewController {
       }
       
       self.toggleProgress(true)
-      self.userManager.confirmAuthentication(email: email, password: password)
+			userManager.confirmAuthentication(with: .password(email: email, password: password))
         .observe(on: MainScheduler.instance)
         .subscribe(onCompleted: { [unowned self] in
           self.toggleProgress(false)
@@ -319,7 +324,7 @@ class ViewController: NSViewController {
     
     alert.beginSheetModal(for: view.window!) { [unowned self] (response) in
       if response == .alertFirstButtonReturn {
-        self.userManager.confirmAuthentication(email: self.userManager.user!.email!, password: textField.stringValue)
+				userManager.confirmAuthentication(with: .password(email: self.userManager.user!.email!, password: textField.stringValue))
           .observe(on: MainScheduler.instance)
           .subscribe(onCompleted: { [unowned self] in
             self.setNewPassword()
@@ -365,13 +370,23 @@ class ViewController: NSViewController {
       switch response {
       case .alertFirstButtonReturn:
         if let credentials = credentials {
-          self.userManager.login(with: credentials, updateUserDisplayName: true, allowMigration: true)
-            .subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
-            .disposed(by: self.disposeBag)
+					self.userManager.login(
+						with: credentials,
+						updateUserDisplayName: true,
+						allowMigration: true,
+						resetToAnonymousOnFailure: resetAnonymousCheckbox.state == .on
+					)
+					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
+					.disposed(by: self.disposeBag)
         } else {
-          self.userManager.login(email: self.loginField.stringValue, password: self.passwordField.stringValue, allowMigration: true)
-            .subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
-            .disposed(by: self.disposeBag)
+					self.userManager.login(
+						with: .password(email: self.loginField.stringValue, password: self.passwordField.stringValue),
+						updateUserDisplayName: true,
+						allowMigration: true,
+						resetToAnonymousOnFailure: resetAnonymousCheckbox.state == .on
+					)
+					.subscribe(onSuccess: self.handleLoggedIn(_:), onFailure: self.show(error:))
+					.disposed(by: self.disposeBag)
         }
       default:
         break
@@ -418,7 +433,9 @@ class ViewController: NSViewController {
   }
   
   private func show(error: Error) {
-    self.show(title: "An error occurred!", message: error.localizedDescription)
+		toggleProgress(false) { [weak self] in
+			self?.show(title: "An error occurred!", message: error.localizedDescription)
+		}
   }
   
   private func show(title: String, message: String) {

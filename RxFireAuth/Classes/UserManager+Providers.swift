@@ -56,11 +56,12 @@ extension UserManager: LoginProviderManagerType {
   public func signInWithApple(in viewController: ViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor> {
     return self.signInWithAppleHandler(in: viewController)
       .flatMap { [unowned self] credentials in
-        self.login(
+        performLogin(
 					with: credentials,
 					updateUserDisplayName: updateUserDisplayName, 
 					allowMigration: allowMigration,
-					credentialsProvider: signInWithAppleHandler(in: viewController)
+					externalCredentialsProvider: signInWithAppleHandler(in: viewController),
+					resetToAnonymousOnFailure: false
 				)
       }
   }
@@ -111,11 +112,12 @@ extension UserManager: LoginProviderManagerType {
   public func signInWithGoogle(as clientId: String, in viewController: ViewController, updateUserDisplayName: Bool, allowMigration: Bool?) -> Single<LoginDescriptor> {
     return self.signInWithGoogleHandler(as: clientId, in: viewController)
       .flatMap { [unowned self] credentials in
-        self.login(
+        performLogin(
 					with: credentials,
 					updateUserDisplayName: updateUserDisplayName,
 					allowMigration: allowMigration,
-					credentialsProvider: signInWithGoogleHandler(as: clientId, in: viewController)
+					externalCredentialsProvider: signInWithGoogleHandler(as: clientId, in: viewController),
+					resetToAnonymousOnFailure: false
 				)
       }
   }
