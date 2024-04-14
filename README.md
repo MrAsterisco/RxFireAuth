@@ -136,10 +136,15 @@ Consider the following situation:
 
 ##### Code Showcase
 
-Use the following method to login using an email and a password:
+Use the following method to login using some credentials (for example `.password(email, password)`:
 
 ```swift
-func login(email: String, password: String, allowMigration: Bool?) -> Single<LoginDescriptor>
+func login(
+		with credentials: Credentials,
+		updateUserDisplayName: Bool,
+		allowMigration: Bool?,
+		resetToAnonymousOnFailure: Bool
+) -> Single<LoginDescriptor>
 ```
 
 The `allowMigration` parameter is useful in the situation that we've just described: there is an anonymous account that has to be deleted and replaced with an existing account. When set to `nil`, the library will return a `Single` that emits the `UserError.migrationRequired` error to give your app the chance to ask the user what they'd like to do with the data they have in the anonymous account.
@@ -161,7 +166,7 @@ Let's use the same short story from before, but Mike is now going to use Sign in
 - On the first device, nothing changes: with the standard Firebase SDK, we can link the anonymous account with Mike's Apple ID.
 - On the second device, two things will happen: first of all, Apple has a different flow for apps that have already used Sign-in with Apple; and this is not controllable by you, so if the user registers and then deletes their account in your app, they'll still get a different sign-in flow in the case they return to the app and Sign-in with Apple once again (further on this [here](https://forums.developer.apple.com/thread/119826)). Secondly, you'll have to handle various situations.
 
-When using Sign-in with Apple _(or any other provider, such as Google)_, you'll find yourself in one of these cases:
+When using Sign-in with Apple _(or any other provider, including Google and email & password)_, you'll find yourself in one of these cases:
 
 1. There is an anonymous user logged-in and the Apple ID is not linked with any existing account: that's fantastic! We'll just link the Apple ID with the anonymous user and we're done.
 1. There is an anonymous user logged-in, but the Apple ID is already linked with another account: we'll have to go through the migration and then sign in to the existing account.
@@ -169,7 +174,7 @@ When using Sign-in with Apple _(or any other provider, such as Google)_, you'll 
 1. There is a normal user logged-in, but the Apple ID is already linked with another account: we'll throw an error because the user must choose what to do.
 1. There is nobody logged-in and the Apple ID is either already linked or not: we'll sign into the existing or new account.
 
-With RxFireAuth's `login` method family, all of these cases are handled _automagically_ for you.
+With RxFireAuth's `login` method, all of these cases are handled _automagically_ for you.
 
 ##### Code Showcase
 
@@ -204,13 +209,13 @@ The login credentials are embedded in the `migrationRequired` error and, except 
 You can get the profile of the currently logged-in user by calling:
 
 ```swift
-self.userManager.user
+userManager.user
 ```
 
 or by subscribing to:
 
 ```swift
-self.userManager.autoupdatingUser
+userManager.autoupdatingUser
 ```
 
 _This Observable will emit new values every time something on the user profile has changed._
@@ -221,10 +226,10 @@ Once signed in, you can inspect the authentication providers of the user by cycl
 
 When performing sensitive actions, such as changing the user password, linking new authentication providers or deleting the user account, Firebase will require you to get a new refresh token by forcing the user to login again. RxFireAuth offers convenient methods to confirm the authentication using one the supported providers.
 
-You can confirm the authentication using email and password:
+You can confirm the authentication using any credentials (eg. `.password(email, password)`) by invoking:
 
 ```swift
-func confirmAuthentication(email: String, password: String) -> Completable
+func confirmAuthentication(with loginCredentials: Credentials) -> Completable
 ```
 
 Sign in with Apple:
@@ -256,7 +261,6 @@ RxFireAuth targets **iOS 12.0 or later** and **macOS 10.15 or later** and has th
 - `Firebase/Auth` version 10.
 - `JWTDecode` version 2.
 - `RxCocoa` version 6.
-- `AppAuth` version 1.
 
 ## Contributions
 
