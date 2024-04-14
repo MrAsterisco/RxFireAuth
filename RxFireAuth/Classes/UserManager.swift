@@ -476,13 +476,14 @@ extension UserManager {
 			let firebaseCredentials = credentials.asAuthCredentials()
 			
 			var oldUserId: String?
-			let signInCompletionHandler: (Error?) -> Void = { (error) in
+			let signInCompletionHandler: (Bool, Error?) -> Void = { (fromAutomaticLinking, error) in
 				guard !disposable.isDisposed else { return }
 				if let error = error {
-					if (error as NSError).code == AuthErrorCode.invalidCredential.rawValue {
+					if fromAutomaticLinking {
 						observer(.failure(UserInternalError.automaticLinkingFailed(oldUserId: oldUserId, internalError: error)))
+					} else {
+						observer(.failure(map(error: error)))
 					}
-					observer(.failure(map(error: error)))
 				} else if let newUser = Auth.auth().currentUser {
 					observer(
 						.success(
@@ -534,6 +535,7 @@ extension UserManager {
 								if credentials.isReusable {
 									self.signIn(
 										with: firebaseCredentials,
+										fromAutomaticLinking: true,
 										in: disposable,
 										completionHandler: signInCompletionHandler
 									)
@@ -551,7 +553,7 @@ extension UserManager {
 						}
 						
 						/// Linking succeeded or failed with a different error, so we return.
-						signInCompletionHandler(error)
+						signInCompletionHandler(false, error)
 					}
 				}
 			} else {
@@ -559,6 +561,7 @@ extension UserManager {
 				/// We'll go ahead and sign in with the authentication method.
 				self.signIn(
 					with: firebaseCredentials,
+					fromAutomaticLinking: false,
 					in: disposable,
 					completionHandler: signInCompletionHandler
 				)
@@ -641,16 +644,17 @@ extension UserManager {
 	///
 	/// - parameters:
 	///     - credentials: The credential to use to sign in.
+	///     - fromAutomaticLinking: A bool indicating whether this invocation comes as a result of automatic linking.
 	///     - disposable: A disposable that controls the life of this operation.
 	///     - completionHandler: A completion handler to call when done.
-	func signIn(with credentials: AuthCredential, in disposable: Cancelable, completionHandler: @escaping (Error?) -> Void) {
+	func signIn(with credentials: AuthCredential, fromAutomaticLinking: Bool, in disposable: Cancelable, completionHandler: @escaping (Bool, Error?) -> Void) {
 		Auth.auth().signIn(with: credentials) { (_, error) in
 			guard !disposable.isDisposed else { return }
 			
 			if let error = error {
-				completionHandler(error)
+				completionHandler(fromAutomaticLinking, error)
 			} else {
-				completionHandler(nil)
+				completionHandler(fromAutomaticLinking, nil)
 			}
 		}
 	}
