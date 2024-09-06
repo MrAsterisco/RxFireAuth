@@ -7,7 +7,7 @@ let package = Package(
   name: "RxFireAuth",
   platforms: [
     .macOS(.v10_15),
-    .iOS(.v12)
+    .iOS(.v13)
   ],
   products: [
     .library(
@@ -15,7 +15,7 @@ let package = Package(
       targets: ["RxFireAuth"]),
   ],
   dependencies: [
-    .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk", from: "10.0.0"),
+    .package(name: "Firebase", url: "https://github.com/firebase/firebase-ios-sdk", from: "11.0.0"),
     .package(name: "JWTDecode", url: "https://github.com/auth0/JWTDecode.swift", from: "2.0.0"),
     .package(name: "RxSwift", url: "https://github.com/ReactiveX/RxSwift", from: "6.0.0"),
 		.package(name: "GoogleSignIn", url: "https://github.com/google/GoogleSignIn-iOS", from: "7.0.0"),

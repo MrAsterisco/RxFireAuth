@@ -9,16 +9,21 @@
 import AuthenticationServices
 import JWTDecode
 
-/// Instances of `SignInWithAppleHandler` need
+/// A wrapper of data coming from the Sign in with Apple flow.
+public struct SignInWithAppleData {
+	/// The ID token returned by Apple.
+	let idToken: String
+	/// A random secure string to identify the authentication session.
+	let nonce: String
+	/// The user full name.
+	let displayName: String?
+	/// The email associated to the Apple ID or a private email address.
+	let email: String?
+}
+
+/// Instances of `SignInWithAppleHandler` expect
 /// functions of this type as completion handlers when signing in.
-///
-/// - parameters:
-///     - idToken: The ID token returned by Apple.
-///     - nonce: A random secure string to identify the authentication session.
-///     - displayName: The user full name.
-///     - email: The email associated to the Apple ID or a private email address.
-///     - error: An error, if something went wrong.
-public typealias SignInWithAppleCompletionHandler = (_ idToken: String?, _ nonce: String?, _ displayName: String?, _ email: String?, _ error: Error?) -> Void
+public typealias SignInWithAppleCompletionHandler = (Result<SignInWithAppleData, Error>) -> Void
 
 /// A helper class that handles the flow of
 /// Sign in with Apple.
@@ -79,21 +84,13 @@ extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
     guard let credential = authorization.credential as? ASAuthorizationAppleIDCredential else { return }
     guard let nonce = self.nonce else {
 			self.completionHandler?(
-				nil,
-				nil,
-				nil,
-				nil,
-				SignInWithAppleError.invalidCallback
+				.failure(SignInWithAppleError.invalidCallback)
 			)
       return
     }
     guard let idTokenData = credential.identityToken, let idToken = String(data: idTokenData, encoding: .utf8) else {
 			self.completionHandler?(
-				nil,
-				nil,
-				nil,
-				nil,
-				SignInWithAppleError.invalidIdToken
+				.failure(SignInWithAppleError.invalidIdToken)
 			)
       return
     }
@@ -106,16 +103,21 @@ extension SignInWithAppleHandler: ASAuthorizationControllerDelegate {
       } catch { }
     }
     
-    self.completionHandler?(idToken, nonce, self.extractName(from: credential.fullName), email, nil)
+		completionHandler?(
+			.success(
+				.init(
+					idToken: idToken,
+					nonce: nonce,
+					displayName: extractName(from: credential.fullName),
+					email: email
+				)
+			)
+		)
   }
   
   public func authorizationController(controller: ASAuthorizationController, didCompleteWithError error: Error) {
 		self.completionHandler?(
-			nil,
-			nil,
-			nil,
-			nil,
-			ProvidersError.fromApple(error: error)
+			.failure(ProvidersError.fromApple(error: error))
 		)
   }
   

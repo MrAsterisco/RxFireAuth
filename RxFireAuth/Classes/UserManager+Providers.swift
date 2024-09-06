@@ -24,26 +24,28 @@ extension UserManager: LoginProviderManagerType {
       let appleSignInHandler = SignInWithAppleHandler(viewController: viewController)
       self.loginHandler = appleSignInHandler
       
-      appleSignInHandler.signIn { (idToken, nonce, fullName, email, error) in
+      appleSignInHandler.signIn { result in
         guard !disposable.isDisposed else { return }
         
-        guard error == nil else {
-          observer(.failure(error!))
-          return
-        }
-        
-        guard let email = email else { observer(.failure(UserError.invalidEmail)); return }
-        
-        observer(
-          .success(
-						.apple(
-							idToken: idToken ?? "",
-							fullName: fullName,
-							email: email,
-							nonce: nonce
+				switch result {
+				case let .success(data):
+					guard let email = data.email else { observer(.failure(UserError.invalidEmail)); return }
+					
+					observer(
+						.success(
+							.apple(
+								idToken: data.idToken,
+								fullName: data.displayName,
+								email: email,
+								nonce: data.nonce
+							)
 						)
-          )
-        )
+					)
+				case let .failure(error):
+					observer(
+						.failure(error)
+					)
+				}
       }
       
       return disposable
