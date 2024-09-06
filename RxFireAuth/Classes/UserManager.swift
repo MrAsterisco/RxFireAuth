@@ -207,7 +207,7 @@ public class UserManager: UserManagerType {
 			guard !self.isLoggedIn else { return .error(UserError.alreadyLoggedIn) }
 			
 			if Auth.auth().currentUser?.isAnonymous == true {
-				return self.linkAnonymousAccount(toEmail: email, password: password)
+				return self.linkAnonymousAccount(to: .password(email: email, password: password))
 			}
 			
 			return Completable.create { (observer) -> Disposable in
@@ -395,7 +395,7 @@ public class UserManager: UserManagerType {
 		Completable.create { [unowned self] observer -> Disposable in
 			let disposable = Disposables.create { }
 			
-			Auth.auth().sendPasswordReset(withEmail: email) { error in
+			Auth.auth().sendPasswordReset(withEmail: email) { [unowned self] error in
 				guard !disposable.isDisposed else { return }
 				if let error {
 					observer(.error(map(error: error)))
@@ -421,7 +421,7 @@ public class UserManager: UserManagerType {
 				return Completable.create { (observer) -> Disposable in
 					let disposable = Disposables.create { }
 					
-					firebaseUser.updatePassword(to: newPassword) { (error) in
+					firebaseUser.updatePassword(to: newPassword) { [unowned self] (error) in
 						guard !disposable.isDisposed else { return }
 						if let error = error {
 							observer(.error(map(error: error)))
@@ -493,7 +493,7 @@ extension UserManager {
 			let firebaseCredentials = credentials.asAuthCredentials()
 			
 			var oldUserId: String?
-			let signInCompletionHandler: (Bool, Error?) -> Void = { (fromAutomaticLinking, error) in
+			let signInCompletionHandler: (Bool, Error?) -> Void = { [unowned self] (fromAutomaticLinking, error) in
 				guard !disposable.isDisposed else { return }
 				if let error = error {
 					if fromAutomaticLinking {
@@ -688,7 +688,7 @@ extension UserManager {
 			let disposable = Disposables.create { }
 			
 			let authCredentials = credentials.asAuthCredentials()
-			user.link(with: authCredentials) { (_, error) in
+			user.link(with: authCredentials) { [unowned self] (_, error) in
 				guard !disposable.isDisposed else { return }
 				
 				if let error = error {

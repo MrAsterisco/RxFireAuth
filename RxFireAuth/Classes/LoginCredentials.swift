@@ -18,6 +18,18 @@ public enum AuthenticationProvider: String {
 	case apple = "apple.com"
 	/// Google Sign In
 	case google = "google.com"
+	
+	/// Get the Firebase Auth Provider ID for this authentication provider.
+	var asAuthProviderID: AuthProviderID {
+		switch self {
+		case .apple:
+			return .apple
+		case .google:
+			return .google
+		case .password:
+			return .email
+		}
+	}
 }
 
 /// Credentials used to perform a sign in
@@ -29,7 +41,7 @@ public enum AuthenticationProvider: String {
 /// - since: version 4.0.0
 public enum Credentials {
 	case password(email: String, password: String)
-	case apple(idToken: String, fullName: String?, email: String, nonce: String?)
+	case apple(idToken: String, fullName: String?, email: String, nonce: String)
 	case google(idToken: String, accessToken: String, fullName: String?, email: String)
   
 	var fullName: String? {
@@ -52,8 +64,8 @@ public enum Credentials {
 				password: password
 			)
     case let .apple(idToken, _, _, nonce):
-      return OAuthProvider.credential(
-				withProviderID: AuthenticationProvider.apple.rawValue,
+			return OAuthProvider.credential(
+				providerID: AuthenticationProvider.apple.asAuthProviderID,
 				idToken: idToken,
 				rawNonce: nonce
 			)
